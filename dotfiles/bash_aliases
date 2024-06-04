@@ -1,0 +1,5 @@
+alias cdh='cd /home/vasilysterekhov/projects/HASKELL'
+alias sfirejail='firejail --caps.drop=all --private=/home/vasilysterekhov/sandbox --read-only=/bin --read-only=/etc --read-only=/lib --read-only=/lib64 --read-only=/opt --read-only=/srv --read-only=/sys --read-only=/usr --read-only=/var --read-only=/proc --blacklist=/mnt --blacklist=/media --blacklist=/root --blacklist=/boot --blacklist=/sbin --blacklist=/swap --net=none --seccomp --noroot'
+alias logoutall='pkill -u vasilysterekhov'
+alias cat='bat -pp'
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
