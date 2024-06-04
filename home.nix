@@ -42,6 +42,7 @@
     fira-code
     firejail
     ghc
+    gnome.cheese
     haskell-language-server
     nixd
     pfetch
