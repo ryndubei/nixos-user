@@ -35,10 +35,12 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
     armcord
+    # agda
     aseprite
     bat
     blesh
     electrum
+    element-desktop
     fira-code
     firejail
     ghc
@@ -46,9 +48,9 @@
     haskell-language-server
     nixd
     pfetch
-    protonmail-bridge
+    # protonmail-bridge
     ripgrep
-    thunderbird
+    # thunderbird
     tree
     ((vim_configurable.override { }).customize{
       name = "vim";
@@ -83,8 +85,8 @@
 
   services.syncthing = {
     enable = true;
-    tray.enable = true;
-    tray.package = pkgs.syncthingtray-minimal;
+    # tray.enable = true;
+    # tray.package = pkgs.syncthingtray-minimal;
   };
 
   programs.git = {
@@ -123,17 +125,17 @@
     };
   };
 
-  systemd.user.services.protonmail-bridge = {
-    Unit = {
-      Description = "ProtonMail Bridge";
-    };
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
-    Service = {
-      ExecStart = "${pkgs.protonmail-bridge}/bin/protonmail-bridge --noninteractive";
-    };
-  };
+  # systemd.user.services.protonmail-bridge = {
+  #   Unit = {
+  #     Description = "ProtonMail Bridge";
+  #   };
+  #   Install = {
+  #     WantedBy = [ "default.target" ];
+  #   };
+  #   Service = {
+  #     ExecStart = "${pkgs.protonmail-bridge}/bin/protonmail-bridge --noninteractive";
+  #   };
+  # };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -200,18 +202,26 @@
     enable = true;
     package = pkgs.vscodium;
     mutableExtensionsDir = false;
-    extensions = with pkgs.vscode-extensions; [
+    extensions = (with pkgs.vscode-extensions; [
       eamodio.gitlens
       haskell.haskell
       github.copilot
       github.copilot-chat
       justusadam.language-haskell
       mads-hartmann.bash-ide-vscode
+      mkhl.direnv
       jnoortheen.nix-ide
       teabyii.ayu
       usernamehw.errorlens
       vscodevim.vim
-    ];
+    ]) ++ (pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      #{
+      #  name = "agda-mode";
+      #  publisher = "banacorn";
+      #  version = "0.4.7";
+      #  sha256 = "80d6b79f5ea53f7a28051bc66ae813b9ae085dc233a4c93b8c160c24342c634d";
+      #}
+    ]);
     userSettings = {
       "haskell.manageHLS" = "PATH";
       "git.enableSmartCommit" = true;
@@ -262,6 +272,8 @@
       "github.copilot.editor.enableAutoCompletions" = true;
       "nix.enableLanguageServer" = true;
       "nix.serverPath" = "nixd";
+      "direnv.restart.automatic" = true;
+      "haskell.plugin.notes.globalOn" = true;
     };
   };
 }
