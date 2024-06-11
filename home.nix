@@ -52,6 +52,7 @@
     ripgrep
     # thunderbird
     tree
+    yt-dlp
     ((vim_configurable.override { }).customize{
       name = "vim";
       vimrcConfig.packages.myplugins = with vimPlugins; {
