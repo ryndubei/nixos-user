@@ -39,19 +39,22 @@
     aseprite
     bat
     blesh
+    cryfs
     electrum
     element-desktop
     fira-code
-    firejail
     ghc
     gnome.cheese
+    gocryptfs
     haskell-language-server
+    logseq
     nixd
     pfetch
     # protonmail-bridge
     ripgrep
     # thunderbird
     tree
+    vaults
     yt-dlp
     ((vim_configurable.override { }).customize{
       name = "vim";
