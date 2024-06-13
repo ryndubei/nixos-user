@@ -51,11 +51,13 @@
     nixd
     pfetch
     # protonmail-bridge
+    qbittorrent
     ripgrep
     # thunderbird
     tree
     vaults
     yt-dlp
+    zettlr
     ((vim_configurable.override { }).customize{
       name = "vim";
       vimrcConfig.packages.myplugins = with vimPlugins; {
