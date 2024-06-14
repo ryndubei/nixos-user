@@ -79,11 +79,16 @@
   ]) ++ (with pkgs.gnomeExtensions; [
     appindicator
     pop-shell
+    system-monitor
   ]);
 
   dconf.settings = {
     "org/gnome/shell" = {
-        enabled-extensions = map (extension: extension.extensionUuid) (with pkgs.gnomeExtensions; [ appindicator pop-shell ]);
+        enabled-extensions = map (extension: extension.extensionUuid) (with pkgs.gnomeExtensions; [ 
+          appindicator
+          pop-shell
+          system-monitor
+        ]);
         disabled-extensions = [];
     };
     "org/gnome/desktop/peripherals/mouse".accel-profile = "flat";
