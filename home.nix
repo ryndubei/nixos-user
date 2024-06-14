@@ -92,6 +92,7 @@
         disabled-extensions = [];
     };
     "org/gnome/desktop/peripherals/mouse".accel-profile = "flat";
+    "org/gnome/desktop/peripherals/touchpad".natural-scroll = false;
   };
 
   services.syncthing = {
