@@ -9,16 +9,13 @@
       "locked": {
         "lastModified": 1717527182,
         "narHash": "sha256-vWSkg6AMok1UUQiSYVdGMOXKD2cDFnajITiSi0Zjd1A=",
-        "owner": "nix-community",
-        "repo": "home-manager",
+        "path": "/nix/store/nmmrgqk822zx9dh02pirg3b0gx6jlk2b-source",
         "rev": "845a5c4c073f74105022533907703441e0464bc3",
-        "type": "github"
+        "type": "path"
       },
       "original": {
-        "owner": "nix-community",
-        "ref": "release-24.05",
-        "repo": "home-manager",
-        "type": "github"
+        "id": "home-manager",
+        "type": "indirect"
       }
     },
     "nixpkgs": {
