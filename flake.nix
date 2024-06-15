@@ -2,8 +2,7 @@
   description = "Home Manager configuration of vasilysterekhov";
 
   inputs = {
-    # Note: we take nixpkgs from the system flake registry
-    # so that they get auto-updated together
+    nixpkgs.url = "nixpkgs/nixos-24.05";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
