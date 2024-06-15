@@ -2,15 +2,11 @@
   description = "Home Manager configuration of vasilysterekhov";
 
   inputs = {
-    # Note: we take nixpkgs and home-manager from the system 
-    # flake registry
+    # Note: we take nixpkgs from the system flake registry
+    # so that they get auto-updated together
 
     home-manager = {
-      url = "home-manager";
-      # I don't know why this is necessary: nixos-system already pins the
-      # nixpkgs version for home-manager to the system version, which
-      # is the one we use here. Nevertheless, without this line we get
-      # two nixpkgs (24.05) versions in flake.lock.
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
