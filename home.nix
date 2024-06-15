@@ -291,6 +291,7 @@
       "direnv.restart.automatic" = true;
       "haskell.plugin.notes.globalOn" = true;
       "[nix]".editor.formatOnSave = true;
+      "diffEditor.ignoreTrimWhitespace" = false;
     };
   };
 }
