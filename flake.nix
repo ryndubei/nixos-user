@@ -14,7 +14,8 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-    in {
+    in
+    {
       homeConfigurations."vasilysterekhov" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 

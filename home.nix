@@ -60,12 +60,12 @@
     vaults
     yt-dlp
     zettlr
-    ((vim_configurable.override { }).customize{
+    ((vim_configurable.override { }).customize {
       name = "vim";
       vimrcConfig.packages.myplugins = with vimPlugins; {
         start = [ vim-nix vim-lastplace ];
-        opt = []; 
-      };  
+        opt = [ ];
+      };
       vimrcConfig.customRC = ''
         set nocompatible
         set backspace=indent,eol,start
@@ -77,7 +77,7 @@
         set dir=/tmp
         set number
       '';
-    })  
+    })
   ]) ++ (with pkgs.gnomeExtensions; [
     appindicator
     pop-shell
@@ -86,12 +86,12 @@
 
   dconf.settings = {
     "org/gnome/shell" = {
-        enabled-extensions = map (extension: extension.extensionUuid) (with pkgs.gnomeExtensions; [ 
-          appindicator
-          pop-shell
-          system-monitor
-        ]);
-        disabled-extensions = [];
+      enabled-extensions = map (extension: extension.extensionUuid) (with pkgs.gnomeExtensions; [
+        appindicator
+        pop-shell
+        system-monitor
+      ]);
+      disabled-extensions = [ ];
     };
     "org/gnome/desktop/peripherals/mouse".accel-profile = "flat";
     "org/gnome/desktop/peripherals/touchpad".natural-scroll = false;
@@ -195,22 +195,24 @@
   # Let home-manager manage shell
   programs.bash.enable = true;
   programs.bash.bashrcExtra = ''
-      . ~/.bash_aliases
-      source "$(blesh-share)"/ble.sh
-      pfetch
+    . ~/.bash_aliases
+    source "$(blesh-share)"/ble.sh
+    pfetch
   '';
 
   # Similarly, let home-manager manage the xsession
   xsession.enable = true;
-  
+
   # Unfree package exceptions
   nixpkgs.config.allowUnfreePredicate =
-    let whitelist = map lib.getName (with pkgs; [
-      aseprite
-      vscode-extensions.github.copilot
-      vscode-extensions.github.copilot-chat
-    ]);
-    in pkg: builtins.elem (lib.getName pkg) whitelist;
+    let
+      whitelist = map lib.getName (with pkgs; [
+        aseprite
+        vscode-extensions.github.copilot
+        vscode-extensions.github.copilot-chat
+      ]);
+    in
+    pkg: builtins.elem (lib.getName pkg) whitelist;
 
   programs.vscode = {
     enable = true;
@@ -244,40 +246,40 @@
       "workbench.colorTheme" = "Ayu Dark Bordered";
       "window.autoDetectColorScheme" = true;
       "vim.handleKeys" = {
-          "<C-k>" = false;
-          "<C-b>" = false;
+        "<C-k>" = false;
+        "<C-b>" = false;
       };
       "editor.lineNumbers" = "relative";
       "workbench.panel.defaultLocation" = "right";
       "editor.fontFamily" = "'Fira Code', 'Droid Sans Mono', 'monospace', monospace";
       "editor.fontLigatures" = true;
       "[haskell]" = {
-          "editor.defaultFormatter" = "haskell.haskell";
-          "editor.tabSize" = 2;
-          "editor.detectIndentation" = false;
-          "editor.fontLigatures" = "'ss09'";
+        "editor.defaultFormatter" = "haskell.haskell";
+        "editor.tabSize" = 2;
+        "editor.detectIndentation" = false;
+        "editor.fontLigatures" = "'ss09'";
       };
       "[literate haskell]" = {
-          "editor.defaultFormatter" = "haskell.haskell";
-          "editor.tabSize" = 2;
-          "editor.detectIndentation" = false;
-          "editor.wordWrap" = "on";
-          "editor.fontLigatures" = "'ss09'";
+        "editor.defaultFormatter" = "haskell.haskell";
+        "editor.tabSize" = 2;
+        "editor.detectIndentation" = false;
+        "editor.wordWrap" = "on";
+        "editor.fontLigatures" = "'ss09'";
       };
       "[latex]"."editor.wordWrap" = "on";
       "editor.inlineSuggest.enabled" = true;
       "github.copilot.enable" = {
-          "*" = true;
-          "plaintext" = false;
-          "markdown" = false;
-          "yaml" = false;
-          "toml" = false;
-          "secret" = false;
+        "*" = true;
+        "plaintext" = false;
+        "markdown" = false;
+        "yaml" = false;
+        "toml" = false;
+        "secret" = false;
       };
       "git.autofetch" = true;
       "haskell.formattingProvider" = "fourmolu";
       "workbench.localHistory.exclude" = {
-          "*.secret" = true;
+        "*.secret" = true;
       };
       "workbench.preferredLightColorTheme" = "Quiet Light";
       "git.openRepositoryInParentFolders" = "never";
