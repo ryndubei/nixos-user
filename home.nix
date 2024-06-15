@@ -40,15 +40,17 @@
     bat
     blesh
     cryfs
+    devenv
     electrum
-    element-desktop
     fira-code
     ghc
     gnome.cheese
     gocryptfs
     haskell-language-server
     logseq
+    mpv
     nixd
+    nixpkgs-fmt
     pfetch
     # protonmail-bridge
     qbittorrent
