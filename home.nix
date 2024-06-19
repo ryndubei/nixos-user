@@ -44,6 +44,7 @@
     electrum
     fira-code
     ghc
+    git-crypt
     gnome.cheese
     gocryptfs
     haskell-language-server
