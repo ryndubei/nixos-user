@@ -62,12 +62,6 @@
     })
   ]);
 
-  services.syncthing = {
-    enable = true;
-    # tray.enable = true;
-    # tray.package = pkgs.syncthingtray-minimal;
-  };
-
   programs.git = {
     enable = true;
     extraConfig = {
