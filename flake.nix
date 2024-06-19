@@ -37,5 +37,10 @@
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
       };
+
+      nixosModules = {
+        home = import ./home.nix;
+        desktop = import ./desktop.nix;
+      };
     };
 }
