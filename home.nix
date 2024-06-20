@@ -135,6 +135,7 @@
   programs.bash.bashrcExtra = ''
     . ~/.bash_aliases
     source "$(blesh-share)"/ble.sh
+    set -o vi
     pfetch
   '';
 
