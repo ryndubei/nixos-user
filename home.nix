@@ -43,25 +43,31 @@
     ripgrep
     tree
     yt-dlp
-    ((vim_configurable.override { }).customize {
-      name = "vim";
-      vimrcConfig.packages.myplugins = with vimPlugins; {
-        start = [ vim-nix vim-lastplace ];
-        opt = [ ];
-      };
-      vimrcConfig.customRC = ''
-        set nocompatible
-        set backspace=indent,eol,start
-        syntax on
-        set relativenumber
-        set expandtab
-        set tabstop=4
-        set swapfile
-        set dir=/tmp
-        set number
-      '';
-    })
   ]);
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+    vimdiffAlias = true;
+    extraConfig = ''
+      set nocompatible
+      set backspace=indent,eol,start
+      syntax on
+      set relativenumber
+      set expandtab
+      set tabstop=4
+      set swapfile
+      set dir=/tmp
+      set number
+      set mouse=
+    '';
+    plugins = with pkgs.vimPlugins; [
+      vim-lastplace
+      vim-nix
+    ];
+  };
 
   programs.zoxide.enable = true;
 
