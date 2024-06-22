@@ -8,3 +8,4 @@ alias pull-system='(cd /etc/nixos; sudo git fetch; sudo git pull)'
 alias pull-user='(cd $HOME/.config/home-manager; git fetch; git pull $HOME/.config/home-manager)'
 function update-system(){ sudo nixos-rebuild switch --update-input nixpkgs --flake /etc/nixos#"$1"; }
 alias update-user='home-manager switch --update-input nixpkgs'
+alias cd='z'
