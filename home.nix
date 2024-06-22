@@ -33,6 +33,7 @@
     bat
     blesh
     cryfs
+    deploy-rs
     devenv
     ghc
     git-crypt
