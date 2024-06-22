@@ -62,6 +62,10 @@
     })
   ]);
 
+  programs.zoxide.enable = true;
+
+  programs.fzf.enable = true;
+
   programs.git = {
     enable = true;
     extraConfig = {
