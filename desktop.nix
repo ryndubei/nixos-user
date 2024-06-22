@@ -22,6 +22,22 @@
     system-monitor
   ]);
 
+  programs.neovim.extraLuaConfig = ''
+    require'nvim-treesitter.configs'.setup {
+      highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+      },
+    }
+    require('lspconfig')['hls'].setup{
+      filetypes = { 'haskell', 'lhaskell', 'cabal' },
+    }
+  '';
+  programs.neovim.plugins = with pkgs.vimPlugins; [
+    (nvim-treesitter.withPlugins (p: [ p.haskell p.nix ]))
+    nvim-lspconfig
+  ];
+
   dconf.settings = {
     "org/gnome/shell" = {
       enabled-extensions = map (extension: extension.extensionUuid) (with pkgs.gnomeExtensions; [
