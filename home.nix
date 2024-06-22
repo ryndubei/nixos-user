@@ -136,11 +136,11 @@
 
   # Let home-manager manage shell
   programs.bash.enable = true;
-  programs.bash.bashrcExtra = ''
+  # Commands that should only be run in interactive shells
+  programs.bash.initExtra = ''
     . ~/.bash_aliases
     source "$(blesh-share)"/ble.sh
     set -o vi
     pfetch
   '';
-
 }
