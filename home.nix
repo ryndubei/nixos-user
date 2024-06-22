@@ -64,7 +64,18 @@
       set number
       set mouse=
     '';
-    plugins = [ pkgs.vimPlugins.vim-lastplace ];
+    extraLuaConfig = ''
+      require'nvim-treesitter.configs'.setup {
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
+      }
+    '';
+    plugins = with pkgs.vimPlugins; [
+      vim-lastplace
+      (nvim-treesitter.withPlugins (p: [ p.haskell p.nix ]))
+    ];
   };
 
   programs.zoxide.enable = true;
