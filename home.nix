@@ -65,7 +65,7 @@
     '';
     plugins = with pkgs.vimPlugins; [
       vim-lastplace
-      vim-nix
+      (nvim-treesitter.withPlugins (p: [ p.haskell p.nix ]))
     ];
   };
 
