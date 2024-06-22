@@ -35,6 +35,7 @@
     cryfs
     deploy-rs
     devenv
+    gcc
     ghc
     git-crypt
     gocryptfs
@@ -62,6 +63,14 @@
       set dir=/tmp
       set number
       set mouse=
+    '';
+    extraLuaConfig = ''
+      require'nvim-treesitter.configs'.setup {
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
+      }
     '';
     plugins = with pkgs.vimPlugins; [
       vim-lastplace
