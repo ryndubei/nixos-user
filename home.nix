@@ -34,7 +34,7 @@
     blesh
     cryfs
     deploy-rs
-    # devenv
+    devenv
     gcc
     ghc
     git-crypt
