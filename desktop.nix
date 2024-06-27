@@ -44,6 +44,24 @@
     };
     "org/gnome/desktop/peripherals/mouse".accel-profile = "flat";
     "org/gnome/desktop/peripherals/touchpad".natural-scroll = false;
+
+    # GNOME keybindings
+    "org/gnome/desktop/settings-daemon/plugins/media-keys" = {
+      www = [ "<Super>b" ];
+      screensaver = [ ];
+    };
+    "org/gnome/desktop/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+      name = "Open Terminal";
+      command = "kgx";
+      binding = "<Super>t";
+    };
+    "org/gnome/desktop/wm/keybindings" = {
+      close = [ "<Super>q" ];
+      toggle-maximized = [ "<Super>m" ];
+      maximize = [ ];
+      minimize = [ ];
+    };
+    "org/gnome/shell/keybindings".toggle-message-tray = [ ];
   };
 
   programs.librewolf = {
