@@ -56,7 +56,26 @@
       "inputs": {
         "home-manager": "home-manager",
         "nix-flatpak": "nix-flatpak",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "stellarkey-source": "stellarkey-source"
+      }
+    },
+    "stellarkey-source": {
+      "flake": false,
+      "locked": {
+        "host": "0xacab.org",
+        "lastModified": 1668967692,
+        "narHash": "sha256-NLSRi/M16bLGA2bs1HANUHOR5JnrGCMudWQBTAVJGpM=",
+        "owner": "stellarkey",
+        "repo": "stellarkey",
+        "rev": "717fa2d53db3e7e0019dfad19748ceb7137699b0",
+        "type": "gitlab"
+      },
+      "original": {
+        "host": "0xacab.org",
+        "owner": "stellarkey",
+        "repo": "stellarkey",
+        "type": "gitlab"
       }
     }
   },

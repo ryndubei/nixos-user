@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, libstellarkey, ... }:
 
 {
   home.packages = (with pkgs; [
@@ -47,7 +47,12 @@
         "!xdg-music"
         "!xdg-pictures"
         "/mnt/hard_drive/data/${config.home.username}/Games_(slow)/Steam_Library"
+        "${libstellarkey}:ro"
       ];
+    };
+    "com.valvesoftware.Steam".Environment = {
+      # add LD_PRELOAD="$STELLARKEY_PATH:$LD_PRELOAD" %command% to launch options to use
+      "STELLARKEY_PATH" = "${libstellarkey}/lib/libstellarkey.so";
     };
   };
 

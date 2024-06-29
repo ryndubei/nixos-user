@@ -10,12 +10,16 @@
     };
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
+
+    stellarkey-source.url = "gitlab:stellarkey/stellarkey?host=0xacab.org";
+    stellarkey-source.flake = false;
   };
 
-  outputs = { nixpkgs, home-manager, nix-flatpak, ... }:
+  outputs = { nixpkgs, home-manager, nix-flatpak, stellarkey-source, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      libstellarkey = pkgs.callPackage (import pkgs/stellarkey.nix) { src = stellarkey-source; };
     in
     {
       homeConfigurations."vasilysterekhov" = home-manager.lib.homeManagerConfiguration {
@@ -39,6 +43,7 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
+        extraSpecialArgs = { inherit libstellarkey; };
       };
 
       nixosModules = {
