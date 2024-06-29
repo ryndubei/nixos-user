@@ -57,7 +57,24 @@
         "home-manager": "home-manager",
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs",
+        "spotify-adblock-source": "spotify-adblock-source",
         "stellarkey-source": "stellarkey-source"
+      }
+    },
+    "spotify-adblock-source": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1689983571,
+        "narHash": "sha256-UzpHAHpQx2MlmBNKm2turjeVmgp5zXKWm3nZbEo0mYE=",
+        "owner": "abba23",
+        "repo": "spotify-adblock",
+        "rev": "5a3281dee9f889afdeea7263558e7a715dcf5aab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "abba23",
+        "repo": "spotify-adblock",
+        "type": "github"
       }
     },
     "stellarkey-source": {

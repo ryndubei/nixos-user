@@ -13,13 +13,17 @@
 
     stellarkey-source.url = "gitlab:stellarkey/stellarkey?host=0xacab.org";
     stellarkey-source.flake = false;
+
+    spotify-adblock-source.url = "github:abba23/spotify-adblock";
+    spotify-adblock-source.flake = false;
   };
 
-  outputs = { nixpkgs, home-manager, nix-flatpak, stellarkey-source, ... }:
+  outputs = { nixpkgs, home-manager, nix-flatpak, stellarkey-source, spotify-adblock-source, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
       libstellarkey = pkgs.callPackage (import pkgs/stellarkey.nix) { src = stellarkey-source; };
+      libspotifyadblock = pkgs.callPackage (import pkgs/spotify-adblock.nix) { src = spotify-adblock-source; };
     in
     {
       homeConfigurations."vasilysterekhov" = home-manager.lib.homeManagerConfiguration {
@@ -43,7 +47,7 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
-        extraSpecialArgs = { inherit libstellarkey; };
+        extraSpecialArgs = { inherit libstellarkey libspotifyadblock spotify-adblock-source; };
       };
 
       nixosModules = {

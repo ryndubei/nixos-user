@@ -1,4 +1,4 @@
-{ pkgs, lib, config, libstellarkey, ... }:
+{ pkgs, lib, config, libstellarkey, libspotifyadblock, spotify-adblock-source, ... }:
 
 {
   home.packages = (with pkgs; [
@@ -29,6 +29,7 @@
       "com.github.tchx84.Flatseal"
       "md.obsidian.Obsidian"
       "com.usebottles.bottles"
+      "com.spotify.Client"
     ];
   };
 
@@ -54,7 +55,18 @@
       # add LD_PRELOAD="$STELLARKEY_PATH:$LD_PRELOAD" %command% to launch options to use
       "STELLARKEY_PATH" = "${libstellarkey}/lib/libstellarkey.so";
     };
+    "com.spotify.Client".Context = {
+      filesystems = [
+        "${libspotifyadblock}"
+        "~/.config/spotify-adblock/config.toml"
+      ];
+    };
+    "com.spotify.Client".Environment = {
+      LD_PRELOAD = "${libspotifyadblock}/lib/libspotifyadblock.so";
+    };
   };
+
+  home.file.".config/spotify-adblock/config.toml".source = "${spotify-adblock-source}/config.toml";
 
   programs.neovim.extraLuaConfig = ''
     require('lspconfig')['hls'].setup{
