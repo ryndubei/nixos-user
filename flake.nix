@@ -8,9 +8,11 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = { nixpkgs, home-manager, nix-flatpak, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -32,6 +34,7 @@
           })
           ./home.nix
           ./desktop.nix
+          nix-flatpak.homeManagerModules.nix-flatpak
         ];
 
         # Optionally use extraSpecialArgs

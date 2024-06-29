@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 
 {
   home.packages = (with pkgs; [
@@ -21,6 +21,35 @@
     pop-shell
     system-monitor
   ]);
+
+  services.flatpak = {
+    enable = true;
+    packages = [
+      "com.valvesoftware.Steam"
+      "com.github.tchx84.Flatseal"
+      "md.obsidian.Obsidian"
+      "com.usebottles.bottles"
+    ];
+  };
+
+  services.flatpak.overrides = {
+    "md.obsidian.Obsidian".Context = {
+      filesystems = [
+        "~/Documents/Notes"
+        "!/run/media"
+        "!/mnt"
+        "!/media"
+      ];
+      shared = [ "!network" ];
+    };
+    "com.valvesoftware.Steam".Context = {
+      filesystems = [
+        "!xdg-music"
+        "!xdg-pictures"
+        "/mnt/hard_drive/data/${config.home.username}/Games_(slow)/Steam_Library"
+      ];
+    };
+  };
 
   programs.neovim.extraLuaConfig = ''
     require('lspconfig')['hls'].setup{
