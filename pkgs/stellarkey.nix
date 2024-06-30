@@ -8,4 +8,5 @@ stdenv.mkDerivation {
     mkdir -p $out/lib
     cp libstellarkey.so $out/lib
   '';
+  allowSubstitutes = false;
 }
