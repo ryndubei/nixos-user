@@ -16,14 +16,28 @@
 
     spotify-adblock-source.url = "github:abba23/spotify-adblock";
     spotify-adblock-source.flake = false;
+
+    # TODO: compile this from source
+    smokeapi-zip.url = "https://github.com/acidicoala/SmokeAPI/releases/download/v2.0.5/SmokeAPI-v2.0.5.zip";
+    smokeapi-zip.type = "file";
+    smokeapi-zip.flake = false;
+
+    steamappidlist.url = "github:jsnli/SteamAppIDList";
+    steamappidlist.flake = false;
   };
 
-  outputs = { nixpkgs, home-manager, nix-flatpak, stellarkey-source, spotify-adblock-source, ... }:
+  outputs = { nixpkgs, home-manager, nix-flatpak, stellarkey-source, spotify-adblock-source, smokeapi-zip, steamappidlist, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
       libstellarkey = pkgs.callPackage (import pkgs/stellarkey.nix) { src = stellarkey-source; };
       libspotifyadblock = pkgs.callPackage (import pkgs/spotify-adblock.nix) { src = spotify-adblock-source; };
+      smokeapi = pkgs.callPackage (import pkgs/smokeapi.nix) { inherit smokeapi-zip; };
+      steam-app-ids = builtins.listToAttrs
+        (builtins.map ({ name, appid, ... }: { inherit name; value = appid; })
+          (builtins.fromJSON (builtins.readFile "${steamappidlist}/data/games_appid.json")).apps
+        );
+      apply-smokeapi = app-ids-names: pkgs.callPackage (import scripts/apply-smokeapi.nix) { inherit smokeapi app-ids-names steam-app-ids; };
     in
     {
       homeConfigurations."vasilysterekhov" = home-manager.lib.homeManagerConfiguration {
@@ -47,7 +61,7 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
-        extraSpecialArgs = { inherit libstellarkey libspotifyadblock spotify-adblock-source; };
+        extraSpecialArgs = { inherit libstellarkey libspotifyadblock spotify-adblock-source apply-smokeapi; };
       };
 
       nixosModules = {

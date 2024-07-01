@@ -1,4 +1,4 @@
-{ pkgs, lib, config, libstellarkey, libspotifyadblock, spotify-adblock-source, ... }:
+{ pkgs, lib, config, libstellarkey, libspotifyadblock, spotify-adblock-source, apply-smokeapi, ... }:
 
 {
   home.packages = (with pkgs; [
@@ -67,6 +67,29 @@
   };
 
   home.file.".config/spotify-adblock/config.toml".source = "${spotify-adblock-source}/config.toml";
+
+  # Run apply-smokeapi on startup
+  # TODO: move this to a Steam desktop file
+  systemd.user.services.apply-smokeapi =
+    (
+      let
+        # The appids (ints)/names (strings) we are attempting to patch
+        apps = [ "Victoria 3" "Hearts of Iron IV" "Crusader Kings III" "Stellaris" "Europa Universalis IV" ];
+      in
+      {
+        Unit.Description = "Apply SmokeAPI";
+        Install.WantedBy = [ "graphical-session.target" ];
+        Service = {
+          Type = "oneshot";
+          ExecStart = "${apply-smokeapi apps}/bin/apply-smokeapi";
+        };
+      }
+    );
+
+  # Run apply-smokeapi on home-manager activation as well
+  home.activation.startApplySmokeapi = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    /run/current-system/sw/bin/systemctl start --user apply-smokeapi.service
+  '';
 
   programs.neovim.extraLuaConfig = ''
     require('lspconfig')['hls'].setup{
