@@ -69,7 +69,7 @@
   home.file.".config/spotify-adblock/config.toml".source = "${spotify-adblock-source}/config.toml";
 
   home.file."Scripts/apply-smokeapi.sh" = {
-    source = apply-smokeapi-script;
+    source = "${apply-smokeapi-script [ ]}/bin/apply-smokeapi";
     executable = true;
   };
 

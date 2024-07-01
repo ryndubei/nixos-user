@@ -33,7 +33,7 @@
       libstellarkey = pkgs.callPackage (import pkgs/stellarkey.nix) { src = stellarkey-source; };
       libspotifyadblock = pkgs.callPackage (import pkgs/spotify-adblock.nix) { src = spotify-adblock-source; };
       smokeapi = pkgs.callPackage (import pkgs/smokeapi.nix) { inherit smokeapi-zip; };
-      apply-smokeapi-script = "${(import scripts/apply-smokeapi.nix) { inherit pkgs smokeapi; }}/bin/apply-smokeapi";
+      apply-smokeapi-script = app-ids: pkgs.callPackage (import scripts/apply-smokeapi.nix) { inherit smokeapi app-ids; };
       steam-app-ids = builtins.fromJSON "${steamappidlist}/data/games_appid.json";
     in
     {
