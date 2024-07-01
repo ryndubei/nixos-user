@@ -57,8 +57,21 @@
         "home-manager": "home-manager",
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs",
+        "smokeapi-zip": "smokeapi-zip",
         "spotify-adblock-source": "spotify-adblock-source",
         "stellarkey-source": "stellarkey-source"
+      }
+    },
+    "smokeapi-zip": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-cVWZUa+9e3fFFHCrKpjTEYQmheSDxFshWcXeoRl1V38=",
+        "type": "file",
+        "url": "https://github.com/acidicoala/SmokeAPI/releases/download/v2.0.5/SmokeAPI-v2.0.5.zip"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/acidicoala/SmokeAPI/releases/download/v2.0.5/SmokeAPI-v2.0.5.zip"
       }
     },
     "spotify-adblock-source": {

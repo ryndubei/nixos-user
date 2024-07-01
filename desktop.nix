@@ -1,4 +1,4 @@
-{ pkgs, lib, config, libstellarkey, libspotifyadblock, spotify-adblock-source, ... }:
+{ pkgs, lib, config, libstellarkey, libspotifyadblock, spotify-adblock-source, apply-smokeapi-script, ... }:
 
 {
   home.packages = (with pkgs; [
@@ -67,6 +67,11 @@
   };
 
   home.file.".config/spotify-adblock/config.toml".source = "${spotify-adblock-source}/config.toml";
+
+  home.file."Scripts/apply-smokeapi.sh" = {
+    source = apply-smokeapi-script;
+    executable = true;
+  };
 
   programs.neovim.extraLuaConfig = ''
     require('lspconfig')['hls'].setup{
