@@ -11,6 +11,7 @@ import System.FilePath
 import System.Directory
 import Data.List (intercalate)
 import Data.Traversable
+import Data.Maybe
 
 getLibraryfoldersPath :: IO FilePath
 getLibraryfoldersPath =
@@ -38,15 +39,12 @@ main = do
               modify' (Map.insert a path)) apps
             _ -> pure ()
         _ -> pure ()
-  paths <- for appIds $ \a ->
+  paths <- fmap catMaybes . for appIds $ \a ->
     let p = Map.lookup a appidPaths
      in do
       b <- maybe (pure False) doesDirectoryExist p
-      let p' = if b then p else Nothing
-      -- TODO: maybe it shouldn't fail at all here, and instead just skip the path
-      maybe (fail $ a ++ ": compatdata DNE")
-            (pure . (</> "compatdata" </> a))
-            p'
+      let p' = (</> "compatdata" </> a) <$> if b then p else Nothing
+      pure p'
   putStr $ unwords (map show paths)
 
 --------------------------------------------------------------------------------
