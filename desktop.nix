@@ -69,7 +69,12 @@
   home.file.".config/spotify-adblock/config.toml".source = "${spotify-adblock-source}/config.toml";
 
   home.file."Scripts/apply-smokeapi.sh" = {
-    source = "${apply-smokeapi-script [ ]}/bin/apply-smokeapi";
+    source =
+      let
+        # The appids we are attempting to patch
+        app-ids = [ 529340 394360 1158310 281990 236850 ];
+      in
+      "${apply-smokeapi-script [ ]}/bin/apply-smokeapi";
     executable = true;
   };
 
