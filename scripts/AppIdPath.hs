@@ -42,9 +42,9 @@ main = do
   paths <- fmap catMaybes . for appIds $ \a ->
     let p = Map.lookup a appidPaths
      in do
-      b <- maybe (pure False) doesDirectoryExist p
-      let p' = (</> "compatdata" </> a) <$> if b then p else Nothing
-      pure p'
+      let p' = (</> "compatdata" </> a) <$> p
+      b <- maybe (pure False) doesDirectoryExist p'
+      pure $ if b then p' else Nothing
   putStr $ unwords (map show paths)
 
 --------------------------------------------------------------------------------
