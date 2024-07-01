@@ -12,6 +12,7 @@ import System.Directory
 import Data.List (intercalate)
 import Data.Traversable
 import Data.Maybe
+import Control.Monad
 
 getLibraryfoldersPath :: IO FilePath
 getLibraryfoldersPath =
@@ -44,6 +45,7 @@ main = do
      in do
       let p' = (</> "compatdata" </> a) <$> p
       b <- maybe (pure False) doesDirectoryExist p'
+      unless b $ hPutStrLn stderr ("no directory for appid " ++ a)
       pure $ if b then p' else Nothing
   putStr $ unwords (map show paths)
 
