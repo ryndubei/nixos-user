@@ -39,11 +39,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1719426051,
-        "narHash": "sha256-yJL9VYQhaRM7xs0M867ZFxwaONB9T2Q4LnGo1WovuR4=",
+        "lastModified": 1719838683,
+        "narHash": "sha256-Zw9rQjHz1ilNIimEXFeVa1ERNRBF8DoXDhLAZq5B4pE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "89c49874fb15f4124bf71ca5f42a04f2ee5825fd",
+        "rev": "d032c1a6dfad4eedec7e35e91986becc699d7d69",
         "type": "github"
       },
       "original": {
@@ -94,11 +94,11 @@
     "steamappidlist": {
       "flake": false,
       "locked": {
-        "lastModified": 1719796941,
-        "narHash": "sha256-bPNDVc+sd5s4XJTwH53f/NRZ9+7P9+6dsgMNN9U4o30=",
+        "lastModified": 1719882896,
+        "narHash": "sha256-du0NFPCEr+Z99p3bE12y6GUs0GoEqgwUvD6Up7qQ91M=",
         "owner": "jsnli",
         "repo": "SteamAppIDList",
-        "rev": "d40cbd9d41090fae943d689c111e3eb286b3cb03",
+        "rev": "5acd8f788b2b73efb3ee8b74994702bc4c2b1b99",
         "type": "github"
       },
       "original": {
