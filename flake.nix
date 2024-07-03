@@ -22,8 +22,7 @@
     smokeapi-zip.type = "file";
     smokeapi-zip.flake = false;
 
-    steamappidlist.url = "https://api.steampowered.com/ISteamApps/GetAppList/v2/";
-    steamappidlist.type = "file";
+    steamappidlist.url = "github:jsnli/SteamAppIDList";
     steamappidlist.flake = false;
   };
 
@@ -36,7 +35,7 @@
       smokeapi = pkgs.callPackage (import pkgs/smokeapi.nix) { inherit smokeapi-zip; };
       steam-app-ids = builtins.listToAttrs
         (builtins.map ({ name, appid, ... }: { inherit name; value = appid; })
-          (builtins.fromJSON (builtins.readFile steamappidlist)).applist.apps
+          (builtins.fromJSON (builtins.readFile "${steamappidlist}/data/games_appid.json")).apps
         );
       apply-smokeapi = app-ids-names: pkgs.callPackage (import scripts/apply-smokeapi.nix) { inherit smokeapi app-ids-names steam-app-ids; };
     in
