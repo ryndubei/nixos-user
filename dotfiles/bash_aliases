@@ -1,5 +1,5 @@
 alias cdh='cd $HOME/projects/HASKELL'
-alias logoutall='pkill -u $(whoami)'
+alias logoutall='loginctl terminate-user $(whoami)'
 alias cat='bat -pp'
 alias pull-system='(cd /etc/nixos; sudo git fetch; sudo git pull)'
 alias pull-user='(cd $HOME/.config/home-manager; git fetch; git pull $HOME/.config/home-manager)'
