@@ -20,17 +20,12 @@ import System.FilePath
 
 type AppId = String
 
-getLibraryfoldersPath :: IO FilePath
-getLibraryfoldersPath =
-  (</>) <$> getHomeDirectory <*> pure ".var/app/com.valvesoftware.Steam/data/Steam/steamapps/libraryfolders.vdf"
-
 unkv :: KeyValue -> (String, Either String [KeyValue])
 unkv (KeyValue k v) = (k, v)
 
 main :: IO ()
 main = do
-  appIds <- getArgs
-  libraryfoldersPath <- getLibraryfoldersPath
+  (libraryfoldersPath:appIds) <- getArgs
   appIdLibraries <-
     maybe (fail $ libraryfoldersPath ++ ": unexpected structure") pure . readLibraryfolders =<< tryParseVdf libraryfoldersPath
   paths <- fmap catMaybes . for appIds $ \a ->
