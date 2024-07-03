@@ -30,14 +30,19 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-      libstellarkey = pkgs.callPackage (import pkgs/stellarkey.nix) { src = stellarkey-source; };
-      libspotifyadblock = pkgs.callPackage (import pkgs/spotify-adblock.nix) { src = spotify-adblock-source; };
       smokeapi = pkgs.callPackage (import pkgs/smokeapi.nix) { inherit smokeapi-zip; };
       steam-app-ids = builtins.listToAttrs
         (builtins.map ({ name, appid, ... }: { inherit name; value = appid; })
           (builtins.fromJSON (builtins.readFile "${steamappidlist}/data/games_appid.json")).apps
         );
-      apply-smokeapi = app-ids-names: pkgs.callPackage (import scripts/apply-smokeapi.nix) { inherit smokeapi app-ids-names steam-app-ids; };
+      piracy = {
+        libstellarkey = pkgs.callPackage (import pkgs/stellarkey.nix) { src = stellarkey-source; };
+
+        inherit spotify-adblock-source;
+        libspotifyadblock = pkgs.callPackage (import pkgs/spotify-adblock.nix) { src = spotify-adblock-source; };
+
+        apply-smokeapi = app-ids-names: pkgs.callPackage (import scripts/apply-smokeapi.nix) { inherit smokeapi app-ids-names steam-app-ids; };
+      };
     in
     {
       homeConfigurations."vasilysterekhov" = home-manager.lib.homeManagerConfiguration {
@@ -61,7 +66,7 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
-        extraSpecialArgs = { inherit libstellarkey libspotifyadblock spotify-adblock-source apply-smokeapi; };
+        extraSpecialArgs = { inherit piracy; };
       };
 
       nixosModules = {
