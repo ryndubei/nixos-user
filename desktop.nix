@@ -1,4 +1,4 @@
-{ pkgs, lib, config, libstellarkey, libspotifyadblock, spotify-adblock-source, apply-smokeapi, ... }:
+{ pkgs, lib, config, libstellarkey, libspotifyadblock, spotify-adblock-source, apply-smokeapi, smokeapi, ... }:
 
 {
   home.packages = (with pkgs; [
@@ -49,6 +49,7 @@
         "!xdg-pictures"
         "/mnt/hard_drive/data/${config.home.username}/Games_(slow)/Steam_Library"
         "${libstellarkey}:ro"
+        "${smokeapi}:ro"
       ];
     };
     "com.valvesoftware.Steam".Environment = {

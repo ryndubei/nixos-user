@@ -61,7 +61,7 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
-        extraSpecialArgs = { inherit libstellarkey libspotifyadblock spotify-adblock-source apply-smokeapi; };
+        extraSpecialArgs = { inherit libstellarkey libspotifyadblock spotify-adblock-source apply-smokeapi smokeapi; };
       };
 
       nixosModules = {

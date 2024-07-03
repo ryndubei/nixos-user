@@ -1,10 +1,10 @@
 upd_32 () {
   cp --update=none steam_api.dll steam_api.dll_o
-  cp $smokeapi32_dll steam_api.dll
+  ln -sf $smokeapi32_dll steam_api.dll
 }
 upd_64 () {
   cp --update=none steam_api64.dll steam_api64.dll_o
-  cp $smokeapi64_dll steam_api64.dll
+  ln -sf $smokeapi64_dll steam_api64.dll
 }
 export -f upd_32
 export -f upd_64
