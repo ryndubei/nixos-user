@@ -177,7 +177,6 @@
     package = pkgs.vscodium;
     mutableExtensionsDir = false;
     extensions = (with pkgs.vscode-extensions; [
-      eamodio.gitlens
       haskell.haskell
       github.copilot
       github.copilot-chat
@@ -195,6 +194,12 @@
       #  version = "0.4.7";
       #  sha256 = "80d6b79f5ea53f7a28051bc66ae813b9ae085dc233a4c93b8c160c24342c634d";
       #}
+      {
+        name = "gitless";
+        publisher = "maattdd";
+        version = "11.7.2";
+        sha256 = "sha256-rYeZNBz6HeZ059ksChGsXbuOao9H5m5lHGXJ4ELs6xc=";
+      }
     ]);
     userSettings = {
       "haskell.manageHLS" = "PATH";
