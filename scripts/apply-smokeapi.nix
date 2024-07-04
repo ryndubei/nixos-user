@@ -12,7 +12,7 @@ let
     export smokeapi64_dll=${smokeapi}/steam_api64.dll
     export smokeapi32_dll=${smokeapi}/steam_api.dll
     libraryfolders="${libraryfolders-path}"
-    if [ ! -d $libraryfolders ]; then
+    if [ ! -f $libraryfolders ]; then
       echo 'libraryfolders.vdf not found, nothing to do' >&2
       exit 0
     fi
