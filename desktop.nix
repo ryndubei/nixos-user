@@ -1,4 +1,4 @@
-{ pkgs, lib, config, piracy, ... }:
+{ pkgs, lib, config, anti-ip, ... }:
 
 {
   home.packages = (with pkgs; [
@@ -48,25 +48,25 @@
         "!xdg-music"
         "!xdg-pictures"
         "/mnt/hard_drive/data/${config.home.username}/Games_(slow)/Steam_Library"
-        "${piracy.libstellarkey}:ro"
+        "${anti-ip.libstellarkey}:ro"
       ];
     };
     "com.valvesoftware.Steam".Environment = {
       # add LD_PRELOAD="$STELLARKEY_PATH:$LD_PRELOAD" %command% to launch options to use
-      "STELLARKEY_PATH" = "${piracy.libstellarkey}/lib/libstellarkey.so";
+      "STELLARKEY_PATH" = "${anti-ip.libstellarkey}/lib/libstellarkey.so";
     };
     "com.spotify.Client".Context = {
       filesystems = [
-        "${piracy.libspotifyadblock}"
+        "${anti-ip.libspotifyadblock}"
         "~/.config/spotify-adblock/config.toml"
       ];
     };
     "com.spotify.Client".Environment = {
-      LD_PRELOAD = "${piracy.libspotifyadblock}/lib/libspotifyadblock.so";
+      LD_PRELOAD = "${anti-ip.libspotifyadblock}/lib/libspotifyadblock.so";
     };
   };
 
-  home.file.".config/spotify-adblock/config.toml".source = "${piracy.spotify-adblock-source}/config.toml";
+  home.file.".config/spotify-adblock/config.toml".source = "${anti-ip.spotify-adblock-source}/config.toml";
 
   # Run apply-smokeapi on startup
   # TODO: move this to a Steam desktop file
@@ -81,7 +81,7 @@
         Install.WantedBy = [ "graphical-session.target" ];
         Service = {
           Type = "oneshot";
-          ExecStart = "${piracy.apply-smokeapi apps}/bin/apply-smokeapi";
+          ExecStart = "${anti-ip.apply-smokeapi apps}/bin/apply-smokeapi";
         };
       }
     );

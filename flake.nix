@@ -35,7 +35,7 @@
         (builtins.map ({ name, appid, ... }: { inherit name; value = appid; })
           (builtins.fromJSON (builtins.readFile "${steamappidlist}/data/games_appid.json")).apps
         );
-      piracy = {
+      anti-ip = {
         libstellarkey = pkgs.callPackage (import pkgs/stellarkey.nix) { src = stellarkey-source; };
 
         inherit spotify-adblock-source;
@@ -66,7 +66,7 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
-        extraSpecialArgs = { inherit piracy; };
+        extraSpecialArgs = { inherit anti-ip; };
       };
 
       nixosModules = {
