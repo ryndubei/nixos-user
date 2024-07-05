@@ -160,10 +160,10 @@
   # Switch to fish if INTERACTIVE_SHELL is set to fish
   programs.bash = {
     initExtra = ''
-      if [[ $INTERACTIVE_SHELL == "fish" ]]
+      if [[ $INTERACTIVE_SHELL != "bash" ]]
       then
         shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-        exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+        exec $INTERACTIVE_SHELL $LOGIN_OPTION
       fi
     '';
   };
