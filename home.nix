@@ -31,7 +31,6 @@
     # '')
     # agda
     bat
-    blesh
     cryfs
     deploy-rs
     devenv
@@ -122,7 +121,6 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-    ".bash_aliases".source = dotfiles/bash_aliases;
   };
 
   # Home Manager can also manage your environment variables through
@@ -151,11 +149,33 @@
 
   # Let home-manager manage shell
   programs.bash.enable = true;
+  # Switch to fish in interactive shells
+  programs.bash = {
+    initExtra = ''
+      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
+      then
+        shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+        exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+      fi
+    '';
+  };
+  programs.fish.enable = true;
+  programs.fish.shellAbbrs = {
+    cd = "z";
+    cdh = "cd $HOME/projects/HASKELL";
+  };
+  programs.fish.shellAliases = {
+    logoutall = "loginctl terminate-user $(whoami)";
+    cat = "bat -pp";
+    pull-system = "fish -c 'cd /etc/nixos && sudo git fetch && sudo git pull'";
+    pull-user = "fish -c 'cd ~/.config/home-manager && git fetch && git pull'";
+    update-user = "pull-user && home-manager switch";
+  };
+  programs.fish.functions = {
+    update-system = "pull-system && sudo nixos-rebuild switch --flake /etc/nixos#$argv";
+  };
   # Commands that should only be run in interactive shells
-  programs.bash.initExtra = ''
-    . ~/.bash_aliases
-    source "$(blesh-share)"/ble.sh
-    set -o vi
+  programs.fish.interactiveShellInit = ''
     pfetch
   '';
 }
