@@ -142,6 +142,14 @@
   home.sessionVariables = {
     # make pfetch not count nix packages (slow)
     PF_FAST_PKG_COUNT = 1;
+    # 1. initially set INTERACTIVE_SHELL to "fish"
+    # 2. when 'bash' is first run as an interactive shell,
+    #    this makes it run fish
+    # 3. fish sets a function override for 'bash' that sets
+    #    INTERACTIVE_SHELL to "bash" before running bash
+    # This makes `nix shell` run in 'fish' without costing
+    # us `bash -c`
+    INTERACTIVE_SHELL = "fish";
   };
 
   # Let Home Manager install and manage itself.
@@ -149,10 +157,10 @@
 
   # Let home-manager manage shell
   programs.bash.enable = true;
-  # Switch to fish in interactive shells
+  # Switch to fish if INTERACTIVE_SHELL is set to fish
   programs.bash = {
     initExtra = ''
-      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
+      if [[ $INTERACTIVE_SHELL == "fish" ]]
       then
         shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
         exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
@@ -173,6 +181,7 @@
   };
   programs.fish.functions = {
     update-system = "pull-system && sudo nixos-rebuild switch --flake /etc/nixos#$argv";
+    bash = "begin; set -lx INTERACTIVE_SHELL \"bash\"; command bash $argv; end";
   };
   # Commands that should only be run in interactive shells
   programs.fish.interactiveShellInit = ''
