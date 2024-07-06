@@ -1,8 +1,0 @@
-alias cdh='cd $HOME/projects/HASKELL'
-alias logoutall='loginctl terminate-user $(whoami)'
-alias cat='bat -pp'
-alias pull-system='(cd /etc/nixos; sudo git fetch; sudo git pull)'
-alias pull-user='(cd $HOME/.config/home-manager; git fetch; git pull $HOME/.config/home-manager)'
-function update-system(){ pull-system && sudo nixos-rebuild switch --flake /etc/nixos#"$1"; }
-alias update-user='pull-user && home-manager switch'
-alias cd='z'
