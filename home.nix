@@ -34,6 +34,7 @@
     cryfs
     deploy-rs
     devenv
+    fishPlugins.hydro
     gcc
     ghc
     git-crypt
@@ -188,6 +189,8 @@
   };
   # Commands that should only be run in interactive shells
   programs.fish.interactiveShellInit = ''
+    set -U hydro_color_pwd green
+    set -U hydro_color_duration brblue
     ${pkgs.pfetch-rs}/bin/pfetch
   '';
 }
