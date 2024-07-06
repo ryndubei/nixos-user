@@ -39,7 +39,6 @@
     git-crypt
     gocryptfs
     nixpkgs-fmt
-    pfetch
     ripgrep
     tree
     yt-dlp
@@ -185,6 +184,6 @@
   };
   # Commands that should only be run in interactive shells
   programs.fish.interactiveShellInit = ''
-    pfetch
+    ${pkgs.pfetch-rs}/bin/pfetch
   '';
 }
