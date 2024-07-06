@@ -171,10 +171,13 @@
     cd = "z";
     cdh = "cd $HOME/projects/HASKELL";
   };
-  programs.fish.shellAliases = {
+  # Aliases that make sense in all shells
+  home.shellAliases = {
     flatpak = "flatpak --user";
     logoutall = "loginctl terminate-user $(whoami)";
     cat = "bat -pp";
+  };
+  programs.fish.shellAliases = {
     pull-system = "fish -c 'cd /etc/nixos && sudo git fetch && sudo git pull'";
     pull-user = "fish -c 'cd ~/.config/home-manager && git fetch && git pull'";
     update-user = "pull-user && home-manager switch";
