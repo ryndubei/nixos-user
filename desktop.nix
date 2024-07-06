@@ -10,6 +10,7 @@
     haskell-language-server
     logseq
     mpv
+    (nerdfonts.override { fonts = [ "Meslo" ]; })
     nixd
     # protonmail-bridge
     qbittorrent
@@ -21,6 +22,8 @@
     pop-shell
     system-monitor
   ]);
+
+  fonts.fontconfig.enable = true;
 
   services.flatpak = {
     enable = true;
@@ -131,6 +134,10 @@
       minimize = [ ];
     };
     "org/gnome/shell/keybindings".toggle-message-tray = [ ];
+
+    # Enable MesloLGS font in GNOME Console
+    "org/gnome/Console".use-system-font = false;
+    "org/gnome/Console".custom-font = "MesloLGS Nerd Font Mono 10";
   };
 
   programs.librewolf = {
@@ -215,6 +222,8 @@
       "editor.lineNumbers" = "relative";
       "workbench.panel.defaultLocation" = "right";
       "editor.fontFamily" = "'Fira Code', 'Droid Sans Mono', 'monospace', monospace";
+      # Enable MesloLGS in the VSCodium integrated terminal
+      "terminal.fontFamily" = "'MesloLGS NF', 'Fira Code', 'Droid Sans Mono', 'monospace'";
       "editor.fontLigatures" = true;
       "[haskell]" = {
         "editor.defaultFormatter" = "haskell.haskell";
