@@ -172,6 +172,7 @@
     cdh = "cd $HOME/projects/HASKELL";
   };
   programs.fish.shellAliases = {
+    flatpak = "flatpak --user";
     logoutall = "loginctl terminate-user $(whoami)";
     cat = "bat -pp";
     pull-system = "fish -c 'cd /etc/nixos && sudo git fetch && sudo git pull'";
