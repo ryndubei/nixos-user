@@ -189,8 +189,8 @@
   };
   # Commands that should only be run in interactive shells
   programs.fish.interactiveShellInit = ''
-    set -U hydro_color_pwd green
-    set -U hydro_color_duration brblue
+    set -g hydro_color_pwd green
+    set -g hydro_color_duration brblue
     ${pkgs.pfetch-rs}/bin/pfetch
   '';
 }
