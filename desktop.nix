@@ -223,7 +223,7 @@
       "workbench.panel.defaultLocation" = "right";
       "editor.fontFamily" = "'Fira Code', 'Droid Sans Mono', 'monospace', monospace";
       # Enable MesloLGS in the VSCodium integrated terminal
-      "terminal.fontFamily" = "'MesloLGS NF', 'Fira Code', 'Droid Sans Mono', 'monospace'";
+      "terminal.integrated.fontFamily" = "'MesloLGS Nerd Font Mono', 'Fira Code', 'Droid Sans Mono', 'monospace'";
       "editor.fontLigatures" = true;
       "[haskell]" = {
         "editor.defaultFormatter" = "haskell.haskell";
