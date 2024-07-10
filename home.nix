@@ -34,7 +34,6 @@
     cryfs
     deploy-rs
     devenv
-    fishPlugins.hydro
     gcc
     ghc
     git-crypt
@@ -155,6 +154,8 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  programs.starship.enable = true;
+
   # Let home-manager manage shell
   programs.bash.enable = true;
   # Switch to fish if INTERACTIVE_SHELL is set to fish
@@ -189,8 +190,6 @@
   };
   # Commands that should only be run in interactive shells
   programs.fish.interactiveShellInit = ''
-    set -g hydro_color_pwd green
-    set -g hydro_color_duration brblue
     ${pkgs.pfetch-rs}/bin/pfetch
   '';
 }
