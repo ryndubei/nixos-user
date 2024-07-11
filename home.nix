@@ -186,11 +186,33 @@
   programs.fish.functions = {
     update-system = "pull-system && sudo nixos-rebuild switch --flake /etc/nixos#$argv";
     bash = "begin; set -lx INTERACTIVE_SHELL \"bash\"; command bash $argv; end";
+    # Fix unsightly background on vi mode indicator in hydro
+    fish_mode_prompt = ''
+      switch $fish_bind_mode
+        case default
+          set_color --italics --bold red
+          echo ' N '
+        case insert
+          set_color --italics --bold green
+          echo ' I '
+        case replace replace_one
+          set_color --italics --bold green
+          echo ' R '
+        case visual
+          set_color --italics --bold brmagenta
+          echo ' V '
+        case '*'
+          set_color --italics --bold red
+          echo $fish_bind_mode
+      end
+      set_color normal
+    '';
   };
   # Commands that should only be run in interactive shells
   programs.fish.interactiveShellInit = ''
     set -g hydro_color_pwd green
     set -g hydro_color_duration brblue
+    fish_vi_key_bindings
     ${pkgs.pfetch-rs}/bin/pfetch
   '';
 }
