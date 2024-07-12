@@ -189,6 +189,7 @@
       justusadam.language-haskell
       mads-hartmann.bash-ide-vscode
       mkhl.direnv
+      ms-python.python
       jnoortheen.nix-ide
       teabyii.ayu
       usernamehw.errorlens
