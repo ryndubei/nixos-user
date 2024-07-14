@@ -23,6 +23,12 @@ type AppId = String
 unkv :: KeyValue -> (String, Either String [KeyValue])
 unkv (KeyValue k v) = (k, v)
 
+{- | Given the path to libraryfolders.vdf and the Steam appids to search for,
+prints a list of compatdata (Proton prefixes) and install directories to stdout
+for the app ids that have them.
+
+These directories are where we expect to find steam_api.dll and steam_api64.dll.
+-}
 main :: IO ()
 main = do
   (libraryfoldersPath:appIds) <- getArgs

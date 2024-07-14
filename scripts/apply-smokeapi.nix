@@ -1,3 +1,12 @@
+# smokeapi: the extracted smokeapi zip
+# app-ids-names: list of app ids (ints) or names (strings)
+# steam-app-ids: attrset mapping names to app ids
+
+# Assumes a Flatpak installation of Steam.
+
+# Returns a package containing a shell script to find and patch all
+# steam_api.dll and steam_api64.dll files belonging to the specified
+# appids.
 { pkgs, smokeapi, app-ids-names, steam-app-ids, lib, ... }:
 
 let
