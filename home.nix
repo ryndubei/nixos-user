@@ -181,10 +181,15 @@
   programs.fish.shellAliases = {
     pull-system = "fish -c 'cd /etc/nixos && sudo git fetch && sudo git pull'";
     pull-user = "fish -c 'cd ~/.config/home-manager && git fetch && git pull'";
-    update-user = "pull-user && home-manager switch";
+    update-user = "pull-user && rebuild-user switch";
+    update-system = "pull-system && rebuild-system switch /etc/nixos";
   };
   programs.fish.functions = {
-    update-system = "pull-system && sudo nixos-rebuild switch --flake /etc/nixos#$argv";
+    # we assume all extra substituters are just for development flakes, and not
+    # worth querying for regular system updates
+    rebuild-user = "home-manager $argv[1] --option substituters https://cache.nixos.org $argv[2..]";
+    rebuild-system = "sudo nixos-rebuild $argv[1] --flake $argv[2]#$argv[3] --option substituters https://cache.nixos.org $argv[4..]";
+
     bash = "begin; set -lx INTERACTIVE_SHELL \"bash\"; command bash $argv; end";
     # Fix unsightly background on vi mode indicator in hydro
     fish_mode_prompt = ''
