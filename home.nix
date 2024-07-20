@@ -31,6 +31,7 @@
     # '')
     # agda
     bat
+    cabal-install
     cryfs
     deploy-rs
     devenv
