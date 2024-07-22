@@ -121,19 +121,28 @@
     };
 
     "org/gnome/desktop/interface" = {
+      # Dark colour scheme
       color-scheme = "prefer-dark";
+
       enable-hot-corners = false;
     };
 
+    # Expandable folders in list view
     "org/gnome/nautilus/list-view".use-tree-view = true;
+    # Create Link context menu action
     "org/gnome/nautilus/preferences".show-create-link = true;
 
+    # Disable mouse acceleration
     "org/gnome/desktop/peripherals/mouse".accel-profile = "flat";
+
+    # Touchpad scrolls the view instead of the content
     "org/gnome/desktop/peripherals/touchpad".natural-scroll = false;
 
     # GNOME keybindings
     "org/gnome/settings-daemon/plugins/media-keys" = {
+      # Open default web browser
       www = [ "<Super>b" ];
+      # Disable lock screen keybinding
       screensaver = [ ];
       custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" ];
     };
@@ -145,9 +154,13 @@
     "org/gnome/desktop/wm/keybindings" = {
       close = [ "<Super>q" ];
       toggle-maximized = [ "<Super>m" ];
+
+      # Redundant with the toggle-maximized keybinding
       maximize = [ ];
       minimize = [ ];
     };
+    # Remove open notifications keybinding (default is Super+B, but we want to
+    # use it to open the browser) 
     "org/gnome/shell/keybindings".toggle-message-tray = [ ];
 
     # Enable MesloLGS font in GNOME Console
