@@ -112,7 +112,22 @@
         system-monitor
       ]);
       disabled-extensions = [ ];
+      favorite-apps = [
+        "librewolf.desktop"
+        "org.gnome.Nautilus.desktop"
+        "org.gnome.Console.desktop"
+        "codium.desktop"
+      ];
     };
+
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+      enable-hot-corners = false;
+    };
+
+    "org/gnome/nautilus/list-view".use-tree-view = true;
+    "org/gnome/nautilus/preferences".show-create-link = true;
+
     "org/gnome/desktop/peripherals/mouse".accel-profile = "flat";
     "org/gnome/desktop/peripherals/touchpad".natural-scroll = false;
 
