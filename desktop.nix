@@ -142,8 +142,6 @@
     "org/gnome/settings-daemon/plugins/media-keys" = {
       # Open default web browser
       www = [ "<Super>b" ];
-      # Disable lock screen keybinding
-      screensaver = [ ];
       custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" ];
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
