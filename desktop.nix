@@ -117,11 +117,12 @@
     "org/gnome/desktop/peripherals/touchpad".natural-scroll = false;
 
     # GNOME keybindings
-    "org/gnome/desktop/settings-daemon/plugins/media-keys" = {
+    "org/gnome/settings-daemon/plugins/media-keys" = {
       www = [ "<Super>b" ];
       screensaver = [ ];
+      custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" ];
     };
-    "org/gnome/desktop/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
       name = "Open Terminal";
       command = "kgx";
       binding = "<Super>t";
