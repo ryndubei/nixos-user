@@ -166,6 +166,23 @@
     "org/gnome/Console".custom-font = "MesloLGS Nerd Font Mono 10";
   };
 
+  programs.looking-glass-client.enable = true;
+  programs.looking-glass-client.settings = {
+    app.shmFile = "/dev/kvmfr0";
+    win = {
+      fullScreen = true;
+
+      # so that the window doesn't break with pop-shell tiling
+      maximize = true;
+
+      # Prevent screensaver from starting when guest requests it
+      autoScreensaver = true;
+    };
+    input = {
+      rawMouse = true;
+    };
+  };
+
   programs.librewolf = {
     enable = true;
     settings = {
