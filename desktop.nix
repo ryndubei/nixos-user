@@ -6,7 +6,6 @@
     aseprite
     electrum
     fira-code
-    gnome.cheese
     haskell-language-server
     logseq
     mpv
@@ -16,7 +15,6 @@
     qbittorrent
     # thunderbird
     vaults
-    zettlr
   ]) ++ (with pkgs.gnomeExtensions; [
     appindicator
     pop-shell

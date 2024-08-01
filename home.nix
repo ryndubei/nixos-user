@@ -32,14 +32,11 @@
     # agda
     bat
     cabal-install
-    cryfs
     deploy-rs
     devenv
     fishPlugins.hydro
-    gcc
     ghc
     git-crypt
-    gocryptfs
     nixpkgs-fmt
     ripgrep
     tree
