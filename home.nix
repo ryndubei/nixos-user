@@ -82,7 +82,7 @@
   programs.git = {
     enable = true;
     extraConfig = {
-      safe.directory = "/etc/nixos";
+      safe.directory = [ "/etc/nixos" "/etc/nixos/.git" ];
     };
   };
 
