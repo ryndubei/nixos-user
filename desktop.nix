@@ -34,6 +34,11 @@
     ];
   };
 
+  # Symlink system runtimes to the user's flatpak installation
+  home.activation.flatpakSymlinkSystemRuntimes =
+    lib.hm.dag.entryBetween [ "flatpak-managed-install" ] [ "writeBoundary" ]
+      (builtins.readFile scripts/flatpak-symlink-system-runtimes.sh);
+
   services.flatpak.overrides = {
     "md.obsidian.Obsidian".Context = {
       filesystems = [
@@ -309,3 +314,4 @@
     };
   };
 }
+
