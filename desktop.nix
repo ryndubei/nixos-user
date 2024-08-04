@@ -89,7 +89,7 @@
 
   # Run apply-smokeapi on home-manager activation as well
   home.activation.startApplySmokeapi = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    /run/current-system/sw/bin/systemctl start --user apply-smokeapi.service
+    run /run/current-system/sw/bin/systemctl start --user apply-smokeapi.service
   '';
 
   programs.neovim.extraLuaConfig = ''
