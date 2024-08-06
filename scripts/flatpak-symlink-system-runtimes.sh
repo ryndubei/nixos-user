@@ -6,16 +6,11 @@ function flatpakSymlinkSystemRuntimes() {
     local flatpak_local_runtimes="$HOME/.local/share/flatpak/runtime"
     local flatpak_system_runtimes=/var/lib/flatpak/runtime
     
-    if [ ! -d "$flatpak_system_runtimes" ]; then
-        exit 0
-    fi
-    
-    cd "$flatpak_system_runtimes"
-    
     run mkdir -p $VERBOSE_ARG "$flatpak_local_runtimes"
     
-    for r in *; do
-        [ -e "$flatpak_local_runtimes/$r" ] || run ln -s $VERBOSE_ARG "$r" "$flatpak_local_runtimes/$r"
+    for r in "$flatpak_system_runtimes"/*; do
+        local r_destination="$flatpak_local_runtimes/$(basename $r)"
+        [ -e "$r_destination" ] || run ln -s $VERBOSE_ARG "$r" "$r_destination"
     done
 
     $oldstate
