@@ -20,7 +20,8 @@ import System.Directory
 -- filepath
 import System.FilePath
 
-type AppId = String
+newtype AppId = AppId { appIdString :: String }
+  deriving (Eq, Ord)
 
 unkv :: KeyValue -> (String, Either String [KeyValue])
 unkv (KeyValue k v) = (k, v)
@@ -31,7 +32,7 @@ data App = App
   }
 
 displayApp :: App -> String
-displayApp App {..} = appid ++ " (" ++ appname ++ ")"
+displayApp App {..} = appIdString appid ++ " (" ++ appname ++ ")"
 
 {- | Given the path to libraryfolders.vdf and the Steam appids to search for,
 prints a list of compatdata (Proton prefixes) and install directories to stdout
@@ -45,11 +46,11 @@ main = do
   apps <- either fail pure $ parseOtherArgs otherArgs
   appIdLibraries <-
     maybe (fail $ libraryfoldersPath ++ ": unexpected structure") pure . readLibraryfolders =<< tryParseVdf libraryfoldersPath
-  paths <- fmap catMaybes . for apps $ \a ->
+  paths <- fmap catMaybes . for apps $ \a@App{appid, appname} ->
     handle (\(e :: IOError) -> hPutStrLn stderr (displayException e) >> pure Nothing) $ do
-      library <- maybe (fail $ "no library for " ++ displayApp a) pure $ Map.lookup (appid a) appIdLibraries
-      let path_compatdata = library </> "steamapps/compatdata" </> appid a
-      path_common <- obtainInstalldir library (appid a)
+      library <- maybe (fail $ "no library for " ++ displayApp a) pure $ Map.lookup appid appIdLibraries
+      let path_compatdata = library </> "steamapps/compatdata" </> appIdString appid
+      path_common <- obtainInstalldir library appid
       doesDirectoryExist path_compatdata >>= \b ->
         unless b $
           fail $
@@ -63,7 +64,8 @@ main = do
   mapM_ (putStrLn . escapeString) $ concatMap (\(a, b) -> [a, b]) paths
   where
     parseOtherArgs [] = pure []
-    parseOtherArgs (appid:appname:rest) = do
+    parseOtherArgs (appid1:appname:rest) = do
+      let appid = AppId appid1
       rest' <- parseOtherArgs rest
       pure $ App { appid, appname } : rest'
     parseOtherArgs _ = Left "odd number of other args"
@@ -81,7 +83,7 @@ obtainInstalldir library appid = do
         pure $ library </> "steamapps/common" </> installdir
   maybe (fail $ "bad appmanifest " ++ appManifest) pure r
  where
-  appManifest = library </> "steamapps/appmanifest_" ++ appid ++ ".acf"
+  appManifest = library </> "steamapps/appmanifest_" ++ appIdString appid ++ ".acf"
 
 unRight :: Either a b -> Maybe b
 unRight = either (const Nothing) Just
@@ -98,7 +100,7 @@ readLibraryfolders (KeyValue _ v) = do
   appIdLibraries <- fmap concat . for libraries $ \(KeyValue _ l) -> do
     l' <- map unkv <$> unRight l
     path <- lookup "path" l' >>= unLeft
-    appIds <- fmap (map (fst . unkv)) (lookup "apps" l' >>= unRight)
+    appIds <- fmap (map (AppId . fst . unkv)) (lookup "apps" l' >>= unRight)
     pure $ map (,path) appIds
   pure $ Map.fromList appIdLibraries
 
