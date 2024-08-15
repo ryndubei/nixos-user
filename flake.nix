@@ -41,7 +41,7 @@
         inherit spotify-adblock-source;
         libspotifyadblock = pkgs.callPackage (import pkgs/spotify-adblock.nix) { src = spotify-adblock-source; };
 
-        apply-smokeapi = app-ids-names: pkgs.callPackage (import scripts/apply-smokeapi.nix) { inherit smokeapi app-ids-names steam-app-ids; };
+        apply-smokeapi = app-ids-or-names: pkgs.callPackage (import scripts/apply-smokeapi.nix) { inherit smokeapi app-ids-or-names steam-app-ids; };
       };
     in
     {

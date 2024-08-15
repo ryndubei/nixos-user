@@ -7,14 +7,28 @@
 # Returns a package containing a shell script to find and patch all
 # steam_api.dll and steam_api64.dll files belonging to the specified
 # appids.
-{ pkgs, smokeapi, app-ids-names, steam-app-ids, lib, ... }:
+{ pkgs, smokeapi, app-ids-or-names, steam-app-ids, lib, ... }:
 
 let
+  steam-app-ids-inverted = lib.attrsets.concatMapAttrs (name: appid: { "${toString appid}" = name; }) steam-app-ids;
   app-id-path-exe = pkgs.runCommandNoCC "app-id-path" { allowSubstitutes = false; } ''
     ${pkgs.ghc}/bin/ghc -o $out -O2 ${./AppIdPath.hs}
   '';
-  app-ids = builtins.map (a: if builtins.typeOf a == "int" then a else steam-app-ids."${a}") app-ids-names;
-  app-ids-string = builtins.concatStringsSep " " (map toString app-ids);
+  # 'name' is only to make the logs more human-readable
+  app-ids-and-names = builtins.map
+    (a:
+      if builtins.typeOf a == "int"
+      then {
+        appid = a;
+        name =
+          if builtins.hasAttr (toString a) steam-app-ids-inverted
+          then steam-app-ids-inverted.${toString a}
+          else "unknown";
+      }
+      else { name = a; appid = steam-app-ids."${a}"; }
+    )
+    app-ids-or-names;
+  app-ids-string = builtins.concatStringsSep " " (map lib.escapeShellArg (builtins.concatMap ({ appid, name }: [ (toString appid) name ]) app-ids-and-names));
   libraryfolders-path = "$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/libraryfolders.vdf";
   script-init = ''
     set -euo pipefail

@@ -1,3 +1,5 @@
+{-# LANGUAGE RecordWildCards #-}
+
 -- base
 import Control.Exception
 import Control.Monad
@@ -23,6 +25,14 @@ type AppId = String
 unkv :: KeyValue -> (String, Either String [KeyValue])
 unkv (KeyValue k v) = (k, v)
 
+data App = App
+  { appid :: AppId,
+    appname :: String
+  }
+
+displayApp :: App -> String
+displayApp App {..} = appid ++ " (" ++ appname ++ ")"
+
 {- | Given the path to libraryfolders.vdf and the Steam appids to search for,
 prints a list of compatdata (Proton prefixes) and install directories to stdout
 for the app ids that have them.
@@ -31,25 +41,32 @@ These directories are where we expect to find steam_api.dll and steam_api64.dll.
 -}
 main :: IO ()
 main = do
-  (libraryfoldersPath:appIds) <- getArgs
+  (libraryfoldersPath:otherArgs) <- getArgs
+  apps <- either fail pure $ parseOtherArgs otherArgs
   appIdLibraries <-
     maybe (fail $ libraryfoldersPath ++ ": unexpected structure") pure . readLibraryfolders =<< tryParseVdf libraryfoldersPath
-  paths <- fmap catMaybes . for appIds $ \a ->
+  paths <- fmap catMaybes . for apps $ \a ->
     handle (\(e :: IOError) -> hPutStrLn stderr (displayException e) >> pure Nothing) $ do
-      library <- maybe (fail $ "no library for " ++ a) pure $ Map.lookup a appIdLibraries
-      let path_compatdata = library </> "steamapps/compatdata" </> a
-      path_common <- obtainInstalldir library a
+      library <- maybe (fail $ "no library for " ++ displayApp a) pure $ Map.lookup (appid a) appIdLibraries
+      let path_compatdata = library </> "steamapps/compatdata" </> appid a
+      path_common <- obtainInstalldir library (appid a)
       doesDirectoryExist path_compatdata >>= \b ->
         unless b $
           fail $
-            "Failed to find compatdata for appid " ++ a ++ ": directory DNE " ++ path_compatdata
+            "Failed to find compatdata for app " ++ displayApp a ++ ": directory DNE " ++ path_compatdata
       doesDirectoryExist path_common >>= \b ->
         unless b $
           fail $
-            "Failed to find common for appid " ++ a ++ ": directory DNE " ++ path_common
-      hPutStrLn stderr $ "Found compatdata and common for appid " ++ a
+            "Failed to find common for app " ++ displayApp a ++ ": directory DNE " ++ path_common
+      hPutStrLn stderr $ "Found compatdata and common for app " ++ displayApp a
       pure $ Just (path_compatdata, path_common)
   mapM_ (putStrLn . escapeString) $ concatMap (\(a, b) -> [a, b]) paths
+  where
+    parseOtherArgs [] = pure []
+    parseOtherArgs (appid:appname:rest) = do
+      rest' <- parseOtherArgs rest
+      pure $ App { appid, appname } : rest'
+    parseOtherArgs _ = Left "odd number of other args"
 
 escapeString :: String -> String
 escapeString = init . tail . show
