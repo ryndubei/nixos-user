@@ -47,6 +47,7 @@ main = do
         unless b $
           fail $
             "Failed to find common for appid " ++ a ++ ": directory DNE " ++ path_common
+      hPutStrLn stderr $ "Found compatdata and common for appid " ++ a
       pure $ Just (path_compatdata, path_common)
   mapM_ (putStrLn . escapeString) $ concatMap (\(a, b) -> [a, b]) paths
 
