@@ -21,6 +21,11 @@
     system-monitor
   ]);
 
+  nixpkgs.config.permittedInsecurePackages = [
+    # logseq dependency, marked insecure due to EOL
+    "electron-27.3.11"
+  ];
+
   fonts.fontconfig.enable = true;
 
   services.flatpak = {
