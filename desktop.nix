@@ -85,7 +85,7 @@
     (
       let
         # The appids (ints)/names (strings) we are attempting to patch
-        apps = [ "Victoria 3" "Hearts of Iron IV" "Crusader Kings III" "Stellaris" "Europa Universalis IV" ];
+        apps = [ "Imperator: Rome" ];
       in
       {
         Unit.Description = "Apply SmokeAPI";
