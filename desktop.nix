@@ -3,7 +3,6 @@
 {
   home.packages = (with pkgs; [
     armcord
-    aseprite
     electrum
     fira-code
     haskell-language-server
