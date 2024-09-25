@@ -243,6 +243,7 @@
       mkhl.direnv
       ms-python.python
       jnoortheen.nix-ide
+      scala-lang.scala
       teabyii.ayu
       usernamehw.errorlens
       vscodevim.vim
