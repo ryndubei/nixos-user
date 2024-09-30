@@ -34,6 +34,7 @@
     cabal-install
     deploy-rs
     devenv
+    elan
     fishPlugins.hydro
     ghc
     git-crypt
