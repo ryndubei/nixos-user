@@ -255,6 +255,12 @@
       #  sha256 = "80d6b79f5ea53f7a28051bc66ae813b9ae085dc233a4c93b8c160c24342c634d";
       #}
       {
+        name = "lean4";
+        publisher = "leanprover";
+        version = "0.0.178";
+        sha256 = "sha256-ByhiTGwlQgNkFf0BirO+QSDiXbQfR6RLQA8jM4B1+O4=";
+      }
+      {
         name = "gitless";
         publisher = "maattdd";
         version = "11.7.2";
