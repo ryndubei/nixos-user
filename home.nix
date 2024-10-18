@@ -38,8 +38,10 @@
     fishPlugins.hydro
     ghc
     git-crypt
+    jdk21
     nixpkgs-fmt
     ripgrep
+    scala
     tree
     yt-dlp
   ]);
