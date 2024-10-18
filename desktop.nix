@@ -5,6 +5,7 @@
     electrum
     fira-code
     haskell-language-server
+    jetbrains.idea-community
     legcord
     logseq
     mpv
