@@ -50,7 +50,7 @@
       p.sympy
     ]))
     ripgrep
-    scala
+    scala_3
     tree
     yt-dlp
   ]);
