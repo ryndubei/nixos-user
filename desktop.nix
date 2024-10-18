@@ -244,6 +244,7 @@
       mads-hartmann.bash-ide-vscode
       mkhl.direnv
       ms-python.python
+      ms-toolsai.jupyter
       jnoortheen.nix-ide
       scala-lang.scala
       teabyii.ayu

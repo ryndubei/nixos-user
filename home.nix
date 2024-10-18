@@ -40,6 +40,15 @@
     git-crypt
     jdk21
     nixpkgs-fmt
+    (python3.withPackages (p: [
+      p.ipykernel
+      p.jupyter
+      p.matplotlib
+      p.notebook
+      p.numpy
+      p.scipy
+      p.sympy
+    ]))
     ripgrep
     scala
     tree
