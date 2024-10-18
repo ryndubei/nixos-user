@@ -2,10 +2,10 @@
 
 {
   home.packages = (with pkgs; [
-    armcord
     electrum
     fira-code
     haskell-language-server
+    legcord
     logseq
     mpv
     (nerdfonts.override { fonts = [ "Meslo" ]; })
