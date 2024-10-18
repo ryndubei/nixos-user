@@ -34,6 +34,7 @@
     packages = [
       "com.valvesoftware.Steam"
       "com.github.tchx84.Flatseal"
+      "org.prismlauncher.PrismLauncher"
       "md.obsidian.Obsidian"
       "com.usebottles.bottles"
       "com.spotify.Client"
