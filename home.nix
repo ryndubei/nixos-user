@@ -131,6 +131,7 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+    ".haskeline".text = "editMode: Vi";
   };
 
   # Home Manager can also manage your environment variables through
