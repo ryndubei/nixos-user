@@ -14,6 +14,7 @@
     onedriver
     # protonmail-bridge
     qbittorrent
+    telegram-desktop
     # thunderbird
     vaults
   ]) ++ (with pkgs.gnomeExtensions; [
