@@ -106,6 +106,8 @@
     nix-direnv.enable = true;
   };
 
+  services.syncthing.enable = true;
+
   # systemd.user.services.protonmail-bridge = {
   #   Unit = {
   #     Description = "ProtonMail Bridge";
