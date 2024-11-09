@@ -13,7 +13,7 @@
     nixd
     onedriver
     # protonmail-bridge
-    qbittorrent
+    # qbittorrent https://www.openwall.com/lists/oss-security/2024/10/30/4
     telegram-desktop
     # thunderbird
     vaults
