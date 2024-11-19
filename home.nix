@@ -36,6 +36,7 @@
     devenv
     elan
     fishPlugins.hydro
+    ffmpeg
     ghc
     git-crypt
     jdk21
