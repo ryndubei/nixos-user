@@ -321,6 +321,7 @@
       "haskell.plugin.notes.globalOn" = true;
       "[nix]".editor.formatOnSave = true;
       "diffEditor.ignoreTrimWhitespace" = false;
+      "notebook.lineNumbers" = "on";
     };
   };
 }
