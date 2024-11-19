@@ -46,6 +46,7 @@
       p.matplotlib
       p.notebook
       p.numpy
+      p.pandas
       p.scipy
       p.sympy
     ]))
