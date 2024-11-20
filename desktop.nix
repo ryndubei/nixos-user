@@ -242,6 +242,7 @@
       ms-toolsai.jupyter
       jnoortheen.nix-ide
       scala-lang.scala
+      scalameta.metals
       teabyii.ayu
       usernamehw.errorlens
       vscodevim.vim
