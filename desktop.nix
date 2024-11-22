@@ -323,6 +323,11 @@
       "[nix]".editor.formatOnSave = true;
       "diffEditor.ignoreTrimWhitespace" = false;
       "notebook.lineNumbers" = "on";
+      "files.watcherExclude" = {
+        "**/.bloop" = true;
+        "**/.metals" = true;
+        "**/.ammonite" = true;
+      };
     };
   };
 }
