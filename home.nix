@@ -39,7 +39,7 @@
     ffmpeg
     ghc
     git-crypt
-    jdk21
+    jdk17
     nixpkgs-fmt
     (python3.withPackages (p: [
       p.ipykernel
