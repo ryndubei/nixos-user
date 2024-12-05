@@ -326,6 +326,7 @@
       "diffEditor.ignoreTrimWhitespace" = false;
       "notebook.lineNumbers" = "on";
       "python.languageServer" = "Jedi";
+      "lean4.alwaysShowTitleBarMenu" = false;
     };
   };
 }
