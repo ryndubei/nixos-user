@@ -241,6 +241,7 @@
       mads-hartmann.bash-ide-vscode
       mkhl.direnv
       ms-python.python
+      ms-pyright.pyright
       ms-toolsai.jupyter
       jnoortheen.nix-ide
       scala-lang.scala
@@ -324,6 +325,7 @@
       "[nix]".editor.formatOnSave = true;
       "diffEditor.ignoreTrimWhitespace" = false;
       "notebook.lineNumbers" = "on";
+      "python.languageServer" = "Jedi";
     };
   };
 }
