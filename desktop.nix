@@ -229,6 +229,11 @@
     in
     pkg: builtins.elem (lib.getName pkg) whitelist;
 
+  home.file.".ideavimrc".text = ''
+      set relativenumber
+      set number
+    '';
+
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
