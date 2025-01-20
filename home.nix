@@ -52,6 +52,7 @@
       p.sympy
     ]))
     ripgrep
+    sageWithDoc
     scala_3
     tree
     yt-dlp
