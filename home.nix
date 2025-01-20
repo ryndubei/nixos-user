@@ -195,8 +195,8 @@
     cat = "bat -pp";
   };
   programs.fish.shellAliases = {
-    pull-system = "fish -c 'cd /etc/nixos && sudo git fetch && sudo git pull'";
-    pull-user = "fish -c 'cd ~/.config/home-manager && git fetch && git pull'";
+    pull-system = "fish -c 'cd /etc/nixos && sudo git fetch && git diff HEAD origin && sudo git pull'";
+    pull-user = "fish -c 'cd ~/.config/home-manager && git fetch && git diff HEAD origin && git pull'";
     update-user = "pull-user && rebuild-user switch";
     update-system = "pull-system && rebuild-system switch /etc/nixos";
     # produce hie AST and nothing more
