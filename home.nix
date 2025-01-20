@@ -41,6 +41,7 @@
     git-crypt
     jdk17
     nixfmt-classic
+    pandoc
     (python3.withPackages (p: [
       p.ipykernel
       p.jupyter
