@@ -96,9 +96,7 @@
 
   programs.git = {
     enable = true;
-    extraConfig = {
-      safe.directory = [ "/etc/nixos" "/etc/nixos/.git" ];
-    };
+    extraConfig = { safe.directory = [ "/etc/nixos" "/etc/nixos/.git" ]; };
   };
 
   programs.gpg.enable = true;
@@ -187,8 +185,10 @@
     cat = "bat -pp";
   };
   programs.fish.shellAliases = {
-    pull-system = "fish -c 'cd /etc/nixos && sudo git fetch && git diff HEAD origin && sudo git pull'";
-    pull-user = "fish -c 'cd ~/.config/home-manager && git fetch && git diff HEAD origin && git pull'";
+    pull-system =
+      "fish -c 'cd /etc/nixos && sudo git fetch && git diff HEAD origin && sudo git pull'";
+    pull-user =
+      "fish -c 'cd ~/.config/home-manager && git fetch && git diff HEAD origin && git pull'";
     update-user = "pull-user && rebuild-user switch";
     update-system = "pull-system && rebuild-system switch /etc/nixos";
     # produce hie AST and nothing more
@@ -197,8 +197,10 @@
   programs.fish.functions = {
     # we assume all extra substituters are just for development flakes, and not
     # worth querying for regular system updates
-    rebuild-user = "home-manager $argv[1] --option substituters https://cache.nixos.org $argv[2..]";
-    rebuild-system = "sudo nixos-rebuild $argv[1] --flake $argv[2]#$argv[3] --option substituters https://cache.nixos.org $argv[4..]";
+    rebuild-user =
+      "home-manager $argv[1] --option substituters https://cache.nixos.org $argv[2..]";
+    rebuild-system =
+      "sudo nixos-rebuild $argv[1] --flake $argv[2]#$argv[3] --option substituters https://cache.nixos.org $argv[4..]";
 
     ghc-view-hie = "ghc-dump-hie $argv | ${pkgs.bat}/bin/bat --language log";
 

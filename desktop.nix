@@ -19,11 +19,7 @@
     tor-browser
     ungoogled-chromium
     vaults
-  ]) ++ (with pkgs.gnomeExtensions; [
-    appindicator
-    pop-shell
-    system-monitor
-  ]);
+  ]) ++ (with pkgs.gnomeExtensions; [ appindicator pop-shell system-monitor ]);
 
   nixpkgs.config.permittedInsecurePackages = [
     # logseq dependency, marked insecure due to EOL
@@ -47,16 +43,11 @@
   # Symlink system runtimes to the user's flatpak installation
   home.activation.flatpakSymlinkSystemRuntimes =
     lib.hm.dag.entryBetween [ "flatpak-managed-install" ] [ "writeBoundary" ]
-      (builtins.readFile scripts/flatpak-symlink-system-runtimes.sh);
+    (builtins.readFile scripts/flatpak-symlink-system-runtimes.sh);
 
   services.flatpak.overrides = {
     "md.obsidian.Obsidian".Context = {
-      filesystems = [
-        "~/Documents/Notes"
-        "!/run/media"
-        "!/mnt"
-        "!/media"
-      ];
+      filesystems = [ "~/Documents/Notes" "!/run/media" "!/mnt" "!/media" ];
       shared = [ "!network" ];
     };
     "com.valvesoftware.Steam".Context = {
@@ -82,30 +73,28 @@
     };
   };
 
-  home.file.".config/spotify-adblock/config.toml".source = "${anti-ip.spotify-adblock-source}/config.toml";
+  home.file.".config/spotify-adblock/config.toml".source =
+    "${anti-ip.spotify-adblock-source}/config.toml";
 
   # Run apply-smokeapi on startup
   # TODO: move this to a Steam desktop file
-  systemd.user.services.apply-smokeapi =
-    (
-      let
-        # The appids (ints)/names (strings) we are attempting to patch
-        apps = [ "Imperator: Rome" ];
-      in
-      {
-        Unit.Description = "Apply SmokeAPI";
-        Install.WantedBy = [ "graphical-session.target" ];
-        Service = {
-          Type = "oneshot";
-          ExecStart = "${anti-ip.apply-smokeapi apps}/bin/apply-smokeapi";
-        };
-      }
-    );
+  systemd.user.services.apply-smokeapi = (let
+    # The appids (ints)/names (strings) we are attempting to patch
+    apps = [ "Imperator: Rome" ];
+  in {
+    Unit.Description = "Apply SmokeAPI";
+    Install.WantedBy = [ "graphical-session.target" ];
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${anti-ip.apply-smokeapi apps}/bin/apply-smokeapi";
+    };
+  });
 
   # Run apply-smokeapi on home-manager activation as well
-  home.activation.startApplySmokeapi = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    run /run/current-system/sw/bin/systemctl start --user apply-smokeapi.service
-  '';
+  home.activation.startApplySmokeapi =
+    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      run /run/current-system/sw/bin/systemctl start --user apply-smokeapi.service
+    '';
 
   programs.neovim.extraLuaConfig = ''
     require('lspconfig')['hls'].setup{
@@ -113,17 +102,12 @@
     }
     require'lspconfig'.nixd.setup{}
   '';
-  programs.neovim.plugins = with pkgs.vimPlugins; [
-    nvim-lspconfig
-  ];
+  programs.neovim.plugins = with pkgs.vimPlugins; [ nvim-lspconfig ];
 
   dconf.settings = {
     "org/gnome/shell" = {
-      enabled-extensions = map (extension: extension.extensionUuid) (with pkgs.gnomeExtensions; [
-        appindicator
-        pop-shell
-        system-monitor
-      ]);
+      enabled-extensions = map (extension: extension.extensionUuid)
+        (with pkgs.gnomeExtensions; [ appindicator pop-shell system-monitor ]);
       disabled-extensions = [ ];
       favorite-apps = [
         "librewolf.desktop"
@@ -155,13 +139,16 @@
     "org/gnome/settings-daemon/plugins/media-keys" = {
       # Open default web browser
       www = [ "<Super>b" ];
-      custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" ];
+      custom-keybindings = [
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+      ];
     };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-      name = "Open Terminal";
-      command = "kgx";
-      binding = "<Super>t";
-    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" =
+      {
+        name = "Open Terminal";
+        command = "kgx";
+        binding = "<Super>t";
+      };
     "org/gnome/desktop/wm/keybindings" = {
       close = [ "<Super>q" ];
       toggle-maximized = [ "<Super>m" ];
@@ -191,9 +178,7 @@
       # Prevent screensaver from starting when guest requests it
       autoScreensaver = true;
     };
-    input = {
-      rawMouse = true;
-    };
+    input = { rawMouse = true; };
   };
 
   programs.librewolf = {
@@ -202,9 +187,12 @@
       "browser.safebrowsing.malware.enabled" = true;
       "browser.safebrowsing.phishing.enabled" = true;
       "browser.safebrowsing.blockedURIs.enabled" = true;
-      "browser.safebrowsing.provider.google4.gethashURL" = "https://safebrowsing.googleapis.com/v4/threatListUpdates:fetch?$ct=application/x-protobuf&key=%GOOGLE_SAFEBROWSING_API_KEY%&$httpMethod=POST";
-      "browser.safebrowsing.provider.google.gethashURL" = "https://safebrowsing.google.com/safebrowsing/gethash?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2";
-      "browser.safebrowsing.provider.google.updateURL" = "https://safebrowsing.google.com/safebrowsing/downloads?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2&key=%GOOGLE_SAFEBROWSING_API_KEY%";
+      "browser.safebrowsing.provider.google4.gethashURL" =
+        "https://safebrowsing.googleapis.com/v4/threatListUpdates:fetch?$ct=application/x-protobuf&key=%GOOGLE_SAFEBROWSING_API_KEY%&$httpMethod=POST";
+      "browser.safebrowsing.provider.google.gethashURL" =
+        "https://safebrowsing.google.com/safebrowsing/gethash?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2";
+      "browser.safebrowsing.provider.google.updateURL" =
+        "https://safebrowsing.google.com/safebrowsing/downloads?client=SAFEBROWSING_ID&appver=%MAJOR_VERSION%&pver=2.2&key=%GOOGLE_SAFEBROWSING_API_KEY%";
       "privacy.resistFingerprinting.letterboxing" = true;
       "network.http.referer.XOriginPolicy" = 2;
       "identity.fxaccounts.enabled" = true;
@@ -219,20 +207,18 @@
   xsession.enable = true;
 
   # Unfree package exceptions
-  nixpkgs.config.allowUnfreePredicate =
-    let
-      whitelist = map lib.getName (with pkgs; [
-        aseprite
-        vscode-extensions.github.copilot
-        vscode-extensions.github.copilot-chat
-      ]);
-    in
-    pkg: builtins.elem (lib.getName pkg) whitelist;
+  nixpkgs.config.allowUnfreePredicate = let
+    whitelist = map lib.getName (with pkgs; [
+      aseprite
+      vscode-extensions.github.copilot
+      vscode-extensions.github.copilot-chat
+    ]);
+  in pkg: builtins.elem (lib.getName pkg) whitelist;
 
   home.file.".ideavimrc".text = ''
-      set relativenumber
-      set number
-    '';
+    set relativenumber
+    set number
+  '';
 
   programs.vscode = {
     enable = true;
@@ -286,9 +272,11 @@
       };
       "editor.lineNumbers" = "relative";
       "workbench.panel.defaultLocation" = "right";
-      "editor.fontFamily" = "'Fira Code', 'Droid Sans Mono', 'monospace', monospace";
+      "editor.fontFamily" =
+        "'Fira Code', 'Droid Sans Mono', 'monospace', monospace";
       # Enable MesloLGS in the VSCodium integrated terminal
-      "terminal.integrated.fontFamily" = "'MesloLGS Nerd Font Mono', 'Fira Code', 'Droid Sans Mono', 'monospace'";
+      "terminal.integrated.fontFamily" =
+        "'MesloLGS Nerd Font Mono', 'Fira Code', 'Droid Sans Mono', 'monospace'";
       "editor.fontLigatures" = true;
       "[haskell]" = {
         "editor.defaultFormatter" = "haskell.haskell";
@@ -315,9 +303,7 @@
       };
       "git.autofetch" = true;
       "haskell.formattingProvider" = "fourmolu";
-      "workbench.localHistory.exclude" = {
-        "*.secret" = true;
-      };
+      "workbench.localHistory.exclude" = { "*.secret" = true; };
       "workbench.preferredLightColorTheme" = "Quiet Light";
       "git.openRepositoryInParentFolders" = "never";
       "errorLens.removeLinebreaks" = false;
