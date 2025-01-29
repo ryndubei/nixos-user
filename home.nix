@@ -40,7 +40,7 @@
     ghc
     git-crypt
     jdk17
-    nixpkgs-fmt
+    nixfmt-classic
     (python3.withPackages (p: [
       p.ipykernel
       p.jupyter
