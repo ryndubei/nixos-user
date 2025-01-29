@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-24.11";
+    nixpkgs-frozen.url = "nixpkgs/nixos-24.11";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
@@ -26,22 +27,25 @@
     steamappidlist.flake = false;
   };
 
-  outputs = { nixpkgs, home-manager, nix-flatpak, stellarkey-source, spotify-adblock-source, smokeapi-zip, steamappidlist, ... }:
+  outputs = { nixpkgs, nixpkgs-frozen, home-manager, nix-flatpak, stellarkey-source, spotify-adblock-source, smokeapi-zip, steamappidlist, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-      smokeapi = pkgs.callPackage (import pkgs/smokeapi.nix) { inherit smokeapi-zip; };
+      pkgs-frozen = nixpkgs-frozen.legacyPackages.${system};
+
       steam-app-ids = builtins.listToAttrs
         (builtins.map ({ name, appid, ... }: { inherit name; value = appid; })
           (builtins.fromJSON (builtins.readFile "${steamappidlist}/data/games_appid.json")).apps
         );
+      # don't want to rebuild these on every e.g. new compiler release, so we use a fixed nixpkgs instance
+      smokeapi = pkgs-frozen.callPackage (import pkgs/smokeapi.nix) { inherit smokeapi-zip; };
       anti-ip = {
-        libstellarkey = pkgs.callPackage (import pkgs/stellarkey.nix) { src = stellarkey-source; };
+        libstellarkey = pkgs-frozen.callPackage (import pkgs/stellarkey.nix) { src = stellarkey-source; };
 
         inherit spotify-adblock-source;
-        libspotifyadblock = pkgs.callPackage (import pkgs/spotify-adblock.nix) { src = spotify-adblock-source; };
+        libspotifyadblock = pkgs-frozen.callPackage (import pkgs/spotify-adblock.nix) { src = spotify-adblock-source; };
 
-        apply-smokeapi = app-ids-or-names: pkgs.callPackage (import scripts/apply-smokeapi.nix) { inherit smokeapi app-ids-or-names steam-app-ids; };
+        apply-smokeapi = app-ids-or-names: pkgs-frozen.callPackage (import scripts/apply-smokeapi.nix) { inherit smokeapi app-ids-or-names steam-app-ids; };
       };
     in
     {
