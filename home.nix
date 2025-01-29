@@ -226,9 +226,17 @@
   };
   # Commands that should only be run in interactive shells
   programs.fish.interactiveShellInit = ''
+    # Use fish when calling 'nix shell' or 'nix develop'
+    ${pkgs.nix-your-shell}/bin/nix-your-shell fish | source
+
+    # Set up hydro theme
     set -g hydro_color_pwd green
     set -g hydro_color_duration brblue
+
+    # Enable fish vi mode
     fish_vi_key_bindings
+
+    # Show pfetch summary
     ${pkgs.pfetch-rs}/bin/pfetch
   '';
 }
