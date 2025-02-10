@@ -32,6 +32,7 @@
     # agda
     bat
     cabal-install
+    cargo
     deploy-rs
     devenv
     elan
@@ -53,6 +54,7 @@
       p.sympy
     ]))
     ripgrep
+    rustc
     sageWithDoc
     scala_3
     tree

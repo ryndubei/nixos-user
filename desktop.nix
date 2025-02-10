@@ -235,6 +235,7 @@
       ms-pyright.pyright
       ms-toolsai.jupyter
       jnoortheen.nix-ide
+      rust-lang.rust-analyzer
       scala-lang.scala
       teabyii.ayu
       usernamehw.errorlens
