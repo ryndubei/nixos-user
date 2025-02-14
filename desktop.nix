@@ -2,6 +2,7 @@
 
 {
   home.packages = (with pkgs; [
+    elan
     electrum
     fira-code
     haskell-language-server
@@ -14,6 +15,7 @@
     onedriver
     # protonmail-bridge
     qbittorrent
+    sageWithDoc
     telegram-desktop
     # thunderbird
     tor-browser

@@ -35,7 +35,6 @@
     cargo
     deploy-rs
     devenv
-    elan
     fishPlugins.hydro
     ffmpeg
     ghc
@@ -55,7 +54,6 @@
     ]))
     ripgrep
     rustc
-    sageWithDoc
     scala_3
     tree
     yt-dlp
