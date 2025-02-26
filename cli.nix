@@ -76,10 +76,7 @@
   #
   #  /etc/profiles/per-user/vasilysterekhov/etc/profile.d/hm-session-vars.sh
   #
-  home.sessionVariables = {
-    # make pfetch not count nix packages (slow)
-    PF_FAST_PKG_COUNT = 1;
-  };
+  # home.sessionVariables = { };
 
   # Let home-manager manage shell
   programs.bash.enable = true;
