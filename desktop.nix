@@ -12,7 +12,6 @@
     mpv
     (nerdfonts.override { fonts = [ "Meslo" ]; })
     nixd
-    onedriver
     # protonmail-bridge
     qbittorrent
     sageWithDoc
