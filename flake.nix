@@ -80,6 +80,7 @@
                 "114586905+ryndubei@users.noreply.github.com";
             })
             ./home.nix
+            ./cli.nix
             ./desktop.nix
             nix-flatpak.homeManagerModules.nix-flatpak
           ];
@@ -90,8 +91,9 @@
         };
 
       nixosModules = {
-        home = import ./home.nix;
-        desktop = import ./desktop.nix;
+        full = { imports = [ ./cli.nix ./home.nix ./desktop.nix ]; };
+        home = { imports = [ ./cli.nix ./home.nix ]; };
+        cli = import ./cli.nix;
       };
     };
 }
