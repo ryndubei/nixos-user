@@ -8,6 +8,7 @@
     haskell-language-server
     jetbrains.idea-community
     legcord
+    libreoffice
     logseq
     mpv
     (nerdfonts.override { fonts = [ "Meslo" ]; })
