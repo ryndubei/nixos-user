@@ -8,6 +8,7 @@
     git-crypt
     nixfmt-classic
     ripgrep
+    sops
     tree
   ];
 
