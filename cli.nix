@@ -148,6 +148,7 @@
 
     # Set up hydro theme
     set -g hydro_color_pwd green
+    set -g hydro_color_error brred
     set -g hydro_color_duration brblue
 
     # Enable fish vi mode
