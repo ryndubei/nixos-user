@@ -30,6 +30,11 @@
 
   fonts.fontconfig.enable = true;
 
+  services.gpg-agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-gnome3;
+  };
+
   services.flatpak = {
     enable = true;
     packages = [
