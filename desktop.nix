@@ -2,14 +2,12 @@
 
 {
   home.packages = (with pkgs; [
-    elan
     electrum
     fira-code
     haskell-language-server
     jetbrains.idea-community
     legcord
     libreoffice
-    logseq
     mpv
     (nerdfonts.override { fonts = [ "Meslo" ]; })
     nixd
@@ -22,11 +20,6 @@
     ungoogled-chromium
     vaults
   ]) ++ (with pkgs.gnomeExtensions; [ appindicator pop-shell system-monitor ]);
-
-  nixpkgs.config.permittedInsecurePackages = [
-    # logseq dependency, marked insecure due to EOL
-    "electron-27.3.11"
-  ];
 
   fonts.fontconfig.enable = true;
 
@@ -240,9 +233,7 @@
       mkhl.direnv
       ms-python.python
       ms-pyright.pyright
-      ms-toolsai.jupyter
       jnoortheen.nix-ide
-      rust-lang.rust-analyzer
       scala-lang.scala
       teabyii.ayu
       usernamehw.errorlens

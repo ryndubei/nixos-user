@@ -31,23 +31,10 @@
     # '')
     # agda
     cabal-install
-    cargo
-    devenv
     ffmpeg
     ghc
-    jdk17
     pandoc
-    (python3.withPackages (p: [
-      p.ipykernel
-      p.jupyter
-      p.matplotlib
-      p.notebook
-      p.numpy
-      p.pandas
-      p.scipy
-      p.sympy
-    ]))
-    rustc
+    python3
     scala_3
     yt-dlp
   ]);
