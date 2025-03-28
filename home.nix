@@ -31,6 +31,7 @@
     # '')
     # agda
     cabal-install
+    clang-tools
     ffmpeg
     ghc
     pandoc

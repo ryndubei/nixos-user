@@ -234,6 +234,7 @@
       ms-python.python
       ms-pyright.pyright
       jnoortheen.nix-ide
+      llvm-vs-code-extensions.vscode-clangd
       scala-lang.scala
       teabyii.ayu
       usernamehw.errorlens
