@@ -318,6 +318,7 @@
       "notebook.lineNumbers" = "on";
       "python.languageServer" = "Jedi";
       "lean4.alwaysShowTitleBarMenu" = false;
+      "terminal.integrated.defaultProfile.linux" = "fish";
     };
   };
 }
