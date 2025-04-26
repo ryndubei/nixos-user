@@ -42,6 +42,9 @@
 
   services.syncthing.enable = true;
 
+  # Automatically remove old home-manager configuration generations
+  services.home-manager.autoExpire.enable = true;
+
   # systemd.user.services.protonmail-bridge = {
   #   Unit = {
   #     Description = "ProtonMail Bridge";
