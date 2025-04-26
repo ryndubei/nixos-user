@@ -167,6 +167,8 @@
   };
 
   programs.looking-glass-client.enable = true;
+  # Use system installation, if present, otherwise don't install
+  programs.looking-glass-client.package = pkgs.emptyDirectory;
   programs.looking-glass-client.settings = {
     app.shmFile = "/dev/kvmfr0";
     win = {
