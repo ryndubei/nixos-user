@@ -238,6 +238,7 @@
       jnoortheen.nix-ide
       llvm-vs-code-extensions.vscode-clangd
       scala-lang.scala
+      sumneko.lua
       teabyii.ayu
       usernamehw.errorlens
       vscodevim.vim
