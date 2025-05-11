@@ -35,7 +35,7 @@
     ffmpeg
     ghc
     pandoc
-    python3
+    (python3.withPackages (p: [ p.numpy p.pandas ]))
     scala_3
     yt-dlp
   ]);
