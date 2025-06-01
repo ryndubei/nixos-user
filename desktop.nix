@@ -9,7 +9,7 @@
     legcord
     libreoffice
     mpv
-    (nerdfonts.override { fonts = [ "Meslo" ]; })
+    nerd-fonts.meslo-lg
     nixd
     # protonmail-bridge
     qbittorrent

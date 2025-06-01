@@ -2,15 +2,15 @@
   description = "Home Manager configuration of vasilysterekhov";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-24.11";
-    nixpkgs-frozen.url = "nixpkgs/nixos-24.11";
+    nixpkgs.url = "nixpkgs/nixos-25.05";
+    nixpkgs-frozen.url = "nixpkgs/nixos-25.05";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.5.1";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
 
     stellarkey-source.url = "gitlab:stellarkey/stellarkey?host=0xacab.org";
     stellarkey-source.flake = false;
