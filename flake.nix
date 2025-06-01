@@ -90,7 +90,7 @@
           extraSpecialArgs = { inherit anti-ip; };
         };
 
-      nixosModules = {
+      homeManagerModules = {
         full = { imports = [ ./cli.nix ./home.nix ./desktop.nix ]; };
         home = { imports = [ ./cli.nix ./home.nix ]; };
         cli = import ./cli.nix;
