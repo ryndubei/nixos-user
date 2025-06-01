@@ -29,7 +29,6 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-    # agda
     cabal-install
     clang-tools
     ffmpeg
@@ -44,18 +43,6 @@
 
   # Automatically remove old home-manager configuration generations
   services.home-manager.autoExpire.enable = true;
-
-  # systemd.user.services.protonmail-bridge = {
-  #   Unit = {
-  #     Description = "ProtonMail Bridge";
-  #   };
-  #   Install = {
-  #     WantedBy = [ "default.target" ];
-  #   };
-  #   Service = {
-  #     ExecStart = "${pkgs.protonmail-bridge}/bin/protonmail-bridge --noninteractive";
-  #   };
-  # };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.

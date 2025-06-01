@@ -225,12 +225,6 @@
       usernamehw.errorlens
       vscodevim.vim
     ]) ++ (pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-      #{
-      #  name = "agda-mode";
-      #  publisher = "banacorn";
-      #  version = "0.4.7";
-      #  sha256 = "80d6b79f5ea53f7a28051bc66ae813b9ae085dc233a4c93b8c160c24342c634d";
-      #}
       {
         name = "lean4";
         publisher = "leanprover";
