@@ -25,7 +25,7 @@
 
   services.gpg-agent = {
     enable = true;
-    pinentryPackage = pkgs.pinentry-gnome3;
+    pinentry.package = pkgs.pinentry-gnome3;
   };
 
   services.flatpak = {
@@ -208,7 +208,7 @@
     enable = true;
     package = pkgs.vscodium;
     mutableExtensionsDir = false;
-    extensions = (with pkgs.vscode-extensions; [
+    profiles.default.extensions = (with pkgs.vscode-extensions; [
       haskell.haskell
       github.copilot
       github.copilot-chat
@@ -244,7 +244,7 @@
         sha256 = "sha256-rYeZNBz6HeZ059ksChGsXbuOao9H5m5lHGXJ4ELs6xc=";
       }
     ]);
-    userSettings = {
+    profiles.default.userSettings = {
       "haskell.manageHLS" = "PATH";
       "git.enableSmartCommit" = true;
       "window.menuBarVisibility" = "toggle";
