@@ -196,9 +196,6 @@
     };
   };
 
-  # Let home-manager manage the xsession
-  xsession.enable = true;
-
   # Unfree package exceptions
   nixpkgs.config.allowUnfreePredicate = let
     whitelist = map lib.getName (with pkgs; [
