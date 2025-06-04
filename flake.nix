@@ -81,6 +81,7 @@
             })
             ./home.nix
             ./cli.nix
+            ./cli-extra.nix
             ./desktop.nix
             nix-flatpak.homeManagerModules.nix-flatpak
           ];
@@ -91,8 +92,11 @@
         };
 
       homeManagerModules = {
-        full = { imports = [ ./cli.nix ./home.nix ./desktop.nix ]; };
-        home = { imports = [ ./cli.nix ./home.nix ]; };
+        full = {
+          imports = [ ./cli.nix ./home.nix ./desktop.nix ./cli-extra.nix ];
+        };
+        home = { imports = [ ./cli.nix ./home.nix ./cli-extra.nix ]; };
+        cli-extra = import ./cli-extra.nix;
         cli = import ./cli.nix;
       };
     };
