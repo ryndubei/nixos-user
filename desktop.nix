@@ -3,6 +3,7 @@
 {
   home.packages = (with pkgs; [
     electrum
+    evolution
     fira-code
     haskell-language-server
     jetbrains.idea-community
@@ -11,11 +12,10 @@
     mpv
     nerd-fonts.meslo-lg
     nixd
-    # protonmail-bridge
+    protonmail-bridge
     qbittorrent
     sageWithDoc
     telegram-desktop
-    # thunderbird
     tor-browser
     ungoogled-chromium
     vaults
@@ -26,6 +26,15 @@
   services.gpg-agent = {
     enable = true;
     pinentry.package = pkgs.pinentry-gnome3;
+  };
+
+  systemd.user.services.protonmail-bridge = {
+    Unit.Description = "ProtonMail Bridge";
+    Unit.After = [ "graphical-session.target" ];
+    Install.WantedBy = [ "graphical-session.target" ];
+    Service.ExecStart =
+      "${pkgs.protonmail-bridge}/bin/protonmail-bridge --noninteractive --log-level info";
+    Service.Restart = "always";
   };
 
   services.flatpak = {
