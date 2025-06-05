@@ -101,14 +101,16 @@
     flatpak = "flatpak --user";
     logoutall = "loginctl terminate-user $(whoami)";
     cat = "bat -pp";
-  };
-  programs.fish.shellAliases = {
-    pull-system = "fish -c 'cd /etc/nixos && sudo git fetch && sudo git pull'";
-    pull-user = "fish -c 'cd ~/.config/home-manager && git fetch && git pull'";
-    update-user = "pull-user && rebuild-user switch";
-    update-system = "pull-system && rebuild-system switch /etc/nixos";
+    pull-system =
+      "$SHELL -c 'cd /etc/nixos && sudo git fetch && sudo git pull'";
+    pull-user =
+      "$SHELL -c 'cd ~/.config/home-manager && git fetch && git pull'";
     # produce hie AST and nothing more
     ghc-dump-hie = "ghc -fwrite-ide-info -fno-code -fforce-recomp -ddump-hie";
+  };
+  programs.fish.shellAliases = {
+    update-user = "pull-user && rebuild-user switch";
+    update-system = "pull-system && rebuild-system switch /etc/nixos";
   };
   programs.fish.functions = {
     # we assume all extra substituters are just for development flakes, and not
