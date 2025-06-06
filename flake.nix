@@ -75,6 +75,7 @@
             ./cli.nix
             ./cli-extra.nix
             ./desktop.nix
+            ./services/protonmail-bridge.nix
             nix-flatpak.homeManagerModules.nix-flatpak
           ];
 
@@ -84,8 +85,14 @@
         };
 
       homeManagerModules = {
-        default = { imports = [ ./cli.nix ./cli-extra.nix ./desktop.nix ]; };
-        desktop = import ./desktop.nix;
+        default = {
+          imports = [
+            ./cli.nix
+            ./cli-extra.nix
+            ./desktop.nix
+            ./services/protonmail-bridge.nix
+          ];
+        };
         cli-extra = import ./cli-extra.nix;
         cli = import ./cli.nix;
       };

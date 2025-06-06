@@ -27,14 +27,8 @@
     pinentry.package = pkgs.pinentry-gnome3;
   };
 
-  systemd.user.services.protonmail-bridge = {
-    Unit.Description = "ProtonMail Bridge";
-    Unit.After = [ "graphical-session.target" ];
-    Install.WantedBy = [ "graphical-session.target" ];
-    Service.ExecStart =
-      "${pkgs.protonmail-bridge}/bin/protonmail-bridge --noninteractive --log-level info";
-    Service.Restart = "always";
-  };
+  # NOTE: custom module (services/protonmail-bridge.nix)
+  services.protonmail-bridge.enable = true;
 
   services.flatpak = {
     enable = true;
