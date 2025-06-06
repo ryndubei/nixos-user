@@ -70,15 +70,6 @@
           # Specify your home configuration modules here, for example,
           # the path to your home.nix.
           modules = [
-            ({ ... }: {
-              # User-specific settings
-              home.username = "vasilysterekhov";
-              home.homeDirectory = "/home/vasilysterekhov";
-
-              programs.git.userName = "ryndubei";
-              programs.git.userEmail =
-                "114586905+ryndubei@users.noreply.github.com";
-            })
             ./home.nix
             ./cli.nix
             ./cli-extra.nix

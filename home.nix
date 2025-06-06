@@ -13,4 +13,10 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  # User-specific settings
+  home.username = "vasilysterekhov";
+  home.homeDirectory = "/home/vasilysterekhov";
+  programs.git.userName = "ryndubei";
+  programs.git.userEmail = "114586905+ryndubei@users.noreply.github.com";
 }
