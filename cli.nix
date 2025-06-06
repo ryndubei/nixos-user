@@ -6,6 +6,7 @@
     deploy-rs
     fishPlugins.hydro
     git-crypt
+    hledger
     nixfmt-classic
     ripgrep
     sops
