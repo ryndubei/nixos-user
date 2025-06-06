@@ -84,10 +84,8 @@
         };
 
       homeManagerModules = {
-        full = {
-          imports = [ ./cli.nix ./home.nix ./desktop.nix ./cli-extra.nix ];
-        };
-        home = { imports = [ ./cli.nix ./home.nix ./cli-extra.nix ]; };
+        default = { imports = [ ./cli.nix ./cli-extra.nix ./desktop.nix ]; };
+        desktop = import ./desktop.nix;
         cli-extra = import ./cli-extra.nix;
         cli = import ./cli.nix;
       };
