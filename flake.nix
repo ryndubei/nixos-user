@@ -42,11 +42,8 @@
           value = appid;
         }) (builtins.fromJSON
           (builtins.readFile "${steamappidlist}/data/games_appid.json")).apps);
-      # don't want to rebuild these on every e.g. new compiler release, so we use a fixed nixpkgs instance
-      smokeapi = pkgs-frozen.callPackage (import pkgs/smokeapi.nix) {
-        inherit smokeapi-zip;
-      };
       anti-ip = {
+        # don't want to rebuild these on every e.g. new compiler release, so we use a fixed nixpkgs instance
         libstellarkey = pkgs-frozen.callPackage (import pkgs/stellarkey.nix) {
           src = stellarkey-source;
         };
@@ -58,7 +55,11 @@
           };
 
         apply-smokeapi = app-ids-or-names:
-          pkgs-frozen.callPackage (import scripts/apply-smokeapi.nix) {
+          let
+            smokeapi = pkgs-frozen.callPackage (import pkgs/smokeapi.nix) {
+              inherit smokeapi-zip;
+            };
+          in pkgs-frozen.callPackage (import scripts/apply-smokeapi.nix) {
             inherit smokeapi app-ids-or-names steam-app-ids;
           };
       };
