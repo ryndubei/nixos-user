@@ -10,6 +10,7 @@
     ghc
     pandoc
     (python3.withPackages (p: [ p.numpy p.pandas ]))
+    sage
     scala_3
     yt-dlp
   ];

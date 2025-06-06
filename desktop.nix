@@ -14,7 +14,6 @@
     nixd
     protonmail-bridge
     qbittorrent
-    sageWithDoc
     telegram-desktop
     tor-browser
     ungoogled-chromium
