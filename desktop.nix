@@ -19,6 +19,7 @@
     tor-browser
     ungoogled-chromium
     vaults
+    zotero
   ]) ++ (with pkgs.gnomeExtensions; [ appindicator pop-shell system-monitor ]);
 
   fonts.fontconfig.enable = true;
