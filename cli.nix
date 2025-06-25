@@ -123,6 +123,10 @@
 
     ghc-view-hie = "ghc-dump-hie $argv | ${pkgs.bat}/bin/bat --language log";
 
+    dev-expr = ''
+      nix develop --impure --expr 'let pkgs = import <nixpkgs> {}; in pkgs.mkShell '$argv[1] $argv[2..]
+    '';
+
     # Fix unsightly background on vi mode indicator in hydro
     fish_mode_prompt = ''
       switch $fish_bind_mode
