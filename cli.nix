@@ -108,19 +108,10 @@
       "$SHELL -c 'cd ~/.config/home-manager && git fetch && git pull'";
     # produce hie AST and nothing more
     ghc-dump-hie = "ghc -fwrite-ide-info -fno-code -fforce-recomp -ddump-hie";
-  };
-  programs.fish.shellAliases = {
-    update-user = "pull-user && rebuild-user switch";
-    update-system = "pull-system && rebuild-system switch /etc/nixos";
+    update-user = "pull-user && home-manager switch";
+    update-system = "pull-system && sudo nixos-rebuild switch";
   };
   programs.fish.functions = {
-    # we assume all extra substituters are just for development flakes, and not
-    # worth querying for regular system updates
-    rebuild-user =
-      "home-manager $argv[1] --option substituters https://cache.nixos.org $argv[2..]";
-    rebuild-system =
-      "sudo nixos-rebuild $argv[1] --flake $argv[2]#$argv[3] --option substituters https://cache.nixos.org $argv[4..]";
-
     ghc-view-hie = "ghc-dump-hie $argv | ${pkgs.bat}/bin/bat --language log";
 
     dev-expr = ''
