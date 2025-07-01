@@ -152,6 +152,11 @@
     (import data/pop-shell-keybindings.nix)
   ];
 
+  gtk.theme = {
+    name = "Adwaita-dark";
+    package = pkgs.gnome-themes-extra;
+  };
+
   programs.looking-glass-client.enable = true;
   # Use system installation, if present, otherwise don't install
   programs.looking-glass-client.package = pkgs.emptyDirectory;
