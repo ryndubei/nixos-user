@@ -99,7 +99,6 @@
   };
   # Aliases that make sense in all shells
   home.shellAliases = {
-    flatpak = "flatpak --user";
     logoutall = "loginctl terminate-user $(whoami)";
     cat = "bat -pp";
     pull-system =
