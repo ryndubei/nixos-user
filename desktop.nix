@@ -1,4 +1,4 @@
-{ pkgs, lib, config, anti-ip, ... }:
+{ pkgs, lib, anti-ip, ... }:
 
 {
   home.packages = (with pkgs; [
@@ -35,7 +35,6 @@
   services.flatpak = {
     enable = true;
     packages = [
-      "com.valvesoftware.Steam"
       "com.github.tchx84.Flatseal"
       "org.prismlauncher.PrismLauncher"
       "md.obsidian.Obsidian"
@@ -54,18 +53,6 @@
       filesystems = [ "~/Documents/Notes" "!/run/media" "!/mnt" "!/media" ];
       shared = [ "!network" ];
     };
-    "com.valvesoftware.Steam".Context = {
-      filesystems = [
-        "!xdg-music"
-        "!xdg-pictures"
-        "/mnt/hard_drive/data/${config.home.username}/Games_(slow)/Steam_Library"
-        "${anti-ip.libstellarkey}:ro"
-      ];
-    };
-    "com.valvesoftware.Steam".Environment = {
-      # add LD_PRELOAD="$STELLARKEY_PATH:$LD_PRELOAD" %command% to launch options to use
-      "STELLARKEY_PATH" = "${anti-ip.libstellarkey}/lib/libstellarkey.so";
-    };
     "com.spotify.Client".Context = {
       filesystems = [
         "${anti-ip.libspotifyadblock}"
@@ -79,26 +66,6 @@
 
   home.file.".config/spotify-adblock/config.toml".source =
     "${anti-ip.spotify-adblock-source}/config.toml";
-
-  # Run apply-smokeapi on startup
-  # TODO: move this to a Steam desktop file
-  systemd.user.services.apply-smokeapi = (let
-    # The appids (ints)/names (strings) we are attempting to patch
-    apps = [ "Imperator: Rome" ];
-  in {
-    Unit.Description = "Apply SmokeAPI";
-    Install.WantedBy = [ "graphical-session.target" ];
-    Service = {
-      Type = "oneshot";
-      ExecStart = "${anti-ip.apply-smokeapi apps}/bin/apply-smokeapi";
-    };
-  });
-
-  # Run apply-smokeapi on home-manager activation as well
-  home.activation.startApplySmokeapi =
-    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      run /run/current-system/sw/bin/systemctl start --user apply-smokeapi.service
-    '';
 
   programs.neovim.extraLuaConfig = ''
     require('lspconfig')['hls'].setup{

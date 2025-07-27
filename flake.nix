@@ -75,6 +75,7 @@
             ./cli.nix
             ./cli-extra.nix
             ./desktop.nix
+            ./steam.nix
             ./services/protonmail-bridge.nix
             nix-flatpak.homeManagerModules.nix-flatpak
           ];
@@ -90,6 +91,7 @@
             ./cli.nix
             ./cli-extra.nix
             ./desktop.nix
+            ./steam.nix
             ./services/protonmail-bridge.nix
           ];
         };
