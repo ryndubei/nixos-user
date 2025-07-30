@@ -10,6 +10,15 @@
         "!xdg-pictures"
         "/mnt/hard_drive/data/${config.home.username}/Games_(slow)/Steam_Library"
         "${anti-ip.libstellarkey}:ro"
+        # https://github.com/WiVRn/WiVRn
+        # (assumed in system config)
+        "xdg-run/wivrn:ro"
+        "xdg-state/wivrn:ro"
+        "xdg-config/openxr:ro"
+        "xdg-config/openvr:ro"
+        # wivrn path in nix store is determined by the system config, so must
+        # give access to the entire store
+        "/nix/store:ro"
       ];
     };
     "com.valvesoftware.Steam".Environment = {
@@ -38,5 +47,11 @@
   home.activation.startApplySmokeapi =
     lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       run /run/current-system/sw/bin/systemctl start --user apply-smokeapi.service
+    '';
+
+  home.activation.steamOpenxrSymlink =
+    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      run mkdir -p ~/.var/app/com.valvesoftware.Steam/.config/openxr/1
+      run ln -sf ~/.config/openxr/1 ~/.var/app/com.valvesoftware.Steam/.config/openxr/1
     '';
 }
