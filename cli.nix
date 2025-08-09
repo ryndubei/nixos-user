@@ -3,47 +3,11 @@
 {
   home.packages = with pkgs; [
     bat
-    deploy-rs
     fishPlugins.hydro
-    git-crypt
-    hledger
     nixfmt-classic
     ripgrep
-    sops
     tree
   ];
-
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-    vimdiffAlias = true;
-    extraConfig = ''
-      set nocompatible
-      set backspace=indent,eol,start
-      syntax on
-      set relativenumber
-      set expandtab
-      set shiftwidth=4
-      set swapfile
-      set dir=/tmp
-      set number
-      set mouse=
-    '';
-    extraLuaConfig = ''
-      require'nvim-treesitter.configs'.setup {
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = false,
-        },
-      }
-    '';
-    plugins = with pkgs.vimPlugins; [
-      vim-lastplace
-      (nvim-treesitter.withPlugins (p: [ p.haskell p.nix p.vimdoc ]))
-    ];
-  };
 
   programs.zoxide.enable = true;
 
@@ -53,8 +17,6 @@
     enable = true;
     extraConfig = { safe.directory = [ "/etc/nixos" "/etc/nixos/.git" ]; };
   };
-
-  programs.gpg.enable = true;
 
   programs.direnv = {
     enable = true;
@@ -93,52 +55,9 @@
     '';
   };
   programs.fish.enable = true;
-  programs.fish.shellAbbrs = {
-    cd = "z";
-    cdh = "cd $HOME/projects/HASKELL";
-  };
+  programs.fish.shellAbbrs.cd = "z";
   # Aliases that make sense in all shells
-  home.shellAliases = {
-    logoutall = "loginctl terminate-user $(whoami)";
-    cat = "bat -pp";
-    pull-system =
-      "$SHELL -c 'cd /etc/nixos && sudo git fetch && sudo git pull'";
-    pull-user =
-      "$SHELL -c 'cd ~/.config/home-manager && git fetch && git pull'";
-    # produce hie AST and nothing more
-    ghc-dump-hie = "ghc -fwrite-ide-info -fno-code -fforce-recomp -ddump-hie";
-    update-user = "pull-user && home-manager switch";
-    update-system = "pull-system && sudo nixos-rebuild switch";
-  };
-  programs.fish.functions = {
-    ghc-view-hie = "ghc-dump-hie $argv | ${pkgs.bat}/bin/bat --language log";
-
-    dev-expr = ''
-      nix develop --impure --expr 'let pkgs = import <nixpkgs> {}; in pkgs.mkShell '$argv[1] $argv[2..]
-    '';
-
-    # Fix unsightly background on vi mode indicator in hydro
-    fish_mode_prompt = ''
-      switch $fish_bind_mode
-        case default
-          set_color --italics --bold red
-          echo ' N '
-        case insert
-          set_color --italics --bold green
-          echo ' I '
-        case replace replace_one
-          set_color --italics --bold green
-          echo ' R '
-        case visual
-          set_color --italics --bold brmagenta
-          echo ' V '
-        case '*'
-          set_color --italics --bold red
-          echo $fish_bind_mode
-      end
-      set_color normal
-    '';
-  };
+  home.shellAliases.cat = "bat -pp";
   # Commands that should only be run in interactive shells
   programs.fish.interactiveShellInit = ''
     # Use fish when calling 'nix shell' or 'nix develop'
@@ -148,9 +67,6 @@
     set -g hydro_color_pwd green
     set -g hydro_color_error brred
     set -g hydro_color_duration brblue
-
-    # Enable fish vi mode
-    fish_vi_key_bindings
 
     # Show pfetch summary
     ${pkgs.pfetch-rs}/bin/pfetch
