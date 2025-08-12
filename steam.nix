@@ -22,7 +22,9 @@
   # TODO: move this to a Steam desktop file
   systemd.user.services.apply-smokeapi = let
     # The appids (ints)/names (strings) we are attempting to patch
-    apps = [ "Imperator: Rome" ];
+    apps = [
+      "Europa Universalis IV" # https://0xacab.org/stellarkey/stellarkey/-/issues/2
+    ];
   in {
     Unit.Description = "Apply SmokeAPI";
     Install.WantedBy = [ "graphical-session.target" ];
