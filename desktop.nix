@@ -195,6 +195,7 @@
       scala-lang.scala
       sumneko.lua
       teabyii.ayu
+      twxs.cmake
       usernamehw.errorlens
       vscodevim.vim
     ]) ++ (pkgs.vscode-utils.extensionsFromVscodeMarketplace [
