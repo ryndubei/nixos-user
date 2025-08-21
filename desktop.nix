@@ -2,6 +2,7 @@
 
 {
   home.packages = (with pkgs; [
+    altus
     electrum
     evolution
     fira-code
