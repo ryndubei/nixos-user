@@ -3,6 +3,7 @@
 {
   home.packages = (with pkgs; [
     altus
+    authenticator
     electrum
     evolution
     fira-code
