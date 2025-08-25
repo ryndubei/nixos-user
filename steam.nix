@@ -1,4 +1,4 @@
-{ anti-ip, config, lib, ... }:
+{ pkgs, config, lib, ... }:
 
 {
   services.flatpak.packages = [ "com.valvesoftware.Steam" ];
@@ -9,7 +9,7 @@
         "!xdg-music"
         "!xdg-pictures"
         "/mnt/hard_drive/data/${config.home.username}/Games_(slow)/Steam_Library"
-        "${anti-ip.libstellarkey}:ro"
+        "${pkgs.libstellarkey}:ro"
         # https://github.com/WiVRn/WiVRn
         # (assumed in system config)
         "xdg-run/wivrn:ro"
@@ -23,7 +23,7 @@
     };
     "com.valvesoftware.Steam".Environment = {
       # add LD_PRELOAD="$STELLARKEY_PATH:$LD_PRELOAD" %command% to launch options to use
-      "STELLARKEY_PATH" = "${anti-ip.libstellarkey}/lib/libstellarkey.so";
+      "STELLARKEY_PATH" = "${pkgs.libstellarkey}/lib/libstellarkey.so";
     };
   };
 
@@ -39,7 +39,7 @@
     Install.WantedBy = [ "graphical-session.target" ];
     Service = {
       Type = "oneshot";
-      ExecStart = "${anti-ip.apply-smokeapi apps}/bin/apply-smokeapi";
+      ExecStart = "${pkgs.apply-smokeapi apps}/bin/apply-smokeapi";
     };
   };
 

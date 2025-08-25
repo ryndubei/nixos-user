@@ -1,4 +1,4 @@
-{ pkgs, lib, anti-ip, ... }:
+{ pkgs, lib, ... }:
 
 {
   home.packages = (with pkgs; [
@@ -56,18 +56,16 @@
       shared = [ "!network" ];
     };
     "com.spotify.Client".Context = {
-      filesystems = [
-        "${anti-ip.libspotifyadblock}"
-        "~/.config/spotify-adblock/config.toml"
-      ];
+      filesystems =
+        [ "${pkgs.libspotifyadblock}" "~/.config/spotify-adblock/config.toml" ];
     };
     "com.spotify.Client".Environment = {
-      LD_PRELOAD = "${anti-ip.libspotifyadblock}/lib/libspotifyadblock.so";
+      LD_PRELOAD = "${pkgs.libspotifyadblock}/lib/libspotifyadblock.so";
     };
   };
 
   home.file.".config/spotify-adblock/config.toml".source =
-    "${anti-ip.spotify-adblock-source}/config.toml";
+    "${pkgs.libspotifyadblock.src}/config.toml";
 
   programs.neovim.extraLuaConfig = ''
     require('lspconfig')['hls'].setup{

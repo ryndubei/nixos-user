@@ -73,38 +73,7 @@
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs",
         "nixpkgs-frozen": "nixpkgs-frozen",
-        "smokeapi-zip": "smokeapi-zip",
-        "spotify-adblock-source": "spotify-adblock-source",
-        "steamappidlist": "steamappidlist",
-        "stellarkey-source": "stellarkey-source"
-      }
-    },
-    "smokeapi-zip": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-cVWZUa+9e3fFFHCrKpjTEYQmheSDxFshWcXeoRl1V38=",
-        "type": "file",
-        "url": "https://github.com/acidicoala/SmokeAPI/releases/download/v2.0.5/SmokeAPI-v2.0.5.zip"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://github.com/acidicoala/SmokeAPI/releases/download/v2.0.5/SmokeAPI-v2.0.5.zip"
-      }
-    },
-    "spotify-adblock-source": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1689983571,
-        "narHash": "sha256-UzpHAHpQx2MlmBNKm2turjeVmgp5zXKWm3nZbEo0mYE=",
-        "owner": "abba23",
-        "repo": "spotify-adblock",
-        "rev": "5a3281dee9f889afdeea7263558e7a715dcf5aab",
-        "type": "github"
-      },
-      "original": {
-        "owner": "abba23",
-        "repo": "spotify-adblock",
-        "type": "github"
+        "steamappidlist": "steamappidlist"
       }
     },
     "steamappidlist": {
@@ -121,24 +90,6 @@
         "owner": "jsnli",
         "repo": "SteamAppIDList",
         "type": "github"
-      }
-    },
-    "stellarkey-source": {
-      "flake": false,
-      "locked": {
-        "host": "0xacab.org",
-        "lastModified": 1668967692,
-        "narHash": "sha256-NLSRi/M16bLGA2bs1HANUHOR5JnrGCMudWQBTAVJGpM=",
-        "owner": "stellarkey",
-        "repo": "stellarkey",
-        "rev": "717fa2d53db3e7e0019dfad19748ceb7137699b0",
-        "type": "gitlab"
-      },
-      "original": {
-        "host": "0xacab.org",
-        "owner": "stellarkey",
-        "repo": "stellarkey",
-        "type": "gitlab"
       }
     }
   },

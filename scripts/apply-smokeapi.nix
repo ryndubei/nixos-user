@@ -7,9 +7,10 @@
 # Returns a package containing a shell script to find and patch all
 # steam_api.dll and steam_api64.dll files belonging to the specified
 # appids.
-{ pkgs, smokeapi, app-ids-or-names, steam-app-ids, lib, ... }:
+{ pkgs, app-ids-or-names, steam-app-ids, lib, ... }:
 
 let
+  smokeapi = pkgs.callPackage ../pkgs/smokeapi.nix { };
   steam-app-ids-inverted =
     lib.attrsets.concatMapAttrs (name: appid: { "${toString appid}" = name; })
     steam-app-ids;
