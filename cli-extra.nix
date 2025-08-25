@@ -4,6 +4,7 @@
 
 {
   home.packages = with pkgs; [
+    android-tools
     cabal-install
     clang-tools
     ffmpeg
