@@ -21,6 +21,7 @@
     tor-browser
     ungoogled-chromium
     vaults
+    xournalpp
     zotero
   ]) ++ (with pkgs.gnomeExtensions; [ appindicator pop-shell system-monitor ]);
 
