@@ -4,8 +4,10 @@
   home.packages = with pkgs; [
     bat
     deploy-rs
+    encfs
     fishPlugins.hydro
     git-crypt
+    gocryptfs
     hledger
     nixfmt-classic
     ripgrep
