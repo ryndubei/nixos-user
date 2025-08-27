@@ -3,8 +3,8 @@
 {
   home.packages = with pkgs; [
     bat
+    cryfs
     deploy-rs
-    encfs
     fishPlugins.hydro
     git-crypt
     gocryptfs
