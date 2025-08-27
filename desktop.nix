@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 
 {
   home.packages = (with pkgs; [
@@ -61,6 +61,12 @@
     };
     "com.spotify.Client".Environment = {
       LD_PRELOAD = "${pkgs.libspotifyadblock}/lib/libspotifyadblock.so";
+    };
+    "com.usebottles.bottles".Context = {
+      filesystems = [
+        "~/.var/app/com.valvesoftware.Steam"
+        "/mnt/hard_drive/data/${config.home.username}/Games_(slow)/Steam_Library"
+      ];
     };
   };
 
