@@ -47,11 +47,22 @@ in {
       Unit.Description = "ProtonMail Bridge";
       Unit.After = [ "graphical-session.target" ];
       Install.WantedBy = [ "graphical-session.target" ];
-      Service.ExecStart =
-        "${lib.getExe cfg.package} --noninteractive --log-level info";
-      Service.Restart = "always";
-      Service.TimeoutStartSec = 10;
-      Service.Type = "exec";
+      Service = {
+        ExecStart =
+          "${lib.getExe cfg.package} --noninteractive --log-level info";
+        Restart = "always";
+        TimeoutStartSec = 10;
+        Type = "exec";
+
+        # Sandboxing.
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        NoNewPrivileges = true;
+        PrivateUsers = true;
+        RestrictNamespaces = true;
+        SystemCallArchitectures = "native";
+        SystemCallFilter = "@system-service";
+      };
     };
   };
 }
