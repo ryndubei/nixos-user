@@ -9,7 +9,8 @@ stdenv.mkDerivation {
     rev = "717fa2d53db3e7e0019dfad19748ceb7137699b";
     hash = "sha256-NLSRi/M16bLGA2bs1HANUHOR5JnrGCMudWQBTAVJGpM=";
   };
-  buildPhase = "make libstellarkey.so";
+  buildPhase =
+    "make libstellarkey.so CXXFLAGS='-Og -g -DSTELLARKEY_LOG=/tmp/stellarkey.log'";
   installPhase = ''
     mkdir -p $out/lib
     cp libstellarkey.so $out/lib
