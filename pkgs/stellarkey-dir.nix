@@ -10,7 +10,7 @@ let
     steam-app-ids.dlc.data;
   config = lib.strings.concatStrings (lib.attrsets.mapAttrsToList
     (name: appid: ''
-      ${toString appid} = "${name}";
+      ${toString appid} = "${name}"
     '') dlcs);
 in runCommandNoCC "stellarkey-dir" { } ''
   mkdir $out
