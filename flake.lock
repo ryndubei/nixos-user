@@ -79,11 +79,11 @@
     "steamappidlist": {
       "flake": false,
       "locked": {
-        "lastModified": 1719882896,
-        "narHash": "sha256-du0NFPCEr+Z99p3bE12y6GUs0GoEqgwUvD6Up7qQ91M=",
+        "lastModified": 1756863459,
+        "narHash": "sha256-RgYyBn+zW8HKyjDgOu+aay8EI0ZlN3KmP2Mk3SMiJm8=",
         "owner": "jsnli",
         "repo": "SteamAppIDList",
-        "rev": "5acd8f788b2b73efb3ee8b74994702bc4c2b1b99",
+        "rev": "870714096e03e985eac4d2588da10420d9627d20",
         "type": "github"
       },
       "original": {

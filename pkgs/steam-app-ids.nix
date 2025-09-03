@@ -1,12 +1,14 @@
 { lib, steamappidlist }:
 
 let
+  list = path:
+    builtins.filter (x: x != null)
+    (builtins.fromJSON (builtins.readFile "${steamappidlist}/${path}"));
   extract = path:
     builtins.listToAttrs (builtins.map ({ name, appid, ... }: {
       inherit name;
       value = appid;
-    })
-      (builtins.fromJSON (builtins.readFile "${steamappidlist}/${path}")).apps);
+    }) (list path));
   steam-app-ids = {
     games = extract "/data/games_appid.json";
     dlc = extract "/data/dlc_appid.json";
