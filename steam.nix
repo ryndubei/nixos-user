@@ -24,6 +24,13 @@
     "com.valvesoftware.Steam".Environment = {
       # add LD_PRELOAD="$STELLARKEY_PATH:$LD_PRELOAD" %command% to launch options to use
       "STELLARKEY_PATH" = "${pkgs.libstellarkey}/lib/libstellarkey.so";
+      # Stellarkey's auto-detection is insufficient for EU4 because the Steam SDK
+      # outputs a limited number of unowned DLCs.
+      # https://partner.steamgames.com/doc/api/ISteamApps#GetDLCCount 
+      # So we have to explicitly list all DLCs.
+      # Use in launch options with STELLARKEY_DIR="$STELLARKEY_DIR_EU4"
+      "STELLARKEY_DIR_EU4" =
+        (pkgs.stellarkey-dir "Europa Universalis IV").outPath;
     };
   };
 
@@ -31,9 +38,7 @@
   # TODO: move this to a Steam desktop file
   systemd.user.services.apply-smokeapi = let
     # The appids (ints)/names (strings) we are attempting to patch
-    apps = [
-      "Europa Universalis IV" # https://0xacab.org/stellarkey/stellarkey/-/issues/2
-    ];
+    apps = [ ];
   in {
     Unit.Description = "Apply SmokeAPI";
     Install.WantedBy = [ "graphical-session.target" ];

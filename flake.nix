@@ -20,12 +20,6 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-      steam-app-ids = builtins.listToAttrs (builtins.map
-        ({ name, appid, ... }: {
-          inherit name;
-          value = appid;
-        }) (builtins.fromJSON
-          (builtins.readFile "${steamappidlist}/data/games_appid.json")).apps);
     in {
       homeConfigurations."vasilysterekhov" =
         home-manager.lib.homeManagerConfiguration {
@@ -46,7 +40,7 @@
 
           # Optionally use extraSpecialArgs
           # to pass through arguments to home.nix
-          extraSpecialArgs = { inherit inputs steam-app-ids; };
+          extraSpecialArgs = { inherit inputs steamappidlist; };
         };
 
       homeManagerModules = {

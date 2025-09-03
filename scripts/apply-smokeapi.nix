@@ -7,29 +7,17 @@
 # Returns a package containing a shell script to find and patch all
 # steam_api.dll and steam_api64.dll files belonging to the specified
 # appids.
-{ pkgs, app-ids-or-names, steam-app-ids, lib, ... }:
+{ pkgs, app-ids-or-names, lib, steam-app-ids }:
 
 let
   smokeapi = pkgs.callPackage ../pkgs/smokeapi.nix { };
-  steam-app-ids-inverted =
-    lib.attrsets.concatMapAttrs (name: appid: { "${toString appid}" = name; })
-    steam-app-ids;
   app-id-path-exe =
     pkgs.runCommandNoCC "app-id-path" { allowSubstitutes = false; } ''
       ${pkgs.ghc}/bin/ghc -o $out -O2 ${./AppIdPath.hs}
     '';
   # 'name' is only to make the logs more human-readable
-  app-ids-and-names = builtins.map (a:
-    if builtins.typeOf a == "int" then {
-      appid = a;
-      name = if builtins.hasAttr (toString a) steam-app-ids-inverted then
-        steam-app-ids-inverted.${toString a}
-      else
-        "unknown";
-    } else {
-      name = a;
-      appid = steam-app-ids."${a}";
-    }) app-ids-or-names;
+  app-ids-and-names =
+    builtins.map (steam-app-ids.games.normalise) app-ids-or-names;
   app-ids-string = builtins.concatStringsSep " " (map lib.escapeShellArg
     (builtins.concatMap ({ appid, name }: [ (toString appid) name ])
       app-ids-and-names));
