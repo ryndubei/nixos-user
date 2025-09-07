@@ -1,4 +1,4 @@
-{ inputs, steamappidlist, ... }:
+{ inputs, ... }:
 
 {
   nixpkgs.overlays = [
@@ -8,7 +8,9 @@
       })
     (k: p: {
       steam-app-ids = assert p ? steam-app-ids == false;
-        k.callPackage ./pkgs/steam-app-ids.nix { inherit steamappidlist; };
+        k.callPackage ./pkgs/steam-app-ids.nix {
+          inherit (inputs) steamappidlist;
+        };
       stellarkey-dir = assert p ? stellarkey-dir == false;
         k.callPackage ./pkgs/stellarkey-dir.nix { };
     })

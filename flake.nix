@@ -16,7 +16,7 @@
     steamappidlist.flake = false;
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nix-flatpak, steamappidlist, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, nix-flatpak, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -40,7 +40,7 @@
 
           # Optionally use extraSpecialArgs
           # to pass through arguments to home.nix
-          extraSpecialArgs = { inherit inputs steamappidlist; };
+          extraSpecialArgs = { inherit inputs; };
         };
 
       homeManagerModules = {
