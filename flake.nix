@@ -44,16 +44,6 @@
         };
 
       homeManagerModules = {
-        default = {
-          imports = [
-            ./cli.nix
-            ./cli-extra.nix
-            ./desktop.nix
-            ./steam.nix
-            ./services/protonmail-bridge.nix
-            ./overlays.nix
-          ];
-        };
         cli-extra = import ./cli-extra.nix;
         cli = import ./cli.nix;
       };
