@@ -56,10 +56,7 @@
       filesystems = [ "~/Documents/Notes" "!/run/media" "!/mnt" "!/media" ];
       shared = [ "!network" ];
     };
-    "com.spotify.Client".Context = {
-      filesystems =
-        [ "${pkgs.libspotifyadblock}" "~/.config/spotify-adblock/config.toml" ];
-    };
+    "com.spotify.Client".Context = { filesystems = [ "/nix/store:ro" ]; };
     "com.spotify.Client".Environment = {
       LD_PRELOAD = "${pkgs.libspotifyadblock}/lib/libspotifyadblock.so";
     };
@@ -71,7 +68,7 @@
     };
   };
 
-  home.file.".config/spotify-adblock/config.toml".source =
+  home.file.".var/app/com.spotify.Client/config/spotify-adblock/config.toml".source =
     "${pkgs.libspotifyadblock.src}/config.toml";
 
   programs.neovim.extraLuaConfig = ''
