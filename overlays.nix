@@ -11,8 +11,6 @@
         k.callPackage ./pkgs/steam-app-ids.nix {
           inherit (inputs) steamappidlist;
         };
-      stellarkey-dir = assert p ? stellarkey-dir == false;
-        k.callPackage ./pkgs/stellarkey-dir.nix { };
     })
     (k: p: {
       libstellarkey = assert p ? libstellarkey == false;
