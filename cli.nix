@@ -115,6 +115,19 @@
   programs.fish.functions = {
     ghc-view-hie = "ghc-dump-hie $argv | ${pkgs.bat}/bin/bat --language log";
 
+    # https://protonvpn.com/support/port-forwarding-manual-setup/
+    natpmp-portforward = ''
+      while true do
+        date
+        if ${pkgs.libnatpmp}/bin/natpmpc -a 1 0 udp 60 -g 10.2.0.1 && ${pkgs.libnatpmp}/bin/natpmpc -a 1 0 tcp 60 -g 10.2.0.1
+          sleep 45
+        else
+          echo -e "ERROR with natpmpc command \a"
+          break
+        end
+      end
+    '';
+
     dev-expr = ''
       nix develop --impure --expr 'let pkgs = import <nixpkgs> {}; in pkgs.mkShell '$argv[1] $argv[2..]
     '';
