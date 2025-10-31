@@ -25,6 +25,11 @@
     zotero
   ]) ++ (with pkgs.gnomeExtensions; [ appindicator pop-shell system-monitor ]);
 
+  nixpkgs.config.permittedInsecurePackages = [
+    # electrum
+    "python3.12-ecdsa-0.19.1"
+  ];
+
   fonts.fontconfig.enable = true;
 
   services.gpg-agent = {
