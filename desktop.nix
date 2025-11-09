@@ -169,6 +169,8 @@
       aseprite
       vscode-extensions.github.copilot
       vscode-extensions.github.copilot-chat
+      vscode
+      vscode-extensions.ms-python.vscode-pylance
     ]);
   in pkg: builtins.elem (lib.getName pkg) whitelist;
 
@@ -179,7 +181,7 @@
 
   programs.vscode = {
     enable = true;
-    package = pkgs.vscodium;
+    # package = pkgs.vscodium;
     mutableExtensionsDir = false;
     profiles.default.extensions = (with pkgs.vscode-extensions; [
       haskell.haskell
@@ -189,7 +191,8 @@
       mads-hartmann.bash-ide-vscode
       mkhl.direnv
       ms-python.python
-      ms-pyright.pyright
+      ms-toolsai.jupyter
+      ms-python.vscode-pylance
       jnoortheen.nix-ide
       llvm-vs-code-extensions.vscode-clangd
       scala-lang.scala
@@ -269,7 +272,6 @@
       "[nix]".editor.formatOnSave = true;
       "diffEditor.ignoreTrimWhitespace" = false;
       "notebook.lineNumbers" = "on";
-      "python.languageServer" = "Jedi";
       "lean4.alwaysShowTitleBarMenu" = false;
       "terminal.integrated.defaultProfile.linux" = "fish";
       # https://github.com/nix-community/vscode-nix-ide/issues/482
