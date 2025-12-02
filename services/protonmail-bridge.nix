@@ -2,7 +2,9 @@
 
 let cfg = config.services.protonmail-bridge;
 in {
-  options.services.protonmail-bridge = {
+  # home-manager now has a built-in protonmai-bridge module,
+  # but it is very basic
+  options.custom.services.protonmail-bridge = {
     enable = lib.mkEnableOption "ProtonMail Bridge";
 
     package = lib.mkOption {

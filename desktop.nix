@@ -39,7 +39,7 @@
   };
 
   # NOTE: custom module (services/protonmail-bridge.nix)
-  services.protonmail-bridge.enable = true;
+  custom.services.protonmail-bridge.enable = true;
 
   services.flatpak = {
     enable = true;
