@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.services.protonmail-bridge;
+let cfg = config.custom.services.protonmail-bridge;
 in {
   # home-manager now has a built-in protonmai-bridge module,
   # but it is very basic
