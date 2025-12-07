@@ -78,10 +78,11 @@
     "${pkgs.libspotifyadblock.src}/config.toml";
 
   programs.neovim.extraLuaConfig = ''
-    require('lspconfig')['hls'].setup{
+    vim.lsp.config('hls', {
       filetypes = { 'haskell', 'lhaskell', 'cabal' },
-    }
-    require'lspconfig'.nixd.setup{}
+    })
+    vim.lsp.enable('hls')
+    vim.lsp.enable('nixd')
   '';
   programs.neovim.plugins = with pkgs.vimPlugins; [ nvim-lspconfig ];
 
