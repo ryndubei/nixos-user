@@ -4,7 +4,7 @@
   nixpkgs.overlays = [
     (k: p:
       assert p ? frozenpkgs == false; {
-        frozenpkgs = import inputs.nixpkgs-frozen { inherit (k) system; };
+        frozenpkgs = import inputs.nixpkgs-frozen { inherit (k.stdenv.hostPlatform) system; };
       })
     (k: p: {
       steam-app-ids = assert p ? steam-app-ids == false;
