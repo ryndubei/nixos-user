@@ -12,7 +12,7 @@
 let
   smokeapi = pkgs.callPackage ../pkgs/smokeapi.nix { };
   app-id-path-exe =
-    pkgs.runCommandNoCC "app-id-path" { allowSubstitutes = false; } ''
+    pkgs.runCommand "app-id-path" { allowSubstitutes = false; } ''
       ${pkgs.ghc}/bin/ghc -o $out -O2 ${./AppIdPath.hs}
     '';
   # 'name' is only to make the logs more human-readable
