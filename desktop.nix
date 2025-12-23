@@ -8,8 +8,7 @@
     evolution
     fira-code
     haskell-language-server
-    jetbrains.idea-community
-    jetbrains.pycharm-professional
+    jetbrains.idea-oss
     legcord
     libreoffice
     mpv
@@ -171,7 +170,6 @@
       aseprite
       vscode-extensions.github.copilot
       vscode-extensions.github.copilot-chat
-      jetbrains.pycharm-professional
     ]);
   in pkg: builtins.elem (lib.getName pkg) whitelist;
 
