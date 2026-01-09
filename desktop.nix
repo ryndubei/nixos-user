@@ -7,6 +7,7 @@
     electrum
     evolution
     fira-code
+    foliate
     haskell-language-server
     jetbrains.idea-oss
     legcord
