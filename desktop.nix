@@ -276,6 +276,7 @@
       "terminal.integrated.defaultProfile.linux" = "fish";
       # https://github.com/nix-community/vscode-nix-ide/issues/482
       "nix.hiddenLanguageServerErrors" = [ "textDocument/definition" ];
+      "chat.disableAIFeatures" = false;
     };
   };
 }
