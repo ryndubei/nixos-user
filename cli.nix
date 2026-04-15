@@ -163,6 +163,7 @@
     set -g hydro_color_pwd green
     set -g hydro_color_error brred
     set -g hydro_color_duration brblue
+    set -g fish_color_command blue
 
     # Enable fish vi mode
     fish_vi_key_bindings
