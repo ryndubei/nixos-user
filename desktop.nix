@@ -103,12 +103,7 @@
         ];
       };
 
-      "org/gnome/desktop/interface" = {
-        # Dark colour scheme
-        color-scheme = "prefer-dark";
-
-        enable-hot-corners = false;
-      };
+      "org/gnome/desktop/interface" = { enable-hot-corners = false; };
 
       # Expandable folders in list view
       "org/gnome/nautilus/list-view".use-tree-view = true;
