@@ -213,7 +213,6 @@
       "git.enableSmartCommit" = true;
       "window.menuBarVisibility" = "toggle";
       "workbench.preferredDarkColorTheme" = "Ayu Dark Bordered";
-      "workbench.colorTheme" = "Ayu Dark Bordered";
       "window.autoDetectColorScheme" = true;
       "vim.handleKeys" = {
         "<C-k>" = false;
@@ -271,7 +270,8 @@
       # https://github.com/nix-community/vscode-nix-ide/issues/482
       "nix.hiddenLanguageServerErrors" = [ "textDocument/definition" ];
       "chat.disableAIFeatures" = false;
-      "python.defaultInterpreterPath" = "/home/vasilysterekhov/.nix-profile/bin/python";
+      "python.defaultInterpreterPath" =
+        "/home/vasilysterekhov/.nix-profile/bin/python";
     };
   };
 }
