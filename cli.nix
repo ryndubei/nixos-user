@@ -169,7 +169,8 @@
     fish_vi_key_bindings
 
     # Show pfetch summary
-    ${pkgs.pfetch-rs}/bin/pfetch
+    # (exclude pkg count)
+    PF_INFO="ascii title os host kernel uptime memory" ${pkgs.pfetch-rs}/bin/pfetch
 
     # Pretty-print contents of TODO.md, cutting off at heading "# DONE"
     if test -f $HOME/TODO.md
