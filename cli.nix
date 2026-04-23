@@ -171,8 +171,10 @@
     ${pkgs.pfetch-rs}/bin/pfetch
 
     # Pretty-print contents of TODO.md, cutting off at heading "# DONE"
-    cat $HOME/TODO.md \
-      | sed -ne '/^# DONE/q' -e p \
-      | ${pkgs.bat}/bin/bat --language markdown -pp --color=always --line-range :20 --chop-long-lines
+    if test -f $HOME/TODO.md
+        cat $HOME/TODO.md \
+          | sed -ne '/^# DONE/q' -e p \
+          | ${pkgs.bat}/bin/bat --language markdown -pp --color=always --line-range :20 --chop-long-lines
+    end
   '';
 }
