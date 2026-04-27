@@ -176,7 +176,7 @@
     if test -f $HOME/TODO.md
         cat $HOME/TODO.md \
           | sed -ne '/^# DONE/q' -e p \
-          | ${pkgs.bat}/bin/bat --language markdown -pp --color=always --line-range :20 --chop-long-lines
+          | ${pkgs.bat}/bin/bat --color=always --paging=never --line-range :100 --chop-long-lines --file-name TODO.md
     end
   '';
 }
