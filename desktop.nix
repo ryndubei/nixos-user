@@ -76,7 +76,7 @@
   home.file.".var/app/com.spotify.Client/config/spotify-adblock/config.toml".source =
     "${pkgs.libspotifyadblock.src}/config.toml";
 
-  programs.neovim.extraLuaConfig = ''
+  programs.neovim.initLua = ''
     vim.lsp.config('hls', {
       filetypes = { 'haskell', 'lhaskell', 'cabal' },
     })
@@ -173,9 +173,8 @@
     set number
   '';
 
-  programs.vscode = {
+  programs.vscodium = {
     enable = true;
-    package = pkgs.vscodium;
     mutableExtensionsDir = false;
     profiles.default.extensions = (with pkgs.vscode-extensions; [
       haskell.haskell

@@ -33,7 +33,7 @@
       set number
       set mouse=
     '';
-    extraLuaConfig = ''
+    initLua = ''
       require'nvim-treesitter.configs'.setup {
         highlight = {
           enable = true,
