@@ -23,7 +23,20 @@
     vaults
     xournalpp
     zotero
-  ]) ++ (with pkgs.gnomeExtensions; [ appindicator pop-shell system-monitor ]);
+  ]) ++ (with pkgs.gnomeExtensions; [
+    appindicator
+    # https://github.com/NixOS/nixpkgs/pull/529026
+    (pop-shell.overrideAttrs {
+      version = "1.2.0-unstable-2026-03-31";
+      src = pkgs.fetchFromGitHub {
+        owner = "pop-os";
+        repo = "shell";
+        rev = "7898b65c20735057faf0797f8ed056704ca55f0d";
+        hash = "sha256-MmHoOxymo0QSRbRcSbFiv82+QWAwIwXwg/wyGQGVYiI=";
+      };
+    })
+    system-monitor
+  ]);
 
   nixpkgs.config.permittedInsecurePackages = [
     # electrum
