@@ -34,7 +34,7 @@
       set mouse=
     '';
     initLua = ''
-      require'nvim-treesitter.configs'.setup {
+      require('nvim-treesitter').setup {
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = false,
