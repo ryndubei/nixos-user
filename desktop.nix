@@ -229,6 +229,7 @@
       "vim.handleKeys" = {
         "<C-k>" = false;
         "<C-b>" = false;
+        "<C-p>" = false;
       };
       "editor.lineNumbers" = "relative";
       "workbench.panel.defaultLocation" = "right";
