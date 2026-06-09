@@ -5,6 +5,7 @@
     altus
     authenticator
     electrum
+    element-desktop
     fira-code
     foliate
     haskell-language-server
