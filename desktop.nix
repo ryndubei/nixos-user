@@ -177,8 +177,6 @@
   nixpkgs.config.allowUnfreePredicate = let
     whitelist = map lib.getName (with pkgs; [
       aseprite
-      vscode-extensions.github.copilot
-      vscode-extensions.github.copilot-chat
     ]);
   in pkg: builtins.elem (lib.getName pkg) whitelist;
 
@@ -192,8 +190,6 @@
     mutableExtensionsDir = false;
     profiles.default.extensions = (with pkgs.vscode-extensions; [
       haskell.haskell
-      github.copilot
-      github.copilot-chat
       justusadam.language-haskell
       mads-hartmann.bash-ide-vscode
       mkhl.direnv
@@ -283,7 +279,6 @@
       "terminal.integrated.defaultProfile.linux" = "fish";
       # https://github.com/nix-community/vscode-nix-ide/issues/482
       "nix.hiddenLanguageServerErrors" = [ "textDocument/definition" ];
-      "chat.disableAIFeatures" = false;
       "python.defaultInterpreterPath" =
         "/home/vasilysterekhov/.nix-profile/bin/python";
     };
