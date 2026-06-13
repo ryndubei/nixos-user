@@ -9,7 +9,7 @@
     git-crypt
     gocryptfs
     hledger
-    nixfmt-classic
+    nixfmt
     ripgrep
     sops
     tree
@@ -41,16 +41,17 @@
       vim-lastplace
       guess-indent-nvim
       {
-      plugin = (nvim-treesitter.withPlugins (p: [ p.haskell p.nix p.vimdoc ]));
-      runtime."ftplugin/haskell.lua".text = ''
-        vim.treesitter.start()
-      '';
-      runtime."ftplugin/nix.lua".text = ''
-        vim.treesitter.start()
-      '';
-      runtime."ftplugin/markdown.lua".text = ''
-        vim.treesitter.start()
-      '';
+        plugin =
+          (nvim-treesitter.withPlugins (p: [ p.haskell p.nix p.vimdoc ]));
+        runtime."ftplugin/haskell.lua".text = ''
+          vim.treesitter.start()
+        '';
+        runtime."ftplugin/nix.lua".text = ''
+          vim.treesitter.start()
+        '';
+        runtime."ftplugin/markdown.lua".text = ''
+          vim.treesitter.start()
+        '';
       }
     ];
   };
