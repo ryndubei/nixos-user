@@ -1,41 +1,48 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 {
-  home.packages = (with pkgs; [
-    altus
-    authenticator
-    electrum
-    element-desktop
-    fira-code
-    foliate
-    jetbrains.idea-oss
-    legcord
-    libreoffice
-    mpv
-    nerd-fonts.meslo-lg
-    protonmail-bridge
-    qbittorrent
-    signal-desktop
-    telegram-desktop
-    tor-browser
-    ungoogled-chromium
-    vaults
-    xournalpp
-    zotero
-  ]) ++ (with pkgs.gnomeExtensions; [
-    appindicator
-    # https://github.com/NixOS/nixpkgs/pull/529026
-    (pop-shell.overrideAttrs {
-      version = "1.2.0-unstable-2026-03-31";
-      src = pkgs.fetchFromGitHub {
-        owner = "pop-os";
-        repo = "shell";
-        rev = "7898b65c20735057faf0797f8ed056704ca55f0d";
-        hash = "sha256-MmHoOxymo0QSRbRcSbFiv82+QWAwIwXwg/wyGQGVYiI=";
-      };
-    })
-    system-monitor
-  ]);
+  home.packages =
+    (with pkgs; [
+      altus
+      authenticator
+      electrum
+      element-desktop
+      fira-code
+      foliate
+      jetbrains.idea-oss
+      legcord
+      libreoffice
+      mpv
+      nerd-fonts.meslo-lg
+      protonmail-bridge
+      qbittorrent
+      signal-desktop
+      telegram-desktop
+      tor-browser
+      ungoogled-chromium
+      vaults
+      xournalpp
+      zotero
+    ])
+    ++ (with pkgs.gnomeExtensions; [
+      appindicator
+      # https://github.com/NixOS/nixpkgs/pull/529026
+      (pop-shell.overrideAttrs {
+        version = "1.2.0-unstable-2026-03-31";
+        src = pkgs.fetchFromGitHub {
+          owner = "pop-os";
+          repo = "shell";
+          rev = "7898b65c20735057faf0797f8ed056704ca55f0d";
+          hash = "sha256-MmHoOxymo0QSRbRcSbFiv82+QWAwIwXwg/wyGQGVYiI=";
+        };
+      })
+      system-monitor
+    ]);
 
   nixpkgs.config.permittedInsecurePackages = [
     # electrum
@@ -66,14 +73,21 @@
   # Symlink system runtimes to the user's flatpak installation
   home.activation.flatpakSymlinkSystemRuntimes =
     lib.hm.dag.entryBetween [ "flatpak-managed-install" ] [ "writeBoundary" ]
-    (builtins.readFile scripts/flatpak-symlink-system-runtimes.sh);
+      (builtins.readFile scripts/flatpak-symlink-system-runtimes.sh);
 
   services.flatpak.overrides = {
     "md.obsidian.Obsidian".Context = {
-      filesystems = [ "~/Documents/Notes" "!/run/media" "!/mnt" "!/media" ];
+      filesystems = [
+        "~/Documents/Notes"
+        "!/run/media"
+        "!/mnt"
+        "!/media"
+      ];
       shared = [ "!network" ];
     };
-    "com.spotify.Client".Context = { filesystems = [ "/nix/store:ro" ]; };
+    "com.spotify.Client".Context = {
+      filesystems = [ "/nix/store:ro" ];
+    };
     "com.spotify.Client".Environment = {
       LD_PRELOAD = "${pkgs.libspotifyadblock}/lib/libspotifyadblock.so";
     };
@@ -91,12 +105,14 @@
   dconf.settings = lib.mkMerge [
     {
       "org/gnome/shell" = {
-        enabled-extensions = map (extension: extension.extensionUuid)
-          (with pkgs.gnomeExtensions; [
+        enabled-extensions = map (extension: extension.extensionUuid) (
+          with pkgs.gnomeExtensions;
+          [
             appindicator
             pop-shell
             system-monitor
-          ]);
+          ]
+        );
         disabled-extensions = [ ];
         favorite-apps = [
           "librewolf.desktop"
@@ -106,7 +122,9 @@
         ];
       };
 
-      "org/gnome/desktop/interface" = { enable-hot-corners = false; };
+      "org/gnome/desktop/interface" = {
+        enable-hot-corners = false;
+      };
 
       # Expandable folders in list view
       "org/gnome/nautilus/list-view".use-tree-view = true;
@@ -146,7 +164,9 @@
       # Prevent screensaver from starting when guest requests it
       autoScreensaver = true;
     };
-    input = { rawMouse = true; };
+    input = {
+      rawMouse = true;
+    };
   };
 
   programs.librewolf = {
@@ -162,11 +182,16 @@
   };
 
   # Unfree package exceptions
-  nixpkgs.config.allowUnfreePredicate = let
-    whitelist = map lib.getName (with pkgs; [
-      aseprite
-    ]);
-  in pkg: builtins.elem (lib.getName pkg) whitelist;
+  nixpkgs.config.allowUnfreePredicate =
+    let
+      whitelist = map lib.getName (
+        with pkgs;
+        [
+          aseprite
+        ]
+      );
+    in
+    pkg: builtins.elem (lib.getName pkg) whitelist;
 
   home.file.".ideavimrc".text = ''
     set relativenumber
@@ -176,35 +201,37 @@
   programs.vscodium = {
     enable = true;
     mutableExtensionsDir = false;
-    profiles.default.extensions = (with pkgs.vscode-extensions; [
-      haskell.haskell
-      justusadam.language-haskell
-      mads-hartmann.bash-ide-vscode
-      mkhl.direnv
-      ms-python.python
-      ms-pyright.pyright
-      jnoortheen.nix-ide
-      llvm-vs-code-extensions.vscode-clangd
-      scala-lang.scala
-      sumneko.lua
-      teabyii.ayu
-      twxs.cmake
-      usernamehw.errorlens
-      vscodevim.vim
-    ]) ++ (pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-      {
-        name = "lean4";
-        publisher = "leanprover";
-        version = "0.0.178";
-        sha256 = "sha256-ByhiTGwlQgNkFf0BirO+QSDiXbQfR6RLQA8jM4B1+O4=";
-      }
-      {
-        name = "gitless";
-        publisher = "maattdd";
-        version = "11.7.2";
-        sha256 = "sha256-rYeZNBz6HeZ059ksChGsXbuOao9H5m5lHGXJ4ELs6xc=";
-      }
-    ]);
+    profiles.default.extensions =
+      (with pkgs.vscode-extensions; [
+        haskell.haskell
+        justusadam.language-haskell
+        mads-hartmann.bash-ide-vscode
+        mkhl.direnv
+        ms-python.python
+        ms-pyright.pyright
+        jnoortheen.nix-ide
+        llvm-vs-code-extensions.vscode-clangd
+        scala-lang.scala
+        sumneko.lua
+        teabyii.ayu
+        twxs.cmake
+        usernamehw.errorlens
+        vscodevim.vim
+      ])
+      ++ (pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        {
+          name = "lean4";
+          publisher = "leanprover";
+          version = "0.0.178";
+          sha256 = "sha256-ByhiTGwlQgNkFf0BirO+QSDiXbQfR6RLQA8jM4B1+O4=";
+        }
+        {
+          name = "gitless";
+          publisher = "maattdd";
+          version = "11.7.2";
+          sha256 = "sha256-rYeZNBz6HeZ059ksChGsXbuOao9H5m5lHGXJ4ELs6xc=";
+        }
+      ]);
     profiles.default.userSettings = {
       "haskell.manageHLS" = "PATH";
       "git.enableSmartCommit" = true;
@@ -218,8 +245,7 @@
       };
       "editor.lineNumbers" = "relative";
       "workbench.panel.defaultLocation" = "right";
-      "editor.fontFamily" =
-        "'Fira Code', 'Droid Sans Mono', 'monospace', monospace";
+      "editor.fontFamily" = "'Fira Code', 'Droid Sans Mono', 'monospace', monospace";
       # Enable MesloLGS in the VSCodium integrated terminal
       "terminal.integrated.fontFamily" =
         "'MesloLGS Nerd Font Mono', 'Fira Code', 'Droid Sans Mono', 'monospace'";
@@ -249,7 +275,9 @@
       };
       "git.autofetch" = true;
       "haskell.formattingProvider" = "fourmolu";
-      "workbench.localHistory.exclude" = { "*.secret" = true; };
+      "workbench.localHistory.exclude" = {
+        "*.secret" = true;
+      };
       "workbench.preferredLightColorTheme" = "Quiet Light";
       "git.openRepositoryInParentFolders" = "never";
       "errorLens.removeLinebreaks" = false;
@@ -267,9 +295,7 @@
       "terminal.integrated.defaultProfile.linux" = "fish";
       # https://github.com/nix-community/vscode-nix-ide/issues/482
       "nix.hiddenLanguageServerErrors" = [ "textDocument/definition" ];
-      "python.defaultInterpreterPath" =
-        "/home/vasilysterekhov/.nix-profile/bin/python";
+      "python.defaultInterpreterPath" = "/home/vasilysterekhov/.nix-profile/bin/python";
     };
   };
 }
-

@@ -1,7 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.custom.services.protonmail-bridge;
-in {
+let
+  cfg = config.custom.services.protonmail-bridge;
+in
+{
   # home-manager now has a built-in protonmai-bridge module,
   # but it is very basic
   options.custom.services.protonmail-bridge = {
@@ -50,8 +57,7 @@ in {
       Unit.After = [ "graphical-session.target" ];
       Install.WantedBy = [ "graphical-session.target" ];
       Service = {
-        ExecStart =
-          "${lib.getExe cfg.package} --noninteractive --log-level info";
+        ExecStart = "${lib.getExe cfg.package} --noninteractive --log-level info";
         Restart = "always";
         TimeoutStartSec = 10;
         Type = "exec";

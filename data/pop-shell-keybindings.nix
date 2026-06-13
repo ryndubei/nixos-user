@@ -2,7 +2,10 @@
 # pop-shell keybindings except workspace/monitor controls
 {
   "org/gnome/desktop/wm/keybindings" = {
-    close = [ "<Super>q" "<Alt>F4" ];
+    close = [
+      "<Super>q"
+      "<Alt>F4"
+    ];
     minimize = [ "<Super>comma" ];
     toggle-maximized = [ "<Super>m" ];
     maximize = [ ];
@@ -21,7 +24,9 @@
     toggle-tiled-right = [ ];
   };
 
-  "org/gnome/mutter/wayland/keybindings" = { restore-shortcuts = [ ]; };
+  "org/gnome/mutter/wayland/keybindings" = {
+    restore-shortcuts = [ ];
+  };
 
   "org/gnome/settings-daemon/plugins/media-keys" = {
     screensaver = [ "<Super>Escape" ];
@@ -34,12 +39,11 @@
     ];
   };
 
-  "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/pop-shell-open-terminal" =
-    {
-      name = "Open Terminal";
-      command = "kgx";
-      binding = "<Super>t";
-    };
+  "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/pop-shell-open-terminal" = {
+    name = "Open Terminal";
+    command = "kgx";
+    binding = "<Super>t";
+  };
 
   "org/gnome/shell/extensions/pop-shell" = {
     toggle-tiling = [ "<Super>y" ];
@@ -48,9 +52,21 @@
     tile-accept = [ "Return" ];
     tile-reject = [ "Escape" ];
     toggle-stacking-global = [ "<Super>s" ];
-    focus-left = [ "<Super>Left" "<Super>h" ];
-    focus-down = [ "<Super>Down" "<Super>j" ];
-    focus-up = [ "<Super>Up" "<Super>k" ];
-    focus-right = [ "<Super>Right" "<Super>l" ];
+    focus-left = [
+      "<Super>Left"
+      "<Super>h"
+    ];
+    focus-down = [
+      "<Super>Down"
+      "<Super>j"
+    ];
+    focus-up = [
+      "<Super>Up"
+      "<Super>k"
+    ];
+    focus-right = [
+      "<Super>Right"
+      "<Super>l"
+    ];
   };
 }

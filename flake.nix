@@ -16,37 +16,45 @@
     steamappidlist.flake = false;
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nix-flatpak, ... }:
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      home-manager,
+      nix-flatpak,
+      ...
+    }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      homeConfigurations."vasilysterekhov" =
-        home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+    in
+    {
+      homeConfigurations."vasilysterekhov" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
 
-          # Specify your home configuration modules here, for example,
-          # the path to your home.nix.
-          modules = [
-            ./home.nix
-            ./cli.nix
-            ./cli-extra.nix
-            ./desktop.nix
-            ./steam.nix
-            ./services/protonmail-bridge.nix
-            ./overlays.nix
-            nix-flatpak.homeManagerModules.nix-flatpak
-          ];
+        # Specify your home configuration modules here, for example,
+        # the path to your home.nix.
+        modules = [
+          ./home.nix
+          ./cli.nix
+          ./cli-extra.nix
+          ./desktop.nix
+          ./steam.nix
+          ./services/protonmail-bridge.nix
+          ./overlays.nix
+          nix-flatpak.homeManagerModules.nix-flatpak
+        ];
 
-          # Optionally use extraSpecialArgs
-          # to pass through arguments to home.nix
-          extraSpecialArgs = { inherit inputs; };
-        };
+        # Optionally use extraSpecialArgs
+        # to pass through arguments to home.nix
+        extraSpecialArgs = { inherit inputs; };
+      };
 
       homeManagerModules = {
         cli-extra = import ./cli-extra.nix;
         cli = import ./cli.nix;
       };
-      checks.${system}.homeConfigurationBuilds = self.outputs.homeConfigurations."vasilysterekhov".activationPackage.out;
+      checks.${system}.homeConfigurationBuilds =
+        self.outputs.homeConfigurations."vasilysterekhov".activationPackage.out;
     };
 }

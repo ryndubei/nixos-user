@@ -1,14 +1,17 @@
 { lib, steamappidlist }:
 
 let
-  list = path:
-    builtins.filter (x: x != null)
-    (builtins.fromJSON (builtins.readFile "${steamappidlist}/${path}"));
-  extract = path:
-    builtins.listToAttrs (builtins.map ({ name, appid, ... }: {
-      inherit name;
-      value = appid;
-    }) (list path));
+  list =
+    path:
+    builtins.filter (x: x != null) (builtins.fromJSON (builtins.readFile "${steamappidlist}/${path}"));
+  extract =
+    path:
+    builtins.listToAttrs (
+      builtins.map ({ name, appid, ... }: {
+        inherit name;
+        value = appid;
+      }) (list path)
+    );
   steam-app-ids = {
     games = extract "/data/games_appid.json";
     dlc = extract "/data/dlc_appid.json";
@@ -18,12 +21,11 @@ let
     inherit data;
 
     # appid -> name attrset
-    inverted =
-      lib.attrsets.concatMapAttrs (name: appid: { "${toString appid}" = name; })
-      data;
+    inverted = lib.attrsets.concatMapAttrs (name: appid: { "${toString appid}" = name; }) data;
 
     # Get the name for a given appid
-    getName = appid:
+    getName =
+      appid:
       if builtins.hasAttr (toString appid) inverted then
         inverted.${toString appid}
       else
@@ -33,14 +35,19 @@ let
     getAppId = name: data."${name}";
 
     # Convert either an app name or an appid to a set with both fields
-    normalise = id:
+    normalise =
+      id:
       assert builtins.typeOf id == "int" || builtins.typeOf id == "string";
-      if builtins.typeOf id == "int" then {
-        appid = id;
-        name = getName id;
-      } else {
-        appid = getAppId id;
-        name = id;
-      };
+      if builtins.typeOf id == "int" then
+        {
+          appid = id;
+          name = getName id;
+        }
+      else
+        {
+          appid = getAppId id;
+          name = id;
+        };
   };
-in builtins.mapAttrs f steam-app-ids
+in
+builtins.mapAttrs f steam-app-ids

@@ -41,8 +41,13 @@
       vim-lastplace
       guess-indent-nvim
       {
-        plugin =
-          (nvim-treesitter.withPlugins (p: [ p.haskell p.nix p.vimdoc ]));
+        plugin = (
+          nvim-treesitter.withPlugins (p: [
+            p.haskell
+            p.nix
+            p.vimdoc
+          ])
+        );
         runtime."ftplugin/haskell.lua".text = ''
           vim.treesitter.start()
         '';
@@ -62,7 +67,12 @@
 
   programs.git = {
     enable = true;
-    settings = { safe.directory = [ "/etc/nixos" "/etc/nixos/.git" ]; };
+    settings = {
+      safe.directory = [
+        "/etc/nixos"
+        "/etc/nixos/.git"
+      ];
+    };
   };
 
   programs.gpg.enable = true;
@@ -112,10 +122,8 @@
   home.shellAliases = {
     logoutall = "loginctl terminate-user $(whoami)";
     cat = "bat -pp";
-    pull-system =
-      "$SHELL -c 'cd /etc/nixos && sudo git fetch && sudo git pull'";
-    pull-user =
-      "$SHELL -c 'cd ~/.config/home-manager && git fetch && git pull'";
+    pull-system = "$SHELL -c 'cd /etc/nixos && sudo git fetch && sudo git pull'";
+    pull-user = "$SHELL -c 'cd ~/.config/home-manager && git fetch && git pull'";
     # produce hie AST and nothing more
     ghc-dump-hie = "ghc -fwrite-ide-info -fno-code -fforce-recomp -ddump-hie";
     update-user = "pull-user && home-manager switch";

@@ -7,22 +7,29 @@
 # Returns a package containing a shell script to find and patch all
 # steam_api.dll and steam_api64.dll files belonging to the specified
 # appids.
-{ pkgs, app-ids-or-names, lib, steam-app-ids }:
+{
+  pkgs,
+  app-ids-or-names,
+  lib,
+  steam-app-ids,
+}:
 
 let
   smokeapi = pkgs.callPackage ../pkgs/smokeapi.nix { };
-  app-id-path-exe =
-    pkgs.runCommand "app-id-path" { allowSubstitutes = false; } ''
-      ${pkgs.ghc}/bin/ghc -o $out -O2 ${./AppIdPath.hs}
-    '';
+  app-id-path-exe = pkgs.runCommand "app-id-path" { allowSubstitutes = false; } ''
+    ${pkgs.ghc}/bin/ghc -o $out -O2 ${./AppIdPath.hs}
+  '';
   # 'name' is only to make the logs more human-readable
-  app-ids-and-names =
-    builtins.map (steam-app-ids.games.normalise) app-ids-or-names;
-  app-ids-string = builtins.concatStringsSep " " (map lib.escapeShellArg
-    (builtins.concatMap ({ appid, name }: [ (toString appid) name ])
-      app-ids-and-names));
-  libraryfolders-path =
-    "$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/libraryfolders.vdf";
+  app-ids-and-names = builtins.map (steam-app-ids.games.normalise) app-ids-or-names;
+  app-ids-string = builtins.concatStringsSep " " (
+    map lib.escapeShellArg (
+      builtins.concatMap ({ appid, name }: [
+        (toString appid)
+        name
+      ]) app-ids-and-names
+    )
+  );
+  libraryfolders-path = "$HOME/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/libraryfolders.vdf";
   script-init = ''
     set -euo pipefail
     export smokeapi64_dll=${smokeapi}/steam_api64.dll
@@ -34,5 +41,10 @@ let
     fi
     paths=$(${app-id-path-exe} $libraryfolders ${app-ids-string})
   '';
-in pkgs.writeShellScriptBin "apply-smokeapi"
-(lib.concatLines [ script-init (builtins.readFile ./apply-smokeapi.sh) ])
+in
+pkgs.writeShellScriptBin "apply-smokeapi" (
+  lib.concatLines [
+    script-init
+    (builtins.readFile ./apply-smokeapi.sh)
+  ]
+)

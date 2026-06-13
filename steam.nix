@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 {
   services.flatpak.packages = [ "com.valvesoftware.Steam" ];
@@ -29,27 +34,33 @@
 
   # Run apply-smokeapi on startup
   # TODO: move this to a Steam desktop file
-  systemd.user.services.apply-smokeapi = let
-    # The appids (ints)/names (strings) we are attempting to patch
-    apps = [ "Europa Universalis IV" "Stellaris" "Hearts of Iron IV" "Crusader Kings II" "Imperator: Rome" ];
-  in {
-    Unit.Description = "Apply SmokeAPI";
-    Install.WantedBy = [ "graphical-session.target" ];
-    Service = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.apply-smokeapi apps}/bin/apply-smokeapi";
+  systemd.user.services.apply-smokeapi =
+    let
+      # The appids (ints)/names (strings) we are attempting to patch
+      apps = [
+        "Europa Universalis IV"
+        "Stellaris"
+        "Hearts of Iron IV"
+        "Crusader Kings II"
+        "Imperator: Rome"
+      ];
+    in
+    {
+      Unit.Description = "Apply SmokeAPI";
+      Install.WantedBy = [ "graphical-session.target" ];
+      Service = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.apply-smokeapi apps}/bin/apply-smokeapi";
+      };
     };
-  };
 
   # Run apply-smokeapi on home-manager activation as well
-  home.activation.startApplySmokeapi =
-    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      run /run/current-system/sw/bin/systemctl start --user apply-smokeapi.service
-    '';
+  home.activation.startApplySmokeapi = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run /run/current-system/sw/bin/systemctl start --user apply-smokeapi.service
+  '';
 
-  home.activation.steamOpenxrSymlink =
-    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      run mkdir -p ~/.var/app/com.valvesoftware.Steam/.config/openxr/1
-      run ln -sf ~/.config/openxr/1 ~/.var/app/com.valvesoftware.Steam/.config/openxr/1
-    '';
+  home.activation.steamOpenxrSymlink = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    run mkdir -p ~/.var/app/com.valvesoftware.Steam/.config/openxr/1
+    run ln -sf ~/.config/openxr/1 ~/.var/app/com.valvesoftware.Steam/.config/openxr/1
+  '';
 }
