@@ -29,8 +29,16 @@
     vim.lsp.enable('hls')
     vim.lsp.enable('nixd')
   '';
+  programs.neovim.extraPackages = with pkgs; [
+    haskellPackages.fast-tags
+    haskellPackages.hoogle
+    haskellPackages.haskell-debug-adapter
+    haskellPackages.ghci-dap
+  ];
   programs.neovim.plugins = with pkgs.vimPlugins; [
+    nvim-dap
     nvim-lspconfig
+    telescope-nvim
     {
       plugin = haskell-tools-nvim;
       runtime."after/ftplugin/haskell.lua".text = ''
