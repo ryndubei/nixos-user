@@ -16,7 +16,7 @@
     steamappidlist.flake = false;
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nix-flatpak, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, nix-flatpak, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -47,5 +47,6 @@
         cli-extra = import ./cli-extra.nix;
         cli = import ./cli.nix;
       };
+      checks.${system}.homeConfigurationBuilds = self.outputs.homeConfigurations."vasilysterekhov".activationPackage.out;
     };
 }
