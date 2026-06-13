@@ -9,6 +9,7 @@
     clang-tools
     ffmpeg
     ghc
+    nix-output-monitor
     pandoc
     (python3.withPackages (p: [ p.numpy p.pandas ]))
     sage
