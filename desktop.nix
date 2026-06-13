@@ -8,13 +8,11 @@
     element-desktop
     fira-code
     foliate
-    haskell-language-server
     jetbrains.idea-oss
     legcord
     libreoffice
     mpv
     nerd-fonts.meslo-lg
-    nixd
     protonmail-bridge
     qbittorrent
     signal-desktop
@@ -89,15 +87,6 @@
 
   home.file.".var/app/com.spotify.Client/config/spotify-adblock/config.toml".source =
     "${pkgs.libspotifyadblock.src}/config.toml";
-
-  programs.neovim.initLua = ''
-    vim.lsp.config('hls', {
-      filetypes = { 'haskell', 'lhaskell', 'cabal' },
-    })
-    vim.lsp.enable('hls')
-    vim.lsp.enable('nixd')
-  '';
-  programs.neovim.plugins = with pkgs.vimPlugins; [ nvim-lspconfig ];
 
   dconf.settings = lib.mkMerge [
     {

@@ -9,7 +9,9 @@
     clang-tools
     ffmpeg
     ghc
+    haskell-language-server
     nix-output-monitor
+    nixd
     pandoc
     (python3.withPackages (p: [ p.numpy p.pandas ]))
     sage
@@ -22,4 +24,13 @@
 
   home.file.".haskeline".text = "editMode: Vi";
   home.file.".ghci".source = dotfiles/ghci;
+
+  programs.neovim.initLua = ''
+    vim.lsp.config('hls', {
+      filetypes = { 'haskell', 'lhaskell', 'cabal' },
+    })
+    vim.lsp.enable('hls')
+    vim.lsp.enable('nixd')
+  '';
+  programs.neovim.plugins = with pkgs.vimPlugins; [ nvim-lspconfig ];
 }
