@@ -152,7 +152,6 @@
   programs.librewolf = {
     enable = true;
     settings = {
-      "privacy.resistFingerprinting.letterboxing" = true;
       "network.http.referer.XOriginPolicy" = 2;
       "identity.fxaccounts.enabled" = true;
       "privacy.clearOnShutdown.history" = false;
