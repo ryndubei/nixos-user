@@ -31,7 +31,6 @@
       set swapfile
       set dir=/tmp
       set number
-      set mouse=
     '';
     plugins = with pkgs.vimPlugins; [
       vim-lastplace
