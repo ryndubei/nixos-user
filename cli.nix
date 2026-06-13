@@ -33,17 +33,19 @@
       set number
       set mouse=
     '';
-    initLua = ''
-      require('nvim-treesitter').setup {
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = false,
-        },
-      }
-    '';
     plugins = with pkgs.vimPlugins; [
       vim-lastplace
-      (nvim-treesitter.withPlugins (p: [ p.haskell p.nix p.vimdoc ]))
+      {
+      plugin = (nvim-treesitter.withPlugins (p: [ p.haskell p.nix p.vimdoc ]));
+      runtime."ftplugin/haskell.lua".text = ''
+        vim.treesitter.start()
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      '';
+      runtime."ftplugin/nix.lua".text = ''
+        vim.treesitter.start()
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      '';
+      }
     ];
   };
 
