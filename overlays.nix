@@ -47,5 +47,12 @@
         ];
       };
     })
+    # https://github.com/NixOS/nixpkgs/issues/536623
+    (k: p: {
+      legcord = p.legcord.override {
+        # pnpm_10_29_2 is marked insecure
+        pnpm_10_29_2 = k.pnpm_10;
+      };
+    })
   ];
 }
