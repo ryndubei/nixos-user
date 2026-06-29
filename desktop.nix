@@ -21,7 +21,6 @@
       nerd-fonts.meslo-lg
       protonmail-bridge
       qbittorrent
-      signal-desktop
       telegram-desktop
       tor-browser
       ungoogled-chromium
