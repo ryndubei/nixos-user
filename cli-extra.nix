@@ -6,6 +6,7 @@
   home.packages = with pkgs; [
     android-tools
     cabal-install
+    compiledb # to generate compile_commands.json for non-clang C projects
     clang-tools
     ffmpeg
     ghc
