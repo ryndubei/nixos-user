@@ -14,10 +14,7 @@
     nix-output-monitor
     nixd
     pandoc
-    (python3.withPackages (p: [
-      p.numpy
-      p.pandas
-    ]))
+    python3
     sage
     scala_3
     steam-run-free # Fixes most library problems when running outside of Nix
