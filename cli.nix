@@ -13,6 +13,7 @@
     ripgrep
     sops
     tree
+    unar
   ];
 
   programs.neovim = {
