@@ -34,17 +34,19 @@
         };
     })
     (k: p: {
-      nix-output-monitor = p.nix-output-monitor.overrideAttrs {
-        version = "unstable-2026-06-12-83c1716";
+      nix-output-monitor = p.nix-output-monitor.overrideAttrs rec {
+        version = "0-unstable-2026-07-14";
         src = p.fetchFromGitHub {
           owner = "maralorn";
           repo = "nix-output-monitor";
-          rev = "83c171617f3b5654e50ff0b90f1b2e544a322770";
-          hash = "sha256-dReBf1ugLBtyj8pdn1I55cB04zLmbxKZQfjrm6+YoSs=";
+          rev = "030658cd63512887c74652261079ca8bbb636c23";
+          hash = "sha256-Ok5wLwYcQvM4u4zS1b7aP72sFH/bWlowWvBPvx+LPqs=";
         };
         propagatedBuildInputs = p.nix-output-monitor.propagatedBuildInputs or [ ] ++ [
           p.haskellPackages.fsnotify
+          p.haskellPackages.doctest-parallel
         ];
+        sourceRoot = "${src.name}/nix-output-monitor";
       };
     })
   ];
