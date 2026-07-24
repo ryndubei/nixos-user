@@ -150,6 +150,26 @@
       nix develop --impure --expr 'let pkgs = import <nixpkgs> {}; in pkgs.mkShell '$argv[1] $argv[2..]
     '';
 
+    direnv-init = ''
+      if test (count $argv) -gt 0
+        for target in $argv
+          if test -e $target/.envrc
+            echo $target/.envrc: Already exists
+            return 1
+          end
+          echo nix_direnv_manual_reload > $target/.envrc
+          echo use_flake >> $target/.envrc
+        end
+      else
+        if test -e .envrc
+          echo ./.envrc: Already exists
+          return 1
+        end
+        echo nix_direnv_manual_reload > .envrc
+          echo use_flake >> .envrc
+      end
+    '';
+
     # Fix unsightly background on vi mode indicator in hydro
     fish_mode_prompt = ''
       switch $fish_bind_mode
