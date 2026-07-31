@@ -14,7 +14,7 @@
       element-desktop
       fira-code
       foliate
-      jetbrains.idea-oss
+      jetbrains.idea
       legcord
       libreoffice
       mpv
@@ -182,6 +182,7 @@
         with pkgs;
         [
           aseprite
+          jetbrains.idea
         ]
       );
     in
