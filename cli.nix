@@ -40,6 +40,7 @@
     '';
     plugins = with pkgs.vimPlugins; [
       nvim-lastplace
+      vim-fugitive
       vim-gas
       guess-indent-nvim
       {
