@@ -214,6 +214,11 @@
         vscodevim.vim
       ])
       ++ (pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        {   name = "language-gas-x86";
+            publisher = "basdp";
+            version = "0.0.2";
+            sha256 = "sha256-PbXhOsoR0/5wXuFrzwCcauM1uGgfQoSRTj0gPVVZ4Kg=";
+        }
         {
           name = "lean4";
           publisher = "leanprover";
