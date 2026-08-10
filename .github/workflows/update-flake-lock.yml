@@ -12,7 +12,7 @@ jobs:
     - name: Install Nix
       uses: cachix/install-nix-action@v31
     - name: Update flake.lock
-      run: nix flake update nixpkgs home-manager
+      run: nix flake update nixpkgs home-manager nixvim
     - name: Commit files
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
