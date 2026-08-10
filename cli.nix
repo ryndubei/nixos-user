@@ -39,7 +39,7 @@
       require('guess-indent').setup {}
     '';
     plugins = with pkgs.vimPlugins; [
-      vim-lastplace
+      nvim-lastplace
       guess-indent-nvim
       {
         plugin = (
