@@ -10,11 +10,13 @@
     gocryptfs
     hledger
     nixfmt
-    ripgrep
     sops
     tree
     unar
   ];
+
+  programs.ripgrep.enable = true;
+  programs.fd.enable = true;
 
   programs.zoxide.enable = true;
 
