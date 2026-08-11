@@ -64,6 +64,14 @@
       -- lsp-lines
       vim.diagnostic.config({ virtual_lines = { only_current_line = true } })
     '';
+    keymaps = [
+      {
+        # Toggle lsp-lines
+        key = "<Leader>l";
+        action.__raw = "require('lsp_lines').toggle";
+        options.unique = true;
+      }
+    ];
 
     # Syntax highlighting
     plugins.treesitter = {
