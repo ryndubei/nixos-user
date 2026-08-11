@@ -21,6 +21,7 @@
     };
 
     colorschemes.ayu.enable = true;
+    colorschemes.ayu.settings.mirage = true; # more contrast
 
     performance.byteCompileLua.enable = true;
     performance.combinePlugins.enable = true;
