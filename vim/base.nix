@@ -14,7 +14,6 @@
       expandtab = true;
       shiftwidth = 2;
       softtabstop = -1;
-      smartindent = true;
       swapfile = true;
       dir = "/tmp";
       number = true;
@@ -61,6 +60,8 @@
       enable = true;
 
       highlight.enable = true;
+      indent.enable = true;
+      folding.enable = true;
 
       grammarPackages = with config.programs.nixvim.plugins.treesitter.package.builtGrammars; [
         # common
