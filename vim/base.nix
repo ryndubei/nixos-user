@@ -21,8 +21,8 @@
       relativenumber = true;
     };
 
-    # performance.byteCompileLua.enable = true;
-    # performance.combinePlugins.enable = true;
+    performance.byteCompileLua.enable = true;
+    performance.combinePlugins.enable = true;
 
     # Fuzzy finder
     plugins.telescope.enable = true;
