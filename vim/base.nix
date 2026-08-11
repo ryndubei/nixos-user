@@ -59,6 +59,12 @@
     plugins.lspconfig.enable = true;
     lsp.servers.nixd.enable = true;
 
+    plugins.lsp-lines.enable = true; # show lsp error (diagnostic) messages 
+    extraConfigLua = ''
+      -- lsp-lines
+      vim.diagnostic.config({ virtual_lines = { only_current_line = true } })
+    '';
+
     # Syntax highlighting
     plugins.treesitter = {
       enable = true;
