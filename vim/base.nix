@@ -21,6 +21,14 @@
     };
 
     colorschemes.ayu.enable = true;
+    colorschemes.ayu.luaConfig.pre = ''
+      -- to use colorscheme's own colours in override
+      local colors = require('ayu.colors')
+      colors.generate(true) -- true generates using mirage
+    '';
+    colorschemes.ayu.settings.overrides = {
+      LineNr = { fg = { __raw = "colors.ui"; }; }; # make line numbers more readable
+    };
     colorschemes.ayu.settings.mirage = true; # more contrast
 
     performance.byteCompileLua.enable = true;
