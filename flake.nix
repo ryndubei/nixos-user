@@ -12,8 +12,6 @@
 
     nixvim = {
       url = "github:nix-community/nixvim/nixos-26.05";
-      # Deliberately ignoring nixvim's recommendation to not override nixpkgs
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
@@ -28,6 +26,7 @@
       nixpkgs,
       home-manager,
       nix-flatpak,
+      nixvim,
       ...
     }:
     let
@@ -46,7 +45,11 @@
           ./steam.nix
           ./services/protonmail-bridge.nix
           ./overlays.nix
+          ./vim/base.nix
+          ./vim/haskell-tools.nix
+          ./vim/gas.nix
           nix-flatpak.homeManagerModules.nix-flatpak
+          nixvim.homeModules.nixvim
         ];
 
         extraSpecialArgs = { inherit inputs; };

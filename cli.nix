@@ -16,54 +16,6 @@
     unar
   ];
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-    vimdiffAlias = true;
-    extraConfig = ''
-      set nocompatible
-      set backspace=indent,eol,start
-      syntax on
-      set relativenumber
-      set expandtab
-      set shiftwidth=4
-      set softtabstop=-1
-      set smartindent
-      set swapfile
-      set dir=/tmp
-      set number
-    '';
-    initLua = ''
-      require('guess-indent').setup {}
-    '';
-    plugins = with pkgs.vimPlugins; [
-      nvim-lastplace
-      vim-fugitive
-      vim-gas
-      guess-indent-nvim
-      {
-        plugin = (
-          nvim-treesitter.withPlugins (p: [
-            p.haskell
-            p.nix
-            p.vimdoc
-          ])
-        );
-        runtime."ftplugin/haskell.lua".text = ''
-          vim.treesitter.start()
-        '';
-        runtime."ftplugin/nix.lua".text = ''
-          vim.treesitter.start()
-        '';
-        runtime."ftplugin/markdown.lua".text = ''
-          vim.treesitter.start()
-        '';
-      }
-    ];
-  };
-
   programs.zoxide.enable = true;
 
   programs.fzf.enable = true;
