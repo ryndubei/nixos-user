@@ -21,6 +21,8 @@
       relativenumber = true;
     };
 
+    colorschemes.ayu.enable = true;
+
     performance.byteCompileLua.enable = true;
     performance.combinePlugins.enable = true;
 
