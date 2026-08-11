@@ -25,6 +25,9 @@
     performance.byteCompileLua.enable = true;
     performance.combinePlugins.enable = true;
 
+    # Status line
+    plugins.lightline.enable = true;
+
     # Fuzzy finder
     plugins.telescope.enable = true;
     plugins.web-devicons.enable = true; # for telescope
