@@ -39,6 +39,19 @@
     # Indentation detection
     plugins.guess-indent.enable = true;
 
+    # Improved wildmenu (command menu completion)
+    plugins.wilder = {
+      enable = true;
+      settings = {
+        modes = [ ":" ];
+      };
+      options = {
+        # unsure whether this does anything, had to remove
+        # "/" and "?" from modes
+        use_python_remote_plugin = 0;
+      };
+    };
+
     # Default language server configurations
     plugins.lspconfig.enable = true;
     lsp.servers.nixd.enable = true;
