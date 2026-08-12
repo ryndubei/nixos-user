@@ -120,6 +120,15 @@
         vimdoc
       ];
     };
+    # Matching colours on opening/closing brackets based on Treesitter
+    # TODO use red for unmatched brackets somehow
+    plugins.rainbow-delimiters.enable = true;
+
+    # Automatic brackets
+    plugins.autoclose.enable = true;
+
+    # Save sessions per project
+    plugins.auto-session.enable = true;
 
   };
 }
