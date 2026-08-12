@@ -69,7 +69,6 @@
 
     # Default language server configurations
     plugins.lspconfig.enable = true;
-    lsp.servers.nixd.enable = true;
 
     plugins.lsp-lines.enable = true; # show lsp error (diagnostic) messages
     extraConfigLua = ''
@@ -82,30 +81,6 @@
         key = "<Leader>l";
         action.__raw = "require('lsp_lines').toggle";
         options.unique = true;
-      }
-    ];
-
-    # Formatter plugin
-    plugins.conform-nvim.enable = true;
-    plugins.conform-nvim.settings = {
-      formatters_by_ft = {
-        nix = [ "nixfmt" ];
-      };
-    };
-
-    # Automatically format *.nix files on save
-    # (to save without formatting, use :noa w)
-    autoCmd = [
-      {
-        event = "BufWritePre";
-        pattern = "*.nix";
-        callback = {
-          __raw = ''
-            function(args)
-              require('conform').format({bufnr = args.buf})
-            end
-          '';
-        };
       }
     ];
 

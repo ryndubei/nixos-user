@@ -48,6 +48,7 @@
           ./vim/base.nix
           ./vim/haskell-tools.nix
           ./vim/gas.nix
+          ./vim/nix.nix
           nix-flatpak.homeManagerModules.nix-flatpak
           nixvim.homeModules.nixvim
         ];
