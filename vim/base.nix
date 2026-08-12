@@ -27,7 +27,11 @@
       colors.generate() -- pass true to generate using mirage
     '';
     colorschemes.ayu.settings.overrides = {
-      LineNr = { fg = { __raw = "colors.ui"; }; }; # make line numbers more readable
+      LineNr = {
+        fg = {
+          __raw = "colors.ui";
+        };
+      }; # make line numbers more readable
     };
 
     performance.byteCompileLua.enable = true;
@@ -67,7 +71,7 @@
     plugins.lspconfig.enable = true;
     lsp.servers.nixd.enable = true;
 
-    plugins.lsp-lines.enable = true; # show lsp error (diagnostic) messages 
+    plugins.lsp-lines.enable = true; # show lsp error (diagnostic) messages
     extraConfigLua = ''
       -- lsp-lines
       vim.diagnostic.config({ virtual_lines = { only_current_line = true } })
@@ -78,6 +82,30 @@
         key = "<Leader>l";
         action.__raw = "require('lsp_lines').toggle";
         options.unique = true;
+      }
+    ];
+
+    # Formatter plugin
+    plugins.conform-nvim.enable = true;
+    plugins.conform-nvim.settings = {
+      formatters_by_ft = {
+        nix = [ "nixfmt" ];
+      };
+    };
+
+    # Automatically format *.nix files on save
+    # (to save without formatting, use :noa w)
+    autoCmd = [
+      {
+        event = "BufWritePre";
+        pattern = "*.nix";
+        callback = {
+          __raw = ''
+            function(args)
+              require('conform').format({bufnr = args.buf})
+            end
+          '';
+        };
       }
     ];
 
