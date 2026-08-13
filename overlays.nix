@@ -35,12 +35,12 @@
     })
     (k: p: {
       nix-output-monitor = p.nix-output-monitor.overrideAttrs rec {
-        version = "0-unstable-2026-07-14";
+        version = "0-unstable-2026-08-11";
         src = p.fetchFromGitHub {
           owner = "maralorn";
           repo = "nix-output-monitor";
-          rev = "030658cd63512887c74652261079ca8bbb636c23";
-          hash = "sha256-Ok5wLwYcQvM4u4zS1b7aP72sFH/bWlowWvBPvx+LPqs=";
+          rev = "e7c24c7576d5ab89957fe8ffe6b6077ff3934669";
+          hash = "sha256-LhAG+vrrm/8c+SF8TKATMuTmm0vMxUApyA3vHiFmdsY=";
         };
         propagatedBuildInputs = p.nix-output-monitor.propagatedBuildInputs or [ ] ++ [
           p.haskellPackages.fsnotify
