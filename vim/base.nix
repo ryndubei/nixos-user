@@ -84,6 +84,10 @@
       }
     ];
 
+    # LSP code completions
+    plugins.cmp.enable = true;
+    plugins.cmp-nvim-lsp.enable = true;
+
     # LSP folding ranges
     plugins.nvim-ufo.enable = true;
 
