@@ -41,6 +41,7 @@
           ./home.nix
           ./cli.nix
           ./cli-extra.nix
+          ./codium.nix
           ./desktop.nix
           ./steam.nix
           ./services/protonmail-bridge.nix
