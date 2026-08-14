@@ -118,7 +118,10 @@
       };
 
     # LSP folding ranges
-    plugins.nvim-ufo.enable = true;
+    plugins.origami.enable = true;
+    plugins.origami.settings = {
+      foldKeymaps.setup = false; # the new keybindings are annoying more often than not
+    };
 
     # Syntax highlighting
     plugins.treesitter = {
