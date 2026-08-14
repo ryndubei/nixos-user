@@ -132,7 +132,7 @@
     plugins.rainbow-delimiters.enable = true;
 
     # Automatic brackets
-    plugins.autoclose.enable = true;
+    plugins.nvim-autopairs.enable = true;
 
     # Save sessions per project
     plugins.auto-session.enable = true;
