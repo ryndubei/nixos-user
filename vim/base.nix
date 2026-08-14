@@ -18,6 +18,7 @@
       dir = "/tmp";
       number = true;
       relativenumber = true;
+      so = 10;
     };
 
     colorschemes.ayu.enable = true;
