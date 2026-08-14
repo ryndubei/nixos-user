@@ -159,8 +159,19 @@
       ];
     };
     # Matching colours on opening/closing brackets based on Treesitter
-    # TODO use red for unmatched brackets somehow
     plugins.rainbow-delimiters.enable = true;
+    plugins.rainbow-delimiters.settings = {
+      highlight = [
+        # TODO use red for unmatched brackets somehow
+        # "RainbowDelimiterRed"
+        "RainbowDelimiterYellow"
+        "RainbowDelimiterViolet"
+        "RainbowDelimiterBlue"
+        # "RainbowDelimiterOrange"
+        # "RainbowDelimiterGreen"
+        # "RainbowDelimiterCyan"
+      ];
+    };
 
     # Automatic brackets
     plugins.nvim-autopairs.enable = true;
