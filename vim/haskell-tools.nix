@@ -7,6 +7,11 @@
   ];
 
   programs.nixvim = {
+    extraConfigLua = ''
+      -- Use vendored highlighting query for haskell
+      vim.treesitter.query.set('haskell', 'highlights', vim.fn.readblob('${./haskell-highlights.scm}'))
+    '';
+
     plugins.haskell-tools = {
       enable = true;
       hlsPackage = null; # auto discover whatever HLS is in PATH
