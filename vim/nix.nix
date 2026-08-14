@@ -10,6 +10,11 @@
       };
     };
 
+    extraConfigLua = ''
+      -- Use conform's formatexpr for gq formatting
+      vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+    '';
+
     # Automatically format *.nix files on save
     # (to save without formatting, use :noa w)
     autoCmd = [
