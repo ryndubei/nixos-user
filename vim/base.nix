@@ -50,7 +50,7 @@
 
     # Git integration
     plugins.fugitive.enable = true;
-    plugins.gitgutter.enable = true; # show changed lines
+    plugins.gitsigns.enable = true; # show changed lines
 
     # Indentation detection
     plugins.guess-indent.enable = true;
