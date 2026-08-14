@@ -55,19 +55,6 @@
     # Indentation detection
     plugins.guess-indent.enable = true;
 
-    # Improved wildmenu (command menu completion)
-    plugins.wilder = {
-      enable = true;
-      settings = {
-        modes = [ ":" ];
-      };
-      options = {
-        # unsure whether this does anything, had to remove
-        # "/" and "?" from modes
-        use_python_remote_plugin = 0;
-      };
-    };
-
     # Default language server configurations
     plugins.lspconfig.enable = true;
 
@@ -85,9 +72,50 @@
       }
     ];
 
-    # LSP code completions
+    # Code completions
     plugins.cmp.enable = true;
-    plugins.cmp-nvim-lsp.enable = true;
+    plugins.cmp-nvim-lsp.enable = true; # completions from the language server
+    plugins.cmp-buffer.enable = true; # words in the buffer
+    plugins.cmp-path.enable = true; # file paths
+    plugins.cmp.settings.sources = [
+      { name = "nvim_lsp"; }
+      { name = "path"; }
+      { name = "buffer"; }
+    ];
+    plugins.cmp.cmdline =
+      let
+        search_cfg = {
+          mapping = {
+            __raw = "cmp.mapping.preset.cmdline()";
+          };
+          sources = [
+            {
+              name = "buffer";
+            }
+          ];
+        };
+      in
+      {
+        "?" = search_cfg;
+        "/" = search_cfg;
+        ":" = {
+          mapping = {
+            __raw = "cmp.mapping.preset.cmdline()";
+          };
+          sources = [
+            { name = "buffer"; }
+            {
+              name = "cmdline";
+              options = {
+                ignore_cmds = [
+                  "Man"
+                  "!"
+                ];
+              };
+            }
+          ];
+        };
+      };
 
     # LSP folding ranges
     plugins.nvim-ufo.enable = true;
