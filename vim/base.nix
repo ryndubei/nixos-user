@@ -142,6 +142,7 @@
 
         # uncommon
         fish
+        scheme
 
         # general purpose
         c
