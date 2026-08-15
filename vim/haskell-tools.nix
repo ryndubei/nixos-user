@@ -9,8 +9,7 @@
   programs.nixvim = {
     extraConfigLua = ''
       -- Use vendored highlighting query for haskell
-      -- TODO impure for easier design iteration, should be reverted later
-      vim.treesitter.query.set('haskell', 'highlights', vim.fn.readblob(vim.env.HOME .. '/.config/home-manager/vim/haskell-highlights.scm'))
+      vim.treesitter.query.set('haskell', 'highlights', vim.fn.readblob('${./haskell-highlights.scm}'))
     '';
 
     plugins.haskell-tools = {
