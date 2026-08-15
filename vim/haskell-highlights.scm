@@ -1,6 +1,28 @@
 ; ----------------------------------------------------------------------------
-; Vendored from
+; Modified version of
 ; https://github.com/nvim-treesitter/nvim-treesitter/blob/main/runtime/queries/haskell/highlights.scm
+; because I disagree with some of the choices made, including:
+;
+; - It's pointless to attempt semantic highlighting for functions when there's
+;   no typechecker. You cannot tell them apart using syntax alone, so previously
+;   the highlighting resorted to special cases like "it's a @function.call if the
+;   operator is a <$>". This just results in the highlighting being inconsistent,
+;   unpredictable and untrustworthy.
+; - It is misleading to highlight ordinary standard library functions like
+;   `bracket` as if they were keywords. What if I don't import Control.Exception
+;   and `bracket` means something else entirely? Or what if I define `bracket2 =
+;   bracket`?
+; - 'forall' is not a "keyword related to loops" (@keyword.repeat: https://neovim.io/doc/user/treesitter)
+; - 'True', 'False' should not be given special boolean literal highlighting
+;   because `Bool` is also an ordinary standard library sum type. This is doubly
+;   the case for `otherwise`. It doesn't matter that the default implementation
+;   is `otherwise = True`, what if I have NoImplicitPrelude?
+;
+; In return, I make only two or three questionable choices of my own:
+; - names in type signatures are highlighted as functions while the
+;   corresponding names in definitions are highlighted as variables 
+; - Any variable that is named exactly 'proc' is highlighted as a keyword. This
+;   is because the Haskell treesitter grammar does not support arrow syntax yet.
 ; ----------------------------------------------------------------------------
 ; Parameters and variables
 ; NOTE: These are at the top, so that they have low priority,
@@ -58,7 +80,7 @@
 [
   "forall"
   ; "∀" ; utf-8 is not cross-platform safe
-] @keyword.repeat
+] @keyword.modifier
 
 (pragma) @keyword.directive
 
@@ -74,7 +96,25 @@
   "import"
   "qualified"
   "module"
+  "as"
+  "hiding"
+  "foreign"
+  "import"
+  "export"
 ] @keyword.import
+
+; Rely on the treesitter haskell parser to track all the different calling
+; conventions and safety levels.
+; The downside is that the text won't be highlighted until the foreign import/
+; export declaration is written in full, so TODO also explicitly track
+; ccall/capi/javascript/safe/unsafe as keywords.
+(foreign_import
+  .
+  (calling_convention)? @keyword.import
+  (safety)? @keyword.import)
+(foreign_export
+  .
+  (calling_convention) @keyword.import)
 
 [
   (operator)
@@ -91,6 +131,7 @@
   "\\"
   "`"
   "@"
+  "!"
 ] @operator
 
 (wildcard) @character.special
@@ -102,15 +143,19 @@
   "where"
   "let"
   "in"
+  "pattern"
+] @keyword.function ; you can define functions with these after all
+
+[
   "class"
   "instance"
-  "pattern"
   "data"
   "newtype"
-  "family"
   "type"
-  "as"
-  "hiding"
+  "family"
+] @keyword.type ; you can define functions with these after all
+
+[
   "deriving"
   "via"
   "stock"
@@ -123,8 +168,23 @@
   "infixr"
 ] @keyword
 
+; Arrow 'proc' keyword
+; Since the grammar does not support arrow syntax, we have to highlight it
+; naively by hand.
+; This will lead to erroneous highlighting of variables that are named exactly
+; 'proc', which I am personally fine with.
+(
+  (variable) @keyword
+  (#eq? @keyword "proc")
+)
+
 ; ----------------------------------------------------------------------------
 ; Functions and variables
+
+; Since @function will be unused otherwise, it is instead used as separate
+; highlighting for names in explicit type signatures.
+; Think of this as symbolising an implicit type-level function from names to
+; types.
 (decl/signature
   [
     name: (variable) @function
@@ -134,84 +194,16 @@
 
 (decl/function
   [
-    name: (variable) @function
+    name: (variable) @variable
     names: (binding_list
-      (variable) @function)
+      (variable) @variable)
   ])
 
 (decl/bind
   [
-    name: (variable) @function
+    name: (variable) @variable
     names: (binding_list
-      (variable) @function)
-  ])
-
-(decl/bind
-  name: (variable) @variable)
-
-; Consider signatures (and accompanying functions)
-; with only one value on the rhs as variables
-(decl/signature
-  name: (variable) @variable
-  type: (type))
-
-((decl/signature
-  name: (variable) @_name
-  type: (type))
-  .
-  (decl
-    [
-      (signature
-        name: (variable) @variable)
-      (function
-        name: (variable) @variable)
-      (bind
-        name: (variable) @variable)
-    ])
-  match: (_)
-  (#eq? @_name @variable))
-
-; but consider a type that involves 'IO' a decl/function
-(decl/signature
-  name: (variable) @function
-  type: (type/apply
-    constructor: (name) @_type)
-  (#eq? @_type "IO"))
-
-((decl/signature
-  name: (variable) @_name
-  type: (type/apply
-    constructor: (name) @_type)
-  (#eq? @_type "IO"))
-  .
-  (decl
-    [
-      (signature
-        name: (variable) @function)
-      (function
-        name: (variable) @function)
-      (bind
-        name: (variable) @function)
-    ])
-  match: (_)
-  (#eq? @_name @function))
-
-((decl/signature) @function
-  .
-  (decl/function
-    name: (variable) @function))
-
-(decl/bind
-  name: (variable) @function
-  (match
-    expression: (expression/lambda)))
-
-; view patterns
-(view_pattern
-  [
-    (expression/variable) @function.call
-    (expression/qualified
-      (variable) @function.call)
+      (variable) @variable)
   ])
 
 ; consider infix functions as operators
@@ -222,195 +214,25 @@
       (variable) @operator)
   ])
 
-; decl/function calls with an infix operator
-; e.g. func <$> a <*> b
-(infix
-  left_operand: [
-    (variable) @function.call
-    (qualified
-      ((module) @module
-        (variable) @function.call))
-  ]
-  operator: (operator))
-
-; infix operators applied to variables
-((expression/variable) @variable
-  .
-  (operator))
-
-((operator)
-  .
-  [
-    (expression/variable) @variable
-    (expression/qualified
-      (variable) @variable)
-  ])
-
 ; infix operator function definitions
-(function
-  (infix
-    left_operand: [
-      (variable) @variable.parameter
-      (qualified
-        ((module) @module
-          (variable) @variable))
-    ])
-  match: (match))
-
-; decl/function calls with infix operators
-([
-  (expression/variable) @function.call
-  (expression/qualified
-    (variable) @function.call)
-]
-  .
-  (operator) @_op
-  (#any-of? @_op "$" "<$>" ">>=" "=<<"))
-
-; right hand side of infix operator
-((infix
-  [
-    (operator)
-    (infix_id
-      (variable))
-  ] ; infix or `func`
-  .
-  [
-    (variable) @function.call
-    (qualified
-      (variable) @function.call)
-  ])
-  .
-  (operator) @_op
-  (#any-of? @_op "$" "<$>" "=<<"))
-
-; decl/function composition, arrows, monadic composition (lhs)
-([
-  (expression/variable) @function
-  (expression/qualified
-    (variable) @function)
-]
-  .
-  (operator) @_op
-  (#any-of? @_op "." ">>>" "***" ">=>" "<=<"))
-
-; right hand side of infix operator
-((infix
-  [
-    (operator)
-    (infix_id
-      (variable))
-  ] ; infix or `func`
-  .
-  [
-    (variable) @function
-    (qualified
-      (variable) @function)
-  ])
-  .
-  (operator) @_op
-  (#any-of? @_op "." ">>>" "***" ">=>" "<=<"))
-
-; function composition, arrows, monadic composition (rhs)
-((operator) @_op
-  .
-  [
-    (expression/variable) @function
-    (expression/qualified
-      (variable) @function)
-  ]
-  (#any-of? @_op "." ">>>" "***" ">=>" "<=<"))
-
-; function defined in terms of a function composition
 (decl/function
-  name: (variable) @function
-  (match
-    expression: (infix
-      operator: (operator) @_op
-      (#any-of? @_op "." ">>>" "***" ">=>" "<=<"))))
+  (infix
+    left_operand: (variable) @variable.parameter
+    operator: (operator)
+    right_operand: (variable) @variable.parameter)
+  )
 
-(apply
-  [
-    (expression/variable) @function.call
-    (expression/qualified
-      (variable) @function.call)
-  ])
-
-; function compositions, in parentheses, applied
-; lhs
-(apply
-  .
-  (expression/parens
-    (infix
-      [
-        (variable) @function.call
-        (qualified
-          (variable) @function.call)
-      ]
-      .
-      (operator))))
-
-; rhs
-(apply
-  .
-  (expression/parens
-    (infix
-      (operator)
-      .
-      [
-        (variable) @function.call
-        (qualified
-          (variable) @function.call)
-      ])))
-
-; variables being passed to a function call
-(apply
-  (_)
-  .
-  [
-    (expression/variable) @variable
-    (expression/qualified
-      (variable) @variable)
-  ])
-
-; main is always a function
-; (this prevents `main = undefined` from being highlighted as a variable)
-(decl/bind
-  name: (variable) @function
-  (#eq? @function "main"))
-
-; scoped function types (func :: a -> b)
-(signature
-  pattern: (pattern/variable) @function
-  type: (function))
-
-; signatures that have a function type
-; + binds that follow them
-(decl/signature
-  name: (variable) @function
-  type: (function))
-
-((decl/signature
-  name: (variable) @_name
-  type: (quantified_type))
-  .
-  (decl/bind
-    (variable) @function)
-  (#eq? @function @_name))
-
-; Treat constructor assignments (smart constructors) as functions, e.g. mkJust = Just
-(bind
-  name: (variable) @function
-  match: (match
-    expression: (constructor)))
-
-; Function composition
-(bind
-  name: (variable) @function
-  match: (match
-    expression: (infix
-      operator: (operator) @_op
-      (#eq? @_op "."))))
+; mixed opinions on having this, leaving it as commented out.
+; It might help make code easier to read, but it will also fail
+; when wrapped in enough parentheses like `((...(foo)...)) bar`
+; no matter how many special cases we have.
+; Also, we want to keep @function highlighting for type signatures.
+; (apply
+;   [
+;     (expression/variable) @function.call
+;     (expression/qualified
+;       (variable) @function.call)
+;   ])
 
 ; ----------------------------------------------------------------------------
 ; Types
@@ -433,14 +255,6 @@
 (type/star) @type
 
 (constructor) @constructor
-
-; True or False
-((constructor) @boolean
-  (#any-of? @boolean "True" "False"))
-
-; otherwise (= True)
-((variable) @boolean
-  (#eq? @boolean "otherwise"))
 
 ; ----------------------------------------------------------------------------
 ; Quasi-quotes
@@ -468,32 +282,22 @@
 
 ; Highlighting of quasiquote_body for other languages is handled by injections.scm
 ; ----------------------------------------------------------------------------
-; Exceptions/error handling
-((variable) @keyword.exception
-  (#any-of? @keyword.exception
-    "error" "undefined" "try" "tryJust" "tryAny" "catch" "catches" "catchJust" "handle" "handleJust"
-    "throw" "throwIO" "throwTo" "throwError" "ioError" "mask" "mask_" "uninterruptibleMask"
-    "uninterruptibleMask_" "bracket" "bracket_" "bracketOnErrorSource" "finally" "fail"
-    "onException" "expectationFailure"))
-
-; ----------------------------------------------------------------------------
-; Debugging
-((variable) @keyword.debug
-  (#any-of? @keyword.debug
-    "trace" "traceId" "traceShow" "traceShowId" "traceWith" "traceShowWith" "traceStack" "traceIO"
-    "traceM" "traceShowM" "traceEvent" "traceEventWith" "traceEventIO" "flushEventLog" "traceMarker"
-    "traceMarkerIO"))
-
-; ----------------------------------------------------------------------------
+;
+; I just personally dislike highlighting fields like that.
+;
+; Also, the grammar cannot distinguish between foo.bar with OverloadedRecordDot
+; and the function composition foo.bar when OverloadedRecordDot is disabled
+; (the grammar assumes that it's always a field access)
+;
 ; Fields
-(field_name
-  (variable) @variable.member)
-
-(import_name
-  (name)
-  .
-  (children
-    (variable) @variable.member))
+; (field_name
+;   (variable) @variable.member)
+; 
+; (import_name
+;   (name)
+;   .
+;   (children
+;     (variable) @variable.member))
 
 ; ----------------------------------------------------------------------------
 ; Spell checking
