@@ -147,7 +147,7 @@
   "newtype"
   "type"
   "family"
-] @keyword.type ; you can define functions with these after all
+] @keyword.type
 
 [
   "deriving"
