@@ -16,6 +16,10 @@ let
       rev = "b02ca8d9b385c79a802b137c8c73157cdfc7ba3f";
       hash = "sha256-BYdERbb2wkBovTXl95PcKsdaBl2WDyv+nc/9LhENCNw=";
     };
+    patches = [
+      # delimiter colour already provided by rainbow-delimiters
+      ./match-parens.patch
+    ];
     installPhase = ''
       cp -r . $out
     '';
