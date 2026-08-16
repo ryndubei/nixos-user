@@ -83,6 +83,7 @@
   "then"
   "else"
   "case"
+  "cases"
   "of"
 ] @keyword.conditional
 
