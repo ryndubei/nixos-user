@@ -47,6 +47,30 @@ in
       so = 10;
     };
 
+    colorschemes.ayu.enable = true;
+    colorschemes.ayu.luaConfig.pre = ''
+      -- to use colorscheme's own colours in override
+      local colors = require('ayu.colors')
+      colors.generate() -- pass true to generate using mirage
+    '';
+    colorschemes.ayu.settings.overrides.__raw = ''
+      {
+        LineNr = { fg = colors.ui },
+        -- using @type.definition for Haskell type signatures
+        ['@type.definition.haskell'] = { fg = colors.func },
+        -- colour haskell constructors, modules like in codium
+        ['@module.haskell'] = { fg = colors.entity },
+        ['@constructor.haskell'] = { fg = colors.regexp },
+        -- unlike codium, also colour haskell record members as signatures
+        -- NOTE: since the grammr cannot determine whether OverloadedRecordDot is
+        -- enabled, this will lead to function composition without whitespace
+        -- between the '.' to be wrongly coloured.
+        ['@variable.member.haskell'] = { fg = colors.func },
+        -- OverloadedLabels
+        ['@label.haskell'] = { fg = colors.tag }
+      }
+    '';
+
     performance.byteCompileLua.enable = true;
     performance.combinePlugins.enable = true;
 
@@ -75,13 +99,12 @@ in
 
     plugins.lsp-lines.enable = true; # show lsp error (diagnostic) messages
 
-    extraPlugins = [ milou ]; # theme
+    # TODO detect light/dark theme, toggle between ayu and milou based on that
+    extraPlugins = [ milou ];
 
     extraConfigLua = ''
       -- lsp-lines
       vim.diagnostic.config({ virtual_lines = { only_current_line = true } })
-      -- milou
-      require('milou').setup()
     '';
     keymaps = [
       {
