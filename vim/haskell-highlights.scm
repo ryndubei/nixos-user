@@ -12,9 +12,8 @@
 ;   ordinary sum type constructors from the prelude. Worse, also giving it to
 ;   `otherwise :: Bool`.
 ;
-; In return, I make only two or three questionable choices of my own:
-; - names in type signatures are highlighted as functions while the
-;   corresponding names in definitions are highlighted as variables
+; In return, I make only two questionable choices of my own:
+; - Identifiers in type signatures are tagged as @type.definition
 ; - Any variable that is named exactly 'proc' is highlighted as a keyword. This
 ;   is because the Haskell treesitter grammar does not support arrow syntax yet.
 ; ----------------------------------------------------------------------------
@@ -176,13 +175,12 @@
 ; ----------------------------------------------------------------------------
 ; Functions and variables
 
-; Since @function will be unused otherwise, it is instead used as separate
-; highlighting for names in explicit type signatures.
+; @type.definition is not an ideal fit for signatures, but it's close enough
 (decl/signature
   [
-    name: (variable) @function
+    name: (variable) @type.definition
     names: (binding_list
-      (variable) @function)
+      (variable) @type.definition)
   ])
 
 (decl/function
@@ -219,7 +217,6 @@
 ; It might help make code easier to read, but it will also fail
 ; when wrapped in enough parentheses like `((...(foo)...)) bar`
 ; no matter how many special cases we have.
-; Also, we want to keep @function highlighting for type signatures.
 ; (apply
 ;   [
 ;     (expression/variable) @function.call
