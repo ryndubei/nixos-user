@@ -10,8 +10,7 @@
 ;   unpredictable and untrustworthy.
 ; - It is misleading to highlight ordinary standard library functions like
 ;   `bracket` as if they were keywords. What if I don't import Control.Exception
-;   and `bracket` means something else entirely? Or what if I define `bracket2 =
-;   bracket`?
+;   and `bracket` means something else entirely? Or what if I define `bracket2 = bracket`?
 ; - 'forall' is not a "keyword related to loops" (@keyword.repeat: https://neovim.io/doc/user/treesitter)
 ; - 'True', 'False' should not be given special boolean literal highlighting
 ;   because `Bool` is also an ordinary standard library sum type. This is doubly
