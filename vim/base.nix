@@ -1,5 +1,31 @@
-{ config, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
+let
+  milou = pkgs.stdenv.mkDerivation {
+    pname = "milou-nvim";
+    version = "0-unstable-2026-05-13";
+    src = pkgs.fetchFromForgejo {
+      domain = "git.confusedcompiler.org";
+      owner = "leana8959";
+      repo = "milou";
+      rev = "b02ca8d9b385c79a802b137c8c73157cdfc7ba3f";
+      hash = "sha256-BYdERbb2wkBovTXl95PcKsdaBl2WDyv+nc/9LhENCNw=";
+    };
+    patches = [
+      # delimiter colour already provided by rainbow-delimiters
+      ./match-parens.patch
+    ];
+    installPhase = ''
+      cp -r . $out
+    '';
+    meta.license = lib.licenses.mit;
+  };
+in
 {
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -19,20 +45,6 @@
       number = true;
       relativenumber = true;
       so = 10;
-    };
-
-    colorschemes.ayu.enable = true;
-    colorschemes.ayu.luaConfig.pre = ''
-      -- to use colorscheme's own colours in override
-      local colors = require('ayu.colors')
-      colors.generate() -- pass true to generate using mirage
-    '';
-    colorschemes.ayu.settings.overrides = {
-      LineNr = {
-        fg = {
-          __raw = "colors.ui";
-        };
-      }; # make line numbers more readable
     };
 
     performance.byteCompileLua.enable = true;
@@ -59,9 +71,14 @@
     plugins.lspconfig.enable = true;
 
     plugins.lsp-lines.enable = true; # show lsp error (diagnostic) messages
+
+    extraPlugins = [ milou ]; # theme
+
     extraConfigLua = ''
       -- lsp-lines
       vim.diagnostic.config({ virtual_lines = { only_current_line = true } })
+      -- milou
+      require('milou').setup()
     '';
     keymaps = [
       {

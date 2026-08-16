@@ -1,0 +1,13 @@
+diff --git a/lua/milou/theme.lua b/lua/milou/theme.lua
+index 4009bdc..410f70a 100644
+--- a/lua/milou/theme.lua
++++ b/lua/milou/theme.lua
+@@ -27,7 +27,7 @@ local highlight_groups = {
+ 	LineNr = { fg = c.mono_3, bg = c.pmenu },
+ 	SignColumn = { link = "LineNr" },
+ 	CursorLine = { fg = "NONE", bg = c.cursor },
+-	MatchParen = { fg = c.bg, bg = c.blue, bold = true },
++	MatchParen = { bold = true },
+ 	ModeMsg = {},
+ 	MoreMsg = {},
+ 	NonText = { fg = c.mono_3, bg = "NONE" },
