@@ -1,21 +1,16 @@
 ; ----------------------------------------------------------------------------
-; Modified version of
-; https://github.com/nvim-treesitter/nvim-treesitter/blob/main/runtime/queries/haskell/highlights.scm
+; Modified version of the current default nvim-treesitter Haskell highlighting
 ; because I disagree with some of the choices made, including:
 ;
-; - It's pointless to attempt semantic highlighting for functions when there's
-;   no typechecker. You cannot tell them apart using syntax alone, so previously
-;   the highlighting resorted to special cases like "it's a @function.call if the
-;   operator is a <$>". This just results in the highlighting being inconsistent,
-;   unpredictable and untrustworthy.
-; - It is misleading to highlight ordinary standard library functions like
-;   `bracket` as if they were keywords. What if I don't import Control.Exception
-;   and `bracket` means something else entirely? Or what if I define `bracket2 = bracket`?
-; - 'forall' is not a "keyword related to loops" (@keyword.repeat: https://neovim.io/doc/user/treesitter)
-; - 'True', 'False' should not be given special boolean literal highlighting
-;   because `Bool` is also an ordinary standard library sum type. This is doubly
-;   the case for `otherwise`. It doesn't matter that the default implementation
-;   is `otherwise = True`, what if I have NoImplicitPrelude?
+; - Attempting semantic highlighting without a typechecker, instead using
+;   brittle rules like "it's a function application if the operator is a <$>".
+; - Highlighting ordinary standard library functions like `bracket` as if they
+;   were keywords.
+; - Highlighting 'forall' as a "keyword related to loops"
+;   (@keyword.repeat: https://neovim.io/doc/user/treesitter).
+; - Giving special boolean literal highlighting to 'True', 'False', which are
+;   ordinary sum type constructors from the prelude. Worse, also giving it to
+;   `otherwise :: Bool`.
 ;
 ; In return, I make only two or three questionable choices of my own:
 ; - names in type signatures are highlighted as functions while the
