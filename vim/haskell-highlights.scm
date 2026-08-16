@@ -276,22 +276,15 @@
 
 ; Highlighting of quasiquote_body for other languages is handled by injections.scm
 ; ----------------------------------------------------------------------------
-;
-; I just personally dislike highlighting fields like that.
-;
-; Also, the grammar cannot distinguish between foo.bar with OverloadedRecordDot
-; and the function composition foo.bar when OverloadedRecordDot is disabled
-; (the grammar assumes that it's always a field access)
-;
 ; Fields
-; (field_name
-;   (variable) @variable.member)
-;
-; (import_name
-;   (name)
-;   .
-;   (children
-;     (variable) @variable.member))
+(field_name
+  (variable) @variable.member)
+
+(import_name
+  (name)
+  .
+  (children
+    (variable) @variable.member))
 
 ; ----------------------------------------------------------------------------
 ; Spell checking
