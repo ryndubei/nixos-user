@@ -50,6 +50,9 @@ in
     performance.byteCompileLua.enable = true;
     performance.combinePlugins.enable = true;
 
+    # Colour previews
+    plugins.colorizer.enable = true;
+
     # Status line
     plugins.lightline.enable = true;
 
