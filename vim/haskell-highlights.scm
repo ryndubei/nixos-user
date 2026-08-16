@@ -12,10 +12,13 @@
 ;   ordinary sum type constructors from the prelude. Worse, also giving it to
 ;   `otherwise :: Bool`.
 ;
-; In return, I make only two questionable choices of my own:
+; In return, I make only three questionable choices of my own:
 ; - Identifiers in type signatures are tagged as @type.definition
 ; - Any variable that is named exactly 'proc' is highlighted as a keyword. This
 ;   is because the Haskell treesitter grammar does not support arrow syntax yet.
+; - Variables in export/import lists are highlighted as members
+;
+; Foreign imports/exports and labels are also properly highlighted now.
 ; ----------------------------------------------------------------------------
 ; Parameters and variables
 ; NOTE: These are at the top, so that they have low priority,
@@ -47,6 +50,8 @@
 (char) @character
 
 (string) @string
+
+(label) @label
 
 (comment) @comment
 
@@ -234,13 +239,13 @@
   [
     "("
     ")"
-  ] @type)
+  ] @punctuation.delimiter)
 
 (type/list
   [
     "["
     "]"
-  ] @type)
+  ] @punctuation.delimiter)
 
 (type/star) @type
 
@@ -281,6 +286,14 @@
   .
   (children
     (variable) @variable.member))
+
+; Highlight all variables in export/import lists as members
+(export
+  (variable) @variable.member
+)
+(import_name
+  (variable) @variable.member
+)
 
 ; ----------------------------------------------------------------------------
 ; Spell checking
