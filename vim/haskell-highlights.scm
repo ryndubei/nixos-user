@@ -252,7 +252,7 @@
 
 ; ----------------------------------------------------------------------------
 ; Quasi-quotes
-(quoter) @function.call
+(quoter) @variable
 
 (quasiquote
   quoter: [
@@ -267,11 +267,11 @@
 ; namespaced quasi-quoter
 (quoter
   [
-    (variable) @function.call
+    (variable) @variable
     (_
       (module) @module
       .
-      (variable) @function.call)
+      (variable) @variable)
   ])
 
 ; Highlighting of quasiquote_body for other languages is handled by injections.scm
