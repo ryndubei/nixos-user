@@ -222,6 +222,10 @@ in
 
     # Save sessions per project
     plugins.auto-session.enable = true;
-
+    plugins.auto-session.settings = {
+      suppressed_dirs.__raw = ''
+        { vim.fn.getenv("HOME") }
+      '';
+    };
   };
 }
