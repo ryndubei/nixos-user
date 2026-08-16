@@ -178,8 +178,6 @@
 
 ; Since @function will be unused otherwise, it is instead used as separate
 ; highlighting for names in explicit type signatures.
-; Think of this as symbolising an implicit type-level function from names to
-; types.
 (decl/signature
   [
     name: (variable) @function
