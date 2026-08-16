@@ -71,8 +71,8 @@ in
       }
     '';
 
-    performance.byteCompileLua.enable = true;
-    performance.combinePlugins.enable = true;
+    # performance.byteCompileLua.enable = true;
+    # performance.combinePlugins.enable = true;
 
     # Colour previews
     plugins.colorizer.enable = true;
