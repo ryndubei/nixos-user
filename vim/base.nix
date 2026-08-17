@@ -34,6 +34,8 @@ in
   programs.nixvim = {
     enable = true;
 
+    nixpkgs.pkgs = pkgs; # suppress warning from following nixpkgs in flake.nix
+
     opts = {
       backspace = "indent,eol,start";
       syntax = "on";
