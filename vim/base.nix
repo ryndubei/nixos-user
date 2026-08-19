@@ -49,6 +49,24 @@ in
       so = 10;
     };
 
+    # Use milou as light theme
+    autoCmd = [
+      {
+        event = "OptionSet";
+        pattern = "background";
+        callback.__raw = ''
+          function()
+            if vim.o.background == 'light' then
+              vim.cmd([[colorscheme milou]])
+            else
+              vim.cmd([[colorscheme ayu]])
+            end
+            vim.cmd("mode")
+          end
+        '';
+      }
+    ];
+
     colorschemes.ayu.enable = true;
     colorschemes.ayu.luaConfig.pre = ''
       -- to use colorscheme's own colours in override
@@ -101,12 +119,15 @@ in
 
     plugins.lsp-lines.enable = true; # show lsp error (diagnostic) messages
 
-    # TODO detect light/dark theme, toggle between ayu and milou based on that
     extraPlugins = [ milou ];
 
     extraConfigLua = ''
       -- lsp-lines
       vim.diagnostic.config({ virtual_lines = { only_current_line = true } })
+
+      if vim.o.background == 'light' then
+        vim.cmd([[colorscheme milou]])
+      end
     '';
     keymaps = [
       {
