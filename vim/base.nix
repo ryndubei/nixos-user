@@ -25,6 +25,7 @@
       number = true;
       relativenumber = true;
       so = 10;
+      winborder = "rounded";
     };
 
     performance.byteCompileLua.enable = true;
@@ -59,6 +60,9 @@
     extraConfigLua = ''
       -- lsp-lines
       vim.diagnostic.config({ virtual_lines = { only_current_line = true } })
+
+      -- experimental new cmdline and message UI
+      require('vim._core.ui2').enable()
     '';
     keymaps = [
       {
