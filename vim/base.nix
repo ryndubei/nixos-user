@@ -146,9 +146,12 @@
         c
         cpp
         haskell
-        javascript
         nix
         python
+
+        # web
+        html
+        javascript
         typescript
 
         # nvim
