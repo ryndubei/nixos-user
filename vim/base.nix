@@ -139,6 +139,7 @@
 
         # uncommon
         fish
+        ledger
         scheme
 
         # general purpose
