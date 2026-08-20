@@ -52,6 +52,7 @@
           ./vim/gas.nix
           ./vim/langmap.nix
           ./vim/nix.nix
+          ./vim/theme.nix
           ./vim/web.nix
           nix-flatpak.homeManagerModules.nix-flatpak
           nixvim.homeModules.nixvim
