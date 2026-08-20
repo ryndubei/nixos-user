@@ -70,49 +70,30 @@
     ];
 
     # Code completions
-    plugins.cmp.enable = true;
-    plugins.cmp-nvim-lsp.enable = true; # completions from the language server
-    plugins.cmp-buffer.enable = true; # words in the buffer
-    plugins.cmp-path.enable = true; # file paths
-    plugins.cmp.settings.sources = [
-      { name = "nvim_lsp"; }
-      { name = "path"; }
-      { name = "buffer"; }
-    ];
-    plugins.cmp.cmdline =
-      let
-        search_cfg = {
-          mapping = {
-            __raw = "cmp.mapping.preset.cmdline()";
-          };
-          sources = [
-            {
-              name = "buffer";
-            }
-          ];
-        };
-      in
-      {
-        "?" = search_cfg;
-        "/" = search_cfg;
-        ":" = {
-          mapping = {
-            __raw = "cmp.mapping.preset.cmdline()";
-          };
-          sources = [
-            { name = "buffer"; }
-            {
-              name = "cmdline";
-              options = {
-                ignore_cmds = [
-                  "Man"
-                  "!"
-                ];
-              };
-            }
-          ];
+    plugins.blink-cmp.enable = true;
+    plugins.blink-cmp.settings = {
+      cmdline.completion.menu.auto_show = true;
+      completion.menu.draw = {
+        columns.__raw = ''
+          { { "label", gap = 1 }, { "kind_icon" } }
+        '';
+        components.label = {
+          text.__raw = ''
+            function(ctx)
+              return require('colorful-menu').blink_components_text(ctx)
+            end
+          '';
+          highlight.__raw = ''
+            function(ctx)
+              return require('colorful-menu').blink_components_highlight(ctx)
+            end
+          '';
         };
       };
+      completion.documentation.auto_show = true;
+    };
+    plugins.colorful-menu.enable = true; # Syntax highlighting for completions
+    plugins.blink-ripgrep.enable = true;
 
     # LSP folding ranges
     plugins.origami.enable = true;
