@@ -28,13 +28,14 @@
     };
 
     performance.byteCompileLua.enable = true;
-    performance.combinePlugins.enable = true;
+    # combinePlugins fails with lualine + ayu
+    # performance.combinePlugins.enable = true;
 
     # Colour previews
     plugins.colorizer.enable = true;
 
     # Status line
-    plugins.lightline.enable = true;
+    plugins.lualine.enable = true;
 
     # Fuzzy finder
     plugins.telescope.enable = true;
