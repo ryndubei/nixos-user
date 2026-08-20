@@ -2,6 +2,10 @@
   programs.nixvim = {
     lsp.servers.nixd.enable = true;
 
+    lsp.servers.nixd.config.settings.nixd.options = {
+      home-manager.expr = "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.vasilysterekhov.options";
+    };
+
     # Formatter plugin
     plugins.conform-nvim.enable = true;
     plugins.conform-nvim.settings = {
