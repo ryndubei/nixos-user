@@ -175,18 +175,6 @@
     };
   };
 
-  # Unfree package exceptions
-  nixpkgs.config.allowUnfreePredicate =
-    let
-      whitelist = map lib.getName (
-        with pkgs;
-        [
-          aseprite
-        ]
-      );
-    in
-    pkg: builtins.elem (lib.getName pkg) whitelist;
-
   home.file.".ideavimrc".text = ''
     set relativenumber
     set number
