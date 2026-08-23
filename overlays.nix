@@ -34,7 +34,7 @@
         };
     })
     (k: p: {
-      nix-output-monitor = p.nix-output-monitor.overrideAttrs rec {
+      nix-output-monitor = p.nix-output-monitor.overrideAttrs {
         version = "0-unstable-2026-08-11";
         src = p.fetchFromGitHub {
           owner = "maralorn";
@@ -46,7 +46,6 @@
           p.haskellPackages.fsnotify
           p.haskellPackages.doctest-parallel
         ];
-        sourceRoot = "${src.name}/nix-output-monitor";
       };
     })
   ];
