@@ -55,23 +55,13 @@
     # Default language server configurations
     plugins.lspconfig.enable = true;
 
-    plugins.lsp-lines.enable = true; # show lsp error (diagnostic) messages
-
     extraConfigLua = ''
-      -- lsp-lines
-      vim.diagnostic.config({ virtual_lines = { only_current_line = true } })
+      -- Show diagnostic messages between source lines
+      vim.diagnostic.config({ virtual_lines = { current_line = true } })
 
       -- experimental new cmdline and message UI
       require('vim._core.ui2').enable()
     '';
-    keymaps = [
-      {
-        # Toggle lsp-lines
-        key = "<Leader>l";
-        action.__raw = "require('lsp_lines').toggle";
-        options.unique = true;
-      }
-    ];
 
     # Code completions
     plugins.blink-cmp.enable = true;
