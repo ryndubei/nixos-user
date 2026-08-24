@@ -59,7 +59,6 @@
       "org.prismlauncher.PrismLauncher"
       "md.obsidian.Obsidian"
       "com.usebottles.bottles"
-      "com.spotify.Client"
     ];
   };
 
@@ -78,12 +77,6 @@
       ];
       shared = [ "!network" ];
     };
-    "com.spotify.Client".Context = {
-      filesystems = [ "/nix/store:ro" ];
-    };
-    "com.spotify.Client".Environment = {
-      LD_PRELOAD = "${pkgs.libspotifyadblock}/lib/libspotifyadblock.so";
-    };
     "com.usebottles.bottles".Context = {
       filesystems = [
         "~/.var/app/com.valvesoftware.Steam"
@@ -91,9 +84,6 @@
       ];
     };
   };
-
-  home.file.".var/app/com.spotify.Client/config/spotify-adblock/config.toml".source =
-    "${pkgs.libspotifyadblock.src}/config.toml";
 
   dconf.settings = lib.mkMerge [
     {
