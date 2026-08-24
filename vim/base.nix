@@ -48,6 +48,7 @@
     # Git integration
     plugins.fugitive.enable = true;
     plugins.gitsigns.enable = true; # show changed lines
+    plugins.gitblame.enable = true; # constant inline blame
 
     # Indentation detection
     plugins.guess-indent.enable = true;
