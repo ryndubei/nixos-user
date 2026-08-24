@@ -90,18 +90,13 @@
     plugins.colorful-menu.enable = true; # Syntax highlighting for completions
     plugins.blink-ripgrep.enable = true;
 
-    # LSP folding ranges
-    plugins.origami.enable = true;
-    plugins.origami.settings = {
-      foldKeymaps.setup = false; # the new keybindings are annoying more often than not
-    };
-
     # Syntax highlighting
     plugins.treesitter = {
       enable = true;
 
       highlight.enable = true;
       indent.enable = true;
+      folding.enable = true;
 
       grammarPackages = with config.programs.nixvim.plugins.treesitter.package.builtGrammars; [
         # common
