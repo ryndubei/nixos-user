@@ -132,9 +132,7 @@
   xdg.autostart.readOnly = true;
   xdg.autostart.entries = [
     "${pkgs.signal-desktop}/share/applications/signal.desktop"
-    "${pkgs.element-desktop}/share/applications/element-desktop.desktop"
     "${pkgs.legcord}/share/applications/legcord.desktop"
-    "${pkgs.telegram-desktop}/share/applications/org.telegram.desktop.desktop"
   ];
 
   gtk.theme = {
