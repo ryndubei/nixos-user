@@ -138,8 +138,44 @@
       ];
     };
 
-    # Automatic brackets
-    plugins.nvim-autopairs.enable = true;
+    # Automatic opening/closing brackets with rainbow highlighting
+    plugins.blink-pairs.enable = true;
+    plugins.blink-pairs.settings = {
+      highlights.groups = [
+        "BlinkPairsYellow"
+        "BlinkPairsPurple"
+        "BlinkPairsBlue"
+      ];
+    };
+    plugins.blink-pairs.luaConfig.post = ''
+      -- https://github.com/saghen/blink.pairs/issues/121
+      vim.api.nvim_set_hl(0, 'BlinkPairsOrange', { ctermfg = 15, fg = '#d65d0e', default = true })
+      vim.api.nvim_set_hl(0, 'BlinkPairsPurple', { ctermfg = 13, fg = '#b16286', default = true })
+      vim.api.nvim_set_hl(0, 'BlinkPairsBlue', { ctermfg = 12, fg = '#458588', default = true })
+      vim.api.nvim_set_hl(0, 'BlinkPairsUnmatched', { ctermfg = 9, fg = '#ff007c', default = true })
+      vim.api.nvim_set_hl(0, 'BlinkPairsMatchParen', { link = 'MatchParen', default = true })
+
+      -- the orange is indistinguishable from the purple when night light is on
+      vim.api.nvim_set_hl(0, 'BlinkPairsYellow', { ctermfg = 15, fg = '#d79921', default = true })
+    '';
+
+    autoCmd = [
+      {
+        event = "ColorScheme";
+        callback.__raw = ''
+          -- rainbow highlighting will no longer work after changing colorscheme
+          -- without this
+          function()
+            vim.api.nvim_set_hl(0, 'BlinkPairsOrange', { ctermfg = 15, fg = '#d65d0e', default = true })
+            vim.api.nvim_set_hl(0, 'BlinkPairsPurple', { ctermfg = 13, fg = '#b16286', default = true })
+            vim.api.nvim_set_hl(0, 'BlinkPairsBlue', { ctermfg = 12, fg = '#458588', default = true })
+            vim.api.nvim_set_hl(0, 'BlinkPairsUnmatched', { ctermfg = 9, fg = '#ff007c', default = true })
+            vim.api.nvim_set_hl(0, 'BlinkPairsMatchParen', { link = 'MatchParen', default = true })
+            vim.api.nvim_set_hl(0, 'BlinkPairsYellow', { ctermfg = 15, fg = '#d79921', default = true })
+          end
+        '';
+      }
+    ];
 
     # Save sessions per project
     plugins.auto-session.enable = true;

@@ -54,6 +54,7 @@ in
       {
         event = "OptionSet";
         pattern = "background";
+        nested = true; # run autocommands which listen for colorscheme changes
         callback.__raw = ''
           function()
             if vim.o.background == 'light' then
@@ -73,19 +74,5 @@ in
       end
     '';
 
-    # Matching colours on opening/closing brackets based on Treesitter
-    plugins.rainbow-delimiters.enable = true;
-    plugins.rainbow-delimiters.settings = {
-      highlight = [
-        # TODO use red for unmatched brackets somehow
-        # "RainbowDelimiterRed"
-        "RainbowDelimiterYellow"
-        "RainbowDelimiterViolet"
-        "RainbowDelimiterBlue"
-        # "RainbowDelimiterOrange"
-        # "RainbowDelimiterGreen"
-        # "RainbowDelimiterCyan"
-      ];
-    };
   };
 }
