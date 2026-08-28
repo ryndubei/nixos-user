@@ -19,6 +19,7 @@
       libreoffice
       mpv
       nerd-fonts.meslo-lg
+      nerd-fonts.symbols-only
       protonmail-bridge
       qbittorrent
       signal-desktop
