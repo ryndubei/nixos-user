@@ -13,6 +13,7 @@
       electrum
       element-desktop
       fira-code
+      fira-sans
       foliate
       legcord
       libreoffice
