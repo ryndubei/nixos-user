@@ -23,6 +23,7 @@
       protonmail-bridge
       qbittorrent
       signal-desktop
+      symbola # emacs fallback font
       telegram-desktop
       tor-browser
       vaults
@@ -43,6 +44,12 @@
       })
       system-monitor
     ]);
+
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      (lib.getName pkgs.symbola)
+    ];
 
   fonts.fontconfig.enable = true;
 
