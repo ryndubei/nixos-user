@@ -101,6 +101,7 @@
           "librewolf.desktop"
           "org.gnome.Nautilus.desktop"
           "org.gnome.Console.desktop"
+          "emacsclient.desktop"
         ];
       };
 

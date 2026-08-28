@@ -19,6 +19,12 @@
 
     steamappidlist.url = "github:jsnli/SteamAppIDList";
     steamappidlist.flake = false;
+
+    doom = {
+      url = "github:marienz/nix-doom-emacs-unstraightened";
+      # doomdir.url = "./doom.d"
+      inputs.nixpkgs.follows = ""; # doom flake does not use nixpkgs input
+    };
   };
 
   outputs =
@@ -28,6 +34,7 @@
       home-manager,
       nix-flatpak,
       nixvim,
+      doom,
       ...
     }:
     let
@@ -43,6 +50,7 @@
           ./cli.nix
           ./cli-extra.nix
           ./desktop.nix
+          ./emacs.nix
           ./steam.nix
           ./services/protonmail-bridge.nix
           ./overlays.nix
@@ -54,6 +62,7 @@
           ./vim/theme.nix
           ./vim/web.nix
           ./vim/wiki.nix
+          doom.homeModule
           nix-flatpak.homeManagerModules.nix-flatpak
           nixvim.homeModules.nixvim
         ];
