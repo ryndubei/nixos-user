@@ -54,6 +54,7 @@
           ./services/protonmail-bridge.nix
           ./overlays.nix
           ./vim/base.nix
+          ./vim/c.nix
           ./vim/haskell-tools.nix
           ./vim/gas.nix
           ./vim/langmap.nix
