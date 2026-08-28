@@ -22,7 +22,6 @@
 
     doom = {
       url = "github:marienz/nix-doom-emacs-unstraightened";
-      # doomdir.url = "./doom.d"
       inputs.nixpkgs.follows = ""; # doom flake does not use nixpkgs input
     };
   };
