@@ -1,9 +1,11 @@
+{ config, ... }:
+
 {
   programs.nixvim = {
     lsp.servers.nixd.enable = true;
 
     lsp.servers.nixd.config.settings.nixd.options = {
-      home-manager.expr = "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.vasilysterekhov.options";
+      home-manager.expr = "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.${config.home.username}.options";
     };
 
     # Formatter plugin
