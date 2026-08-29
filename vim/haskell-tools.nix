@@ -18,6 +18,13 @@
       enableTelescope = true;
     };
 
+    files."ftplugin/haskell.lua" = {
+      # Use vim's own indent because the haskell one works poorly
+      localOpts = {
+        indentexpr = "";
+      };
+    };
+
     # Recommended optional packages on https://github.com/mrcjkb/haskell-tools.nvim
     extraPackages = with pkgs.haskellPackages; [
       fast-tags

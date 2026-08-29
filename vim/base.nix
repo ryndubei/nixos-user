@@ -103,7 +103,6 @@
       enable = true;
 
       highlight.enable = true;
-      indent.enable = true;
 
       grammarPackages = with config.programs.nixvim.plugins.treesitter.package.builtGrammars; [
         # common
@@ -138,6 +137,9 @@
         vimdoc
       ];
     };
+    plugins.treesitter.luaConfig.post = ''
+      vim.opt_global.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    '';
 
     # Automatic opening/closing brackets with rainbow highlighting
     plugins.blink-pairs.enable = true;
