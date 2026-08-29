@@ -159,16 +159,6 @@
       vim.api.nvim_set_hl(0, 'BlinkPairsYellow', { ctermfg = 15, fg = '#d79921', default = true })
     '';
 
-    # Indentation guides
-    plugins.blink-indent.enable = true;
-    plugins.blink-indent.settings = {
-      scope.highlights = [
-        "BlinkPairsYellow"
-        "BlinkPairsPurple"
-        "BlinkPairsBlue"
-      ];
-    };
-
     autoCmd = [
       {
         event = "ColorScheme";
