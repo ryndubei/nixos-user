@@ -19,6 +19,11 @@
 
     steamappidlist.url = "github:jsnli/SteamAppIDList";
     steamappidlist.flake = false;
+
+    doom = {
+      url = "github:marienz/nix-doom-emacs-unstraightened";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -28,6 +33,7 @@
       home-manager,
       nix-flatpak,
       nixvim,
+      doom,
       ...
     }:
     let
@@ -56,6 +62,7 @@
           ./vim/theme.nix
           ./vim/web.nix
           ./vim/wiki.nix
+          doom.homeModule
           nix-flatpak.homeManagerModules.nix-flatpak
           nixvim.homeModules.nixvim
         ];
