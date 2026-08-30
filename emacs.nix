@@ -26,7 +26,6 @@
       (setq display-line-numbers-type 'relative)
       (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
-      (require-theme 'modus-themes)
       (load-theme 'modus-vivendi)
     '';
   };
