@@ -22,6 +22,9 @@
         :ensure t
         :config
         (evil-collection-init))
+
+      (setq display-line-numbers-type 'relative)
+      (add-hook 'prog-mode-hook 'display-line-numbers-mode)
     '';
   };
 
