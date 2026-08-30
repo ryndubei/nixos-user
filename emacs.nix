@@ -1,5 +1,28 @@
 {
-  programs.emacs.enable = true;
+  programs.emacs = {
+    enable = true;
+    extraPackages =
+      p: with p; [
+        evil
+        evil-collection
+      ];
+    extraConfig = ''
+      (use-package evil
+        :ensure t
+        :init
+        (setq evil-want-integration t)
+        (setq evil-want-keybinding nil)
+        (setq evil-want-C-u-scroll t)
+        :config
+        (evil-mode 1))
+
+      (use-package evil-collection
+        :after evil
+        :ensure t
+        :config
+        (evil-collection-init))
+    '';
+  };
 
   # Fixes C-h i info index
   programs.info.enable = true;
