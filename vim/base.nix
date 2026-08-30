@@ -27,7 +27,6 @@
       so = 10;
       winborder = "rounded";
       foldlevel = 3; # arbitrary number that seems to be usually good
-      indentkeys = "!^F,o,O";
     };
 
     performance.byteCompileLua.enable = true;
