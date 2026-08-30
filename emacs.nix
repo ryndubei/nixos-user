@@ -1,8 +1,5 @@
 {
-  programs.doom-emacs = {
-    enable = true;
-    doomDir = ./doom.d;
-  };
+  programs.emacs.enable = true;
 
   services.emacs = {
     enable = true;
