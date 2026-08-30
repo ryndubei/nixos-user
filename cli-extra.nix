@@ -19,7 +19,7 @@
     scala_3
     steam-run-free # Fixes most library problems when running outside of Nix
     # https://wiki.nixos.org/wiki/TexLive#Combine_Sets
-    (texliveBasic.withPackages (
+    (texliveMedium.withPackages (
       p: with p; [
         dvisvgm
         dvipng
@@ -28,6 +28,10 @@
         ulem
         hyperref
         capt-of
+        xcolor
+        mylatexformat
+        preview
+        esint
       ]
     ))
     yt-dlp
