@@ -188,14 +188,14 @@
       in
       [
         rec {
-          # uBlock Origin (manifest v2)
+          # uBlock Origin Lite
           # https://discourse.nixos.org/t/home-manager-ungoogled-chromium-with-extensions/15214/7
-          id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
+          id = "ddkjiahejlhfcafbddmgiahcphecmpfh";
           crxPath = pkgs.fetchurl {
             url = "https://clients2.google.com/service/update2/crx?response=redirect&acceptformat=crx2,crx3&prodversion=${browserVersion}&x=id%3D${id}%26installsource%3Dondemand%26uc";
-            hash = "sha256-am9BiDyrsTDQCNXazBGIKEkMJwE3ZbNRiSR+i+oXg5E=";
+            hash = "sha256-QrYLqJjMtC6rke8CAoz1xqPwKuoUMDyvEZl2+X7Nz10=";
           };
-          version = "1.73.0";
+          version = "2026.825.1619";
         }
       ];
     package = pkgs.ungoogled-chromium;
