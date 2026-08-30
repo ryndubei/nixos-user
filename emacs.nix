@@ -5,6 +5,7 @@
       p: with p; [
         evil
         evil-collection
+        magit
       ];
     extraConfig = ''
       (use-package evil
