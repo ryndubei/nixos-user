@@ -7,6 +7,11 @@
     emacs = pkgs.emacs-pgtk;
     extraBinPackages = [
       pkgs.emacs-lsp-booster
+      pkgs.haskellPackages.hoogle
+      pkgs.shellcheck
+      pkgs.gnumake
+      pkgs.cmake
+      pkgs.nixfmt
     ];
   };
 
