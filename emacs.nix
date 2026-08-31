@@ -13,6 +13,9 @@
       pkgs.gnumake
       pkgs.cmake
       pkgs.nixfmt
+      pkgs.deno
+      pkgs.prettier
+      pkgs.vscode-langservers-extracted
     ];
   };
 
