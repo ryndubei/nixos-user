@@ -7,15 +7,28 @@
     emacs = pkgs.emacs-gtk;
     extraPackages = epkgs: [ epkgs.treesit-grammars.with-all-grammars ];
     extraBinPackages = with pkgs; [
-      emacs-lsp-booster
-      haskellPackages.hoogle
-      shellcheck
-      shfmt
+      emacs-lsp-booster # lsp +booster
+      haskellPackages.hoogle # haskell
+      nixfmt #nix
+      wl-clipboard-rs # org-download
+      graphviz # org-roam
+
+      # vterm
       gnumake
       cmake
-      nixfmt
+
+      # sh
+      shellcheck
+      shfmt
+
+      # javascript
       deno
       prettier
+
+      # web
+      html-tidy
+      stylelint
+      js-beautify
       vscode-langservers-extracted
     ];
   };
