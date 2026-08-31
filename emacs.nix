@@ -5,6 +5,9 @@
     enable = true;
     doomDir = ./doom.d;
     emacs = pkgs.emacs-pgtk;
+    extraBinPackages = [
+      pkgs.emacs-lsp-booster
+    ];
   };
 
   # Fixes C-h i info index
