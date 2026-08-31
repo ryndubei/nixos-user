@@ -9,6 +9,7 @@
       pkgs.emacs-lsp-booster
       pkgs.haskellPackages.hoogle
       pkgs.shellcheck
+      pkgs.shfmt
       pkgs.gnumake
       pkgs.cmake
       pkgs.nixfmt
