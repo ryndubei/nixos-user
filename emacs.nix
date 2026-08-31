@@ -4,7 +4,7 @@
   programs.doom-emacs = {
     enable = true;
     doomDir = ./doom.d;
-    emacs = pkgs.emacs-pgtk;
+    emacs = pkgs.emacs-gtk;
     extraBinPackages = with pkgs; [
       emacs-lsp-booster
       haskellPackages.hoogle
