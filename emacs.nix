@@ -5,17 +5,17 @@
     enable = true;
     doomDir = ./doom.d;
     emacs = pkgs.emacs-pgtk;
-    extraBinPackages = [
-      pkgs.emacs-lsp-booster
-      pkgs.haskellPackages.hoogle
-      pkgs.shellcheck
-      pkgs.shfmt
-      pkgs.gnumake
-      pkgs.cmake
-      pkgs.nixfmt
-      pkgs.deno
-      pkgs.prettier
-      pkgs.vscode-langservers-extracted
+    extraBinPackages = with pkgs; [
+      emacs-lsp-booster
+      haskellPackages.hoogle
+      shellcheck
+      shfmt
+      gnumake
+      cmake
+      nixfmt
+      deno
+      prettier
+      vscode-langservers-extracted
     ];
   };
 
