@@ -5,6 +5,7 @@
     enable = true;
     doomDir = ./doom.d;
     emacs = pkgs.emacs-gtk;
+    extraPackages = epkgs: [ epkgs.treesit-grammars.with-all-grammars ];
     extraBinPackages = with pkgs; [
       emacs-lsp-booster
       haskellPackages.hoogle
