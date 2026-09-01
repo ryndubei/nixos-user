@@ -7,9 +7,11 @@
     emacs = pkgs.emacs-gtk;
     extraPackages = epkgs: [ epkgs.treesit-grammars.with-all-grammars ];
     extraBinPackages = with pkgs; [
+      findutils # file search
+
       emacs-lsp-booster # lsp +booster
       haskellPackages.hoogle # haskell
-      nixfmt #nix
+      nixfmt # nix
       wl-clipboard-rs # org-download
       graphviz # org-roam
 
