@@ -16,6 +16,7 @@
        ophints
        (popup +defaults)
        smooth-scroll
+       treemacs
        (vc-gutter +pretty)
        vi-tilde-fringe
        workspaces
