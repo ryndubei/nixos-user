@@ -68,3 +68,25 @@
 ;; Expand using a single click in Treemacs instead of a double click
 (with-eval-after-load 'treemacs
   (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
+
+
+;; Russian keyboard layout compatibility
+(use-package! reverse-im
+  :after char-fold
+  :custom
+  ;; cache keymaps
+  (reverse-im-cache-file (locate-user-emacs-file "reverse-im-cache.el"))
+  ;; lax matching (can search in the wrong layout)
+  (reverse-im-char-fold t)
+  ;; ;; fix input for packages that use custom dispatchers via read-char
+  ;; ;; (e.g. mu4e)
+  ;; (reverse-im-read-char-advice-function #'reverse-im-read-char-include)
+  ;; (reverse-im-input-methods '("russian-computer"))
+  :config
+  (reverse-im-mode t))
+
+(use-package! char-fold
+  :defer t
+  :custom
+  (char-fold-symmetric t)
+  (search-default-mode #'char-fold-to-regexp))
