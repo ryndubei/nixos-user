@@ -59,7 +59,7 @@
        (haskell +lsp)
        (javascript +lsp +tree-sitter)
        markdown
-       (nix +lsp)
+       (nix +lsp +tree-sitter)
        (org +dragndrop +noter +pretty +roam)
        (sh +fish)
        (web +lsp)
