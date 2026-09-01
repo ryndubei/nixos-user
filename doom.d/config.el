@@ -63,27 +63,3 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-
-
-(use-package org-latex-preview
-  :config
-  ;; Increase preview width
-  (plist-put org-latex-preview-appearance-options
-             :page-width 0.8)
-
-  ;; Automatically toggle displaying LaTeX fragment previews
-  (add-hook 'org-mode-hook 'org-latex-preview-mode)
-
-  ;; Block C-n, C-p etc from opening up previews when using `org-latex-preview-mode'
-  (setq org-latex-preview-mode-ignored-commands
-        '(next-line previous-line mwheel-scroll
-          scroll-up-command scroll-down-command))
-
-  ;; Enable consistent equation numbering
-  (setq org-latex-preview-numbered t)
-
-  ;; Live preview of LaTeX fragments as they are edited
-  (setq org-latex-preview-mode-display-live t)
-
-  ;; More immediate live-previews
-  (setq org-latex-preview-mode-update-delay 0.25))
