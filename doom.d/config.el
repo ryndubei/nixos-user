@@ -66,8 +66,8 @@
 
 
 ;; Expand using a single click in Treemacs instead of a double click
-(with-eval-after-load 'treemacs
-  (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
+(after! treemacs
+  (map! :map treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
 
 
 ;; Russian keyboard layout compatibility
