@@ -44,3 +44,79 @@
   ;; Fix commands using custom read-char input dispatchers
   (reverse-im-read-char-advice-function #'reverse-im-read-char-include)
   (reverse-im-cache-file (locate-user-emacs-file "reverse-im-cache.el")))
+
+
+
+;; List org-roam TODOs in org-agenda efficiently using org-roam's database
+;;
+;; Heavily copied from this pair of articles:
+;; https://magnus.therning.org/2021-03-14-keeping-todo-items-in-org-roam.html
+;; https://magnus.therning.org/2021-07-23-keeping-todo-items-in-org-roam-v2.html
+
+(defun roam-agenda--todo-files ()
+  "Return a list of roam files containing the todo filetag"
+  (org-roam-db-sync)
+  (let ((todo-nodes (seq-filter (lambda (n)
+                                  (seq-contains-p (org-roam-node-tags n) "todo"))
+                                (org-roam-node-list))))
+    (seq-uniq (seq-map #'org-roam-node-file todo-nodes))))
+
+(defun roam-agenda--update-todo-files (&rest _)
+  "Set org-agenda-files to all files in org-roam-directory that contain a 'todo' filetag"
+  (setq org-agenda-files (roam-agenda--todo-files)))
+
+;; Reconstruct org-agenda-files every time an agenda command is dispatched
+(advice-add 'org-agenda :before #'roam-agenda--update-todo-files)
+
+
+(defun roam-agenda--get-filetags ()
+  (split-string-and-unquote (or (cdr (car (org-collect-keywords '("filetags") '("filetags")))) "")))
+
+(defun roam-agenda--add-filetag (tag)
+  (let* ((new-tags (cons tag (roam-agenda--get-filetags)))
+         (new-tags-str (combine-and-quote-strings new-tags)))
+    (org-roam-set-keyword "filetags" new-tags-str))
+  )
+
+(defun roam-agenda--del-filetag (tag)
+  (let* ((new-tags (seq-difference (roam-agenda--get-filetags) `(,tag)))
+         (new-tags-str (combine-and-quote-strings new-tags)))
+    (org-roam-set-keyword "filetags" new-tags-str)))
+
+(defun roam-agenda--todo-p ()
+  "Return non-nil if the current buffer has a TODO entry"
+  (org-element-map
+      (org-element-parse-buffer 'headline)
+      'headline
+    (lambda (h)
+      (eq (org-element-property :todo-type h)
+          'todo))
+    nil 'first-match))
+
+(defun roam-agenda--update-todo-tag ()
+  "Update todo tag in the current buffer"
+  (when (and
+         ;; unsure why checking (not (active-minibuffer-window)) is necessary,
+         ;; including this anyway because it's in the article
+         (not (active-minibuffer-window))
+         (org-roam-file-p))
+    ;; the original version from the article uses `org-with-point-at 1` here, but
+    ;; from the same article: "I suspect the use of `org-with-point-at 1` is unnecessary"
+    (let* ((tags (roam-agenda--get-filetags))
+           (is-todo (roam-agenda--todo-p)))
+      (cond ((and is-todo (not (seq-contains-p tags "todo")))
+             (roam-agenda--add-filetag "todo"))
+            ((and (not is-todo) (seq-contains-p tags "todo"))
+             (roam-agenda--del-filetag "todo"))))))
+
+
+(define-minor-mode roam-agenda-mode
+  "Minor mode that automatically adds 'todo' filetags to org-roam files with TODO headings on save"
+  :init-value nil
+  (if roam-agenda-mode
+      (add-hook 'before-save-hook #'roam-agenda--update-todo-tag nil t)
+    (remove-hook 'before-save-hook #'roam-agenda--update-todo-tag t)))
+
+;; note that this will be toggled together with org-mode, i.e.
+;; org-mode <=> roam-agenda-mode
+(add-hook 'org-mode-hook #'roam-agenda-mode)
