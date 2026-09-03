@@ -65,4 +65,8 @@
        (web +lsp)
 
        :config
-       (default +bindings +smartparens))
+       (default +bindings +smartparens)
+       ;; note: this module does nothing on nix-doom-emacs-unstraightened,
+       ;; see the README of https://github.com/marienz/nix-doom-emacs-unstraightened
+       ;; so literate is enabled only for compatibility
+       literate)

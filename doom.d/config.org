@@ -1,3 +1,9 @@
+#+title: config
+#+PROPERTY: header-args:emacs-lisp :lexical t
+
+* Doom
+
+#+begin_src  emacs-lisp
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
@@ -25,33 +31,40 @@
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
 
-
 (setq doom-theme 'doom-one)
 
 (setq display-line-numbers-type 'relative)
+#+end_src
 
-(setq org-directory "~/Documents/Notes/org")
+* Treemacs
 
+#+begin_src emacs-lisp
 ;; Expand using a single click in Treemacs instead of a double click
 (after! treemacs
   (map! :map treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
+#+end_src
 
-;; Russian keyboard layout compatibility
-(use-package! reverse-im
-  :hook doom-after-init
-  :custom
-  (reverse-im-input-methods '("russian-computer"))
-  ;; Fix commands using custom read-char input dispatchers
-  (reverse-im-read-char-advice-function #'reverse-im-read-char-include)
-  (reverse-im-cache-file (locate-user-emacs-file "reverse-im-cache.el")))
+* org-mode
 
+#+begin_src emacs-lisp
+(setq org-directory "~/Documents/Notes/org")
+#+end_src
 
+** roam-agenda
 
-;; List org-roam TODOs in org-agenda efficiently using org-roam's database
-;;
-;; Heavily copied from this pair of articles:
-;; https://magnus.therning.org/2021-03-14-keeping-todo-items-in-org-roam.html
-;; https://magnus.therning.org/2021-07-23-keeping-todo-items-in-org-roam-v2.html
+Lists org-roam TODOs in org-agenda efficiently using org-roam's database.
+
+Heavily copied from this pair of articles, with some additions like wrapping the
+org-roam save hook in a minor mode:
+
+- [[https://magnus.therning.org/2021-03-14-keeping-todo-items-in-org-roam.html][Keeping todo items in org-roam]]
+- [[https://magnus.therning.org/2021-07-23-keeping-todo-items-in-org-roam-v2.html][Keeping todo items in org-roam v2]]
+
+*** org-agenda part
+
+#+begin_src emacs-lisp
+;; Every task will have this tag as it will be inherited from filetags, so it should be ignored
+(setq org-agenda-hide-tags-regexp "^todo$")
 
 (defun roam-agenda--todo-files ()
   "Return a list of roam files containing the todo filetag"
@@ -67,8 +80,11 @@
 
 ;; Reconstruct org-agenda-files every time an agenda command is dispatched
 (advice-add 'org-agenda :before #'roam-agenda--update-todo-files)
+#+end_src
 
+*** org-roam part
 
+#+begin_src emacs-lisp
 (defun roam-agenda--get-filetags ()
   (split-string-and-unquote (or (cdr (car (org-collect-keywords '("filetags") '("filetags")))) "")))
 
@@ -109,7 +125,6 @@
             ((and (not is-todo) (seq-contains-p tags "todo"))
              (roam-agenda--del-filetag "todo"))))))
 
-
 (define-minor-mode roam-agenda-mode
   "Minor mode that automatically adds 'todo' filetags to org-roam files with TODO headings on save"
   :init-value nil
@@ -120,6 +135,17 @@
 ;; note that this will be toggled together with org-mode, i.e.
 ;; org-mode <=> roam-agenda-mode
 (add-hook 'org-mode-hook #'roam-agenda-mode)
+#+end_src
 
+* reverse-im
 
-(setq org-agenda-hide-tags-regexp "^todo$")
+#+begin_src emacs-lisp
+;; Russian keyboard layout compatibility
+(use-package! reverse-im
+  :hook doom-after-init
+  :custom
+  (reverse-im-input-methods '("russian-computer"))
+  ;; Fix commands using custom read-char input dispatchers
+  (reverse-im-read-char-advice-function #'reverse-im-read-char-include)
+  (reverse-im-cache-file (locate-user-emacs-file "reverse-im-cache.el")))
+#+end_src

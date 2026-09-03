@@ -4,6 +4,7 @@
   programs.doom-emacs = {
     enable = true;
     doomDir = ./doom.d;
+    tangleArgs = "--all config.org"; # build literate config
 
     /*
     Must disable native compilation due to https://github.com/org-noter/org-noter/issues/66
