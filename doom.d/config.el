@@ -120,3 +120,6 @@
 ;; note that this will be toggled together with org-mode, i.e.
 ;; org-mode <=> roam-agenda-mode
 (add-hook 'org-mode-hook #'roam-agenda-mode)
+
+
+(setq org-agenda-hide-tags-regexp "^todo$")
