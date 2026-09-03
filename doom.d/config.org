@@ -48,6 +48,10 @@
 
 #+begin_src emacs-lisp
 (setq org-directory "~/Documents/Notes/org")
+
+;; Automatic line breaks at 80 columns. org-mode seems to be smart enough to prevent it for code blocks (like this one) or headings, and only does it for ordinary text.
+(add-hook 'org-mode-hook (lambda () (setq-local fill-column 80)))
+(add-hook 'org-mode-hook 'auto-fill-mode)
 #+end_src
 
 ** roam-agenda
