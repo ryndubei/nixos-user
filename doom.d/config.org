@@ -171,13 +171,13 @@ integrated with org-roam.
 ;; and to just assume the default (empty) template if one is missing.
 
 (advice-add #'org-roam-dailies-goto-today :filter-args
-            (lambda (&optional keys) (list (or keys "d"))))
+            (lambda (args) (apply (lambda (&optional keys) (list (or keys "d"))) args)))
 (advice-add #'org-roam-dailies-goto-tomorrow :filter-args
-            (lambda (n &optional goto keys) (list n goto (or keys "d"))))
+            (lambda (args) (apply (lambda (n &optional keys) (list n (or keys "d"))) args)))
 (advice-add #'org-roam-dailies-goto-yesterday :filter-args
-            (lambda (n &optional goto keys) (list n goto (or keys "d"))))
+            (lambda (args) (apply (lambda (n &optional keys) (list n (or keys "d"))) args)))
 (advice-add #'org-roam-dailies-goto-date :filter-args
-            (lambda (&optional prefer-future keys) (list prefer-future (or keys "d"))))
+            (lambda (args) (apply (lambda (&optional prefer-future keys) (list prefer-future (or keys "d"))) args)))
 
 ;; goto next/previous note don't do the thing and so do not need to be overridden
 
