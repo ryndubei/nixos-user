@@ -29,7 +29,7 @@
       emacs-lsp-booster # lsp +booster
       haskellPackages.hoogle # haskell
       nixfmt # nix
-      wl-clipboard-rs # org-download
+      wl-clipboard # org-download
       graphviz # org-roam
 
       # vterm
