@@ -34,6 +34,10 @@
 (setq doom-theme 'doom-gruvbox)
 
 (setq display-line-numbers-type 'relative)
+
+;; Do not access the clipboard when yanking by default
+;; (unnecessary with evil mode as there are the */+ registers already)
+(setq select-enable-clipboard nil)
 #+end_src
 
 * Treemacs
