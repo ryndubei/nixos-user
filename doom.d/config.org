@@ -187,8 +187,8 @@ integrated with org-roam.
 
 ;; TODO change this, this is set to the default value at the moment
 (setq org-roam-capture-templates
-      '("d" "default" plain "%?" :target
-        (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n") :unnarrowed t))
+      '(("d" "default" plain "%?" :target
+        (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n") :unnarrowed t)))
 #+end_src
 
 * reverse-im
