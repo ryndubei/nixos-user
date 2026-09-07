@@ -16,7 +16,7 @@
 
     https://github.com/nix-community/emacs-overlay/issues/369#issuecomment-4427696458
     */
-    emacs = pkgs.emacs-gtk.overrideAttrs (old: {
+    emacs = pkgs.unstable.emacs-pgtk.overrideAttrs (old: {
       passthru = old.passthru // {
         withNativeCompilation = false;
       };

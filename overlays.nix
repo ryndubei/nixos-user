@@ -11,6 +11,15 @@
         };
       }
     )
+    (
+      k: p:
+      assert p ? unstable == false;
+      {
+        unstable = import inputs.nixpkgs-unstable {
+          inherit (k.stdenv.hostPlatform) system;
+        };
+      }
+    )
     (k: p: {
       steam-app-ids =
         assert p ? steam-app-ids == false;
