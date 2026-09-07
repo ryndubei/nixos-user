@@ -107,8 +107,8 @@ org-roam save hook in a minor mode:
   (setq org-agenda-files (roam-agenda--todo-files))
   ;; also add some select non-roam files in org-directory
   (push "Inbox.org" org-agenda-files) ; orgzly
-  (push "config.org" org-agenda-files) ; a symlink to this file
-  )
+  ;; this file
+  (push "~/.config/home-manager/doom.d/config.org" org-agenda-files))
 
 ;; Reconstruct org-agenda-files every time an agenda command is dispatched
 (advice-add 'org-agenda :before #'roam-agenda--update-todo-files)
