@@ -58,6 +58,8 @@
 (add-hook 'org-mode-hook 'auto-fill-mode)
 #+end_src
 
+** IDEA [#C] Icons via org-agenda-category-icon-alist :emacs:
+
 ** roam-agenda
 
 Lists org-roam TODOs in org-agenda efficiently using org-roam's database.
@@ -89,6 +91,11 @@ org-roam save hook in a minor mode:
 ;; Reconstruct org-agenda-files every time an agenda command is dispatched
 (advice-add 'org-agenda :before #'roam-agenda--update-todo-files)
 #+end_src
+
+**** TODO [#B] add some non-roam files to org-agenda-files :emacs:
+- [ ] ~inbox.org~ for Orgzly captures
+- [ ] ~config.org~ (this file)
+  could also symlink it into org-directory
 
 *** org-roam part
 
