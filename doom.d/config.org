@@ -66,7 +66,7 @@
 
 ;; Main thing is that the file name (%c) is no longer shown, as it is usually noise.
 (setq org-agenda-prefix-format
-      '((agenda . " %i %?-12t% s")
+      '((agenda . " %i %+5:e %?-12t% s")
         ;; cannot use %s or %t in todo list view, see:
         ;; https://stackoverflow.com/questions/58820073/s-in-org-agenda-prefix-format-doesnt-display-dates-in-the-todo-view
         ;; The full timestamp would take up too much space anyway. What I mostly
