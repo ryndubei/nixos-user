@@ -72,8 +72,8 @@
         ;; The full timestamp would take up too much space anyway. What I mostly
         ;; care about is whether the item has any deadline at all.
         (todo . "%?i%+5:e %-4(org--get-has-deadline-scheduled-str)")
-        (tags . "%?i%+5:e")
-        (search . "%?i%+5:e")))
+        (tags . "%?i%+5:e %-4(org--get-has-deadline-scheduled-str)")
+        (search . "%?i%+5:e %-4(org--get-has-deadline-scheduled-str)")))
 #+end_src
 
 ** IDEA [#C] Icons via org-agenda-category-icon-alist :emacs:
