@@ -66,14 +66,14 @@
 
 ;; Main thing is that the file name (%c) is no longer shown, as it is usually noise.
 (setq org-agenda-prefix-format
-      '((agenda . " %i %+5:e %?-12t% s")
+      '((agenda . "%?i%+5:e %?-12t% s")
         ;; cannot use %s or %t in todo list view, see:
         ;; https://stackoverflow.com/questions/58820073/s-in-org-agenda-prefix-format-doesnt-display-dates-in-the-todo-view
         ;; The full timestamp would take up too much space anyway. What I mostly
         ;; care about is whether the item has any deadline at all.
-        (todo . " %i %+5:e %-4(org--get-has-deadline-scheduled-str)")
-        (tags . " %i %+5:e")
-        (search . " %i %+5:e")))
+        (todo . "%?i%+5:e %-4(org--get-has-deadline-scheduled-str)")
+        (tags . "%?i%+5:e")
+        (search . "%?i%+5:e")))
 #+end_src
 
 ** IDEA [#C] Icons via org-agenda-category-icon-alist :emacs:
