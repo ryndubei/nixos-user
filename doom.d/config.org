@@ -106,8 +106,8 @@ org-roam save hook in a minor mode:
   "Set org-agenda-files to all files in org-roam-directory that contain a 'todo' filetag"
   (setq org-agenda-files (roam-agenda--todo-files))
   ;; also add some select non-roam files in org-directory
-  (push "Inbox.org" 'org-agenda-files) ; orgzly
-  (push "config.org" 'org-agenda-files) ; a symlink to this file
+  (push "Inbox.org" org-agenda-files) ; orgzly
+  (push "config.org" org-agenda-files) ; a symlink to this file
   )
 
 ;; Reconstruct org-agenda-files every time an agenda command is dispatched
