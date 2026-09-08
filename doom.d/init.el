@@ -19,7 +19,6 @@
        smooth-scroll
        treemacs
        (vc-gutter +pretty)
-       vi-tilde-fringe
        workspaces
 
        :editor
