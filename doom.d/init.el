@@ -12,6 +12,7 @@
        doom
        dashboard
        hl-todo
+       ligatures
        modeline
        ophints
        (popup +defaults)
