@@ -31,7 +31,18 @@
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
 
-(setq doom-theme 'doom-gruvbox)
+;; disable Doom's own theme setting mechanism
+(setq doom-theme nil)
+
+(load-theme 'doom-gruvbox t t)
+(load-theme 'doom-gruvbox-light t t)
+
+;; toolkit-theme-set-functions will be called on startup
+(add-hook 'toolkit-theme-set-functions
+          (lambda (theme-name)
+            (pcase theme-name
+              ('dark (progn (enable-theme 'doom-gruvbox) (disable-theme 'doom-gruvbox-light)))
+              ('light (progn (enable-theme 'doom-gruvbox-light) (disable-theme 'doom-gruvbox))))))
 
 (setq display-line-numbers-type 'relative)
 
