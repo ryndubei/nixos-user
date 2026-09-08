@@ -44,18 +44,15 @@
 
 #+begin_src emacs-lisp
 ;; Expand using a single click in Treemacs instead of a double click
-(after! treemacs
+(with-eval-after-load 'treemacs
   (map! :map treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
 #+end_src
 
 * org-mode
 
 #+begin_src emacs-lisp
+;; no need to use with-eval-after-load here as it is a directory variable
 (setq org-directory "~/Documents/Notes/org")
-
-;; Automatic line breaks at 80 columns. org-mode seems to be smart enough to prevent it for code blocks (like this one) or headings, and only does it for ordinary text.
-(add-hook 'org-mode-hook (lambda () (setq-local fill-column 80)))
-(add-hook 'org-mode-hook 'auto-fill-mode)
 
 (defun org--get-has-deadline-scheduled-str ()
   (let* ((deadline (org-entry-get (point) "DEADLINE"))
@@ -64,16 +61,21 @@
          (scheduled-str (if scheduled "S" " ")))
     (concat deadline-str " " scheduled-str)))
 
-;; Main thing is that the file name (%c) is no longer shown, as it is usually noise.
-(setq org-agenda-prefix-format
-      '((agenda . "%?i%+5:e %?-12t% s")
-        ;; cannot use %s or %t in todo list view, see:
-        ;; https://stackoverflow.com/questions/58820073/s-in-org-agenda-prefix-format-doesnt-display-dates-in-the-todo-view
-        ;; The full timestamp would take up too much space anyway. What I mostly
-        ;; care about is whether the item has any deadline at all.
-        (todo . "%?i%+5:e %-4(org--get-has-deadline-scheduled-str)")
-        (tags . "%?i%+5:e %-4(org--get-has-deadline-scheduled-str)")
-        (search . "%?i%+5:e %-4(org--get-has-deadline-scheduled-str)")))
+(with-eval-after-load 'org
+  ;; Automatic line breaks at 80 columns. org-mode seems to be smart enough to prevent it for code blocks (like this one) or headings, and only does it for ordinary text.
+  (add-hook 'org-mode-hook (lambda () (setq-local fill-column 80)))
+  (add-hook 'org-mode-hook 'auto-fill-mode)
+
+  ;; Main thing is that the file name (%c) is no longer shown, as it is usually noise.
+  (setq org-agenda-prefix-format
+        '((agenda . "%?i%+5:e %?-12t% s")
+          ;; cannot use %s or %t in todo list view, see:
+          ;; https://stackoverflow.com/questions/58820073/s-in-org-agenda-prefix-format-doesnt-display-dates-in-the-todo-view
+          ;; The full timestamp would take up too much space anyway. What I mostly
+          ;; care about is whether the item has any deadline at all.
+          (todo . "%?i%+5:e %-4(org--get-has-deadline-scheduled-str)")
+          (tags . "%?i%+5:e %-4(org--get-has-deadline-scheduled-str)")
+          (search . "%?i%+5:e %-4(org--get-has-deadline-scheduled-str)"))))
 #+end_src
 
 ** IDEA [#C] Icons via org-agenda-category-icon-alist :emacs:
@@ -111,7 +113,8 @@ org-roam save hook in a minor mode:
   (push "~/.config/home-manager/doom.d/config.org" org-agenda-files))
 
 ;; Reconstruct org-agenda-files every time an agenda command is dispatched
-(advice-add 'org-agenda :before #'roam-agenda--update-todo-files)
+(with-eval-after-load 'org
+  (advice-add 'org-agenda :before #'roam-agenda--update-todo-files))
 #+end_src
 
 *** org-roam part
@@ -164,9 +167,10 @@ org-roam save hook in a minor mode:
       (add-hook 'before-save-hook #'roam-agenda--update-todo-tag nil t)
     (remove-hook 'before-save-hook #'roam-agenda--update-todo-tag t)))
 
-;; note that this will be toggled together with org-mode, i.e.
-;; org-mode <=> roam-agenda-mode
-(add-hook 'org-mode-hook #'roam-agenda-mode)
+(with-eval-after-load 'org
+  ;; note that this will be toggled together with org-mode, i.e.
+  ;; org-mode <=> roam-agenda-mode
+  (add-hook 'org-mode-hook #'roam-agenda-mode))
 #+end_src
 
 ** org-roam capture templates
@@ -177,49 +181,48 @@ integrated with org-roam.
 (the doom evil binding for capturing to today's daily note is ~SPC n r d T~)
 
 #+begin_src emacs-lisp
-;; Default value of org-roam-dailies-capture-templates:
-;; (("d" "default" entry "* %?" :target
-;;   (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")))
+(with-eval-after-load 'org
+  ;; Default value of org-roam-dailies-capture-templates:
+  ;; (("d" "default" entry "* %?" :target
+  ;;   (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")))
+  (setq org-roam-dailies-capture-templates
+        '(("t" "Personal todo"
+           entry
+           "* TODO %?"
+           :target
+           (file+head+olp "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("TODOs")))
+          ("d" "default"
+           entry
+           "* %?"
+           :target
+           (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
+  ;; If you have more than one template, org-roam-dailies-goto-today will
+  ;; ask you for the capture template by default. This overrides the
+  ;; dailies-goto functions to never prompt for a template interactively
+  ;; and to just assume the default (empty) template if one is missing.
 
-(setq org-roam-dailies-capture-templates
-      '(("t" "Personal todo"
-         entry
-         "* TODO %?"
-         :target
-         (file+head+olp "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("TODOs")))
-        ("d" "default"
-         entry
-         "* %?"
-         :target
-         (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
+  (advice-add #'org-roam-dailies-goto-today :filter-args
+              (lambda (args) (apply (lambda (&optional keys) (list (or keys "d"))) args)))
+  (advice-add #'org-roam-dailies-goto-tomorrow :filter-args
+              (lambda (args) (apply (lambda (n &optional keys) (list n (or keys "d"))) args)))
+  (advice-add #'org-roam-dailies-goto-yesterday :filter-args
+              (lambda (args) (apply (lambda (n &optional keys) (list n (or keys "d"))) args)))
+  (advice-add #'org-roam-dailies-goto-date :filter-args
+              (lambda (args) (apply (lambda (&optional prefer-future keys) (list prefer-future (or keys "d"))) args)))
 
-;; If you have more than one template, org-roam-dailies-goto-today will
-;; ask you for the capture template by default. This overrides the
-;; dailies-goto functions to never prompt for a template interactively
-;; and to just assume the default (empty) template if one is missing.
+  ;; goto next/previous note don't do the thing and so do not need to be overridden
 
-(advice-add #'org-roam-dailies-goto-today :filter-args
-            (lambda (args) (apply (lambda (&optional keys) (list (or keys "d"))) args)))
-(advice-add #'org-roam-dailies-goto-tomorrow :filter-args
-            (lambda (args) (apply (lambda (n &optional keys) (list n (or keys "d"))) args)))
-(advice-add #'org-roam-dailies-goto-yesterday :filter-args
-            (lambda (args) (apply (lambda (n &optional keys) (list n (or keys "d"))) args)))
-(advice-add #'org-roam-dailies-goto-date :filter-args
-            (lambda (args) (apply (lambda (&optional prefer-future keys) (list prefer-future (or keys "d"))) args)))
-
-;; goto next/previous note don't do the thing and so do not need to be overridden
-
-;; TODO change this, this is set to the default value at the moment
-(setq org-roam-capture-templates
-      '(("d" "default" plain "%?" :target
-        (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n") :unnarrowed t)))
+  ;; TODO change this, this is set to the default value at the moment
+  (setq org-roam-capture-templates
+        '(("d" "default" plain "%?" :target
+          (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n") :unnarrowed t))))
 #+end_src
 
 * reverse-im
 
 #+begin_src emacs-lisp
 ;; Russian keyboard layout compatibility
-(use-package! reverse-im
+(use-package reverse-im
   :hook doom-after-init
   :custom
   (reverse-im-input-methods '("russian-computer"))
