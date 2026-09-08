@@ -12,7 +12,7 @@
       authenticator
       electrum
       element-desktop
-      fira-code
+      jetbrains-mono
       fira-sans
       foliate
       legcord
