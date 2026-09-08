@@ -5,23 +5,7 @@
     enable = true;
     doomDir = ./doom.d;
     tangleArgs = "--all config.org"; # build literate config
-
-    /*
-    Must disable native compilation due to https://github.com/org-noter/org-noter/issues/66
-
-    We use nix-doom-emacs-unstraightened, which does not expose an easy way to
-    override packages in the Emacs overlay that it uses. So instead of disabling
-    native compilation for org-noter only, we have to disable it everywhere like
-    this:
-
-    https://github.com/nix-community/emacs-overlay/issues/369#issuecomment-4427696458
-    */
-    emacs = pkgs.unstable.emacs-pgtk.overrideAttrs (old: {
-      passthru = old.passthru // {
-        withNativeCompilation = false;
-      };
-    });
-
+    emacs = pkgs.unstable.emacs-pgtk;
     extraPackages = epkgs: [ epkgs.treesit-grammars.with-all-grammars ];
     extraBinPackages = with pkgs; [
       findutils # file search
