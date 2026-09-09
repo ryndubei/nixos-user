@@ -1,9 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   programs.doom-emacs = {
     enable = true;
     doomDir = ./doom.d;
+    doomLocalDir = "${config.home.homeDirectory}/.local/share/nix-doom";
     tangleArgs = "--all config.org"; # build literate config
     emacs = pkgs.unstable.emacs-pgtk;
     extraPackages = epkgs: [ epkgs.treesit-grammars.with-all-grammars ];
