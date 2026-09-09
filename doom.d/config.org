@@ -92,7 +92,16 @@
         '((sequence
            "TODO(t)" "PROJ(p)" "LOOP(r)" "STRT(s)" "WAIT(w)" "HOLD(h)" "IDEA(i)"
            "|" "DONE(d)" "KILL(k)")
-          (sequence "MAYBE(m)" "|" "YES(y)" "NO(n)"))))
+          (sequence "MAYBE(m)" "|" "YES(y)" "NO(n)")))
+
+  (setq org-todo-keyword-faces
+        '(("STRT" . +org-todo-active)
+          ("WAIT" . +org-todo-onhold)
+          ("HOLD" . +org-todo-onhold)
+          ("MAYBE" . +org-todo-onhold)
+          ("PROJ" . +org-todo-project)
+          ("NO" . +org-todo-cancel)
+          ("KILL" . +org-todo-cancel))))
 #+end_src
 
 ** IDEA [#C] Icons via org-agenda-category-icon-alist :emacs:
