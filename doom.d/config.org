@@ -86,7 +86,13 @@
           ;; care about is whether the item has any deadline at all.
           (todo . "%?i%+5:e %-4(org--get-has-deadline-scheduled-str)")
           (tags . "%?i%+5:e %-4(org--get-has-deadline-scheduled-str)")
-          (search . "%?i%+5:e %-4(org--get-has-deadline-scheduled-str)"))))
+          (search . "%?i%+5:e %-4(org--get-has-deadline-scheduled-str)")))
+
+  (setq org-todo-keywords
+        '((sequence
+           "TODO(t)" "PROJ(p)" "LOOP(r)" "STRT(s)" "WAIT(w)" "HOLD(h)" "IDEA(i)"
+           "|" "DONE(d)" "KILL(k)")
+          (sequence "MAYBE(m)" "|" "YES(y)" "NO(n)"))))
 #+end_src
 
 ** IDEA [#C] Icons via org-agenda-category-icon-alist :emacs:
