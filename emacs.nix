@@ -9,7 +9,7 @@
     emacs = pkgs.unstable.emacs-pgtk;
     extraPackages = epkgs: [ epkgs.treesit-grammars.with-all-grammars ];
     extraBinPackages = with pkgs; [
-      findutils # file search
+      mlocate # file search
 
       emacs-lsp-booster # lsp +booster
       haskellPackages.hoogle # haskell
