@@ -199,7 +199,23 @@ org-roam save hook in a minor mode:
   (add-hook 'org-mode-hook #'roam-agenda-mode))
 #+end_src
 
-** org-roam capture templates
+* reverse-im
+
+#+begin_src emacs-lisp
+;; Russian keyboard layout compatibility
+(use-package reverse-im
+  :hook doom-after-init
+  :custom
+  (reverse-im-input-methods '("russian-computer"))
+  ;; Fix commands using custom read-char input dispatchers
+  (reverse-im-read-char-advice-function #'reverse-im-read-char-include)
+  (reverse-im-cache-file (locate-user-emacs-file "reverse-im-cache.el")))
+#+end_src
+
+* org-roam capture templates
+
+At the end of the config because emacs' elisp parsing for matching parens and
+completions dies somewhere here.
 
 Doom Emacs adds some templates to org-capture-templates, but these are not
 integrated with org-roam.
@@ -242,17 +258,4 @@ integrated with org-roam.
   (setq org-roam-capture-templates
         '(("d" "default" plain "%?" :target
           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n") :unnarrowed t))))
-#+end_src
-
-* reverse-im
-
-#+begin_src emacs-lisp
-;; Russian keyboard layout compatibility
-(use-package reverse-im
-  :hook doom-after-init
-  :custom
-  (reverse-im-input-methods '("russian-computer"))
-  ;; Fix commands using custom read-char input dispatchers
-  (reverse-im-read-char-advice-function #'reverse-im-read-char-include)
-  (reverse-im-cache-file (locate-user-emacs-file "reverse-im-cache.el")))
 #+end_src
