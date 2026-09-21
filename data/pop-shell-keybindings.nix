@@ -32,7 +32,6 @@
     screensaver = [ "<Super>Escape" ];
     home = [ "<Super>f" ];
     www = [ "<Super>b" ];
-    email = [ "<Super>e" ];
     rotate-video-lock-static = [ ];
     custom-keybindings = [
       "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/pop-shell-open-terminal/"
@@ -43,6 +42,12 @@
     name = "Open Terminal";
     command = "kgx";
     binding = "<Super>t";
+  };
+
+  "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/pop-shell-open-emacsclient" = {
+    name = "Open emacsclient";
+    command = "emacsclient -cne '(progn (select-frame-set-input-focus (selected-frame)) (org-roam-dailies-goto-today) (+org/close-all-folds))'";
+    binding = "<Super>e";
   };
 
   "org/gnome/shell/extensions/pop-shell" = {
