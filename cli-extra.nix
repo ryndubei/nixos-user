@@ -43,6 +43,5 @@
   home.file.".ghci".source = dotfiles/ghci;
 
   # Email
-  services.mbsync.enable = true;
   programs.mbsync.enable = true;
 }
