@@ -199,6 +199,43 @@ org-roam save hook in a minor mode:
   (add-hook 'org-mode-hook #'roam-agenda-mode))
 #+end_src
 
+** org-super-agenda
+
+#+begin_src emacs-lisp
+(use-package org-super-agenda
+  :after org
+  :config
+  (org-super-agenda-mode)
+  :custom
+  (org-super-agenda-groups
+   '((:name "Projects" :todo "PROJ")
+     (:ancestor-with-todo "PROJ")
+
+     (:name "Emacs"
+      :tag "emacs"
+      :order 2)
+
+     ;; this will never show up in agenda view, only in the other views
+     (:name "Important (unscheduled)"
+      :and (:deadline nil :scheduled nil :date nil :priority "A"))
+
+     (:name "Due"
+      :deadline past
+      :deadline today)
+     (:name "Important"
+      :priority "A")
+
+     (:name "Reading list"
+      :tag "reading"
+      :order 1)
+
+     (:name "RCP"
+      :tag "rcp")
+     ))
+  ;; https://github.com/alphapapa/org-super-agenda/issues/239#issuecomment-2480863590
+  (org-super-agenda-header-map nil))
+#+end_src
+
 * reverse-im
 
 #+begin_src emacs-lisp

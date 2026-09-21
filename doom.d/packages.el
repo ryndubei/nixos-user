@@ -54,3 +54,5 @@
 
 
 (package! reverse-im)
+
+(package! org-super-agenda)
