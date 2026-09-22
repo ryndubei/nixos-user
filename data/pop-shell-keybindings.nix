@@ -35,6 +35,7 @@
     rotate-video-lock-static = [ ];
     custom-keybindings = [
       "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/pop-shell-open-terminal/"
+      "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/open-emacsclient/"
     ];
   };
 
@@ -44,7 +45,7 @@
     binding = "<Super>t";
   };
 
-  "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/pop-shell-open-emacsclient" = {
+  "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/open-emacsclient" = {
     name = "Open emacsclient";
     command = "emacsclient -cne '(progn (select-frame-set-input-focus (selected-frame)) (org-roam-dailies-goto-today) (+org/close-all-folds))'";
     binding = "<Super>e";
