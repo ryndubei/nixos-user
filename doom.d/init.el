@@ -20,6 +20,7 @@
        treemacs
        (vc-gutter +pretty)
        workspaces
+       zen
 
        :editor
        (evil +everywhere)
