@@ -231,9 +231,10 @@ org-roam save hook in a minor mode:
 
      (:name "RCP"
       :tag "rcp")
-     ))
+     )))
+(with-eval-after-load 'org-super-agenda
   ;; https://github.com/alphapapa/org-super-agenda/issues/239#issuecomment-2480863590
-  (org-super-agenda-header-map nil))
+  (setq org-super-agenda-header-map nil))
 #+end_src
 
 * reverse-im
