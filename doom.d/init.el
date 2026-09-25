@@ -56,6 +56,7 @@
        (:if (featurep :system 'macos) macos)  ; improve compatibility with macOS
 
        :lang
+       cc
        emacs-lisp
        (haskell +lsp)
        (javascript +lsp +tree-sitter)
