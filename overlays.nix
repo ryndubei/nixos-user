@@ -48,10 +48,6 @@
           rev = "e7c24c7576d5ab89957fe8ffe6b6077ff3934669";
           hash = "sha256-LhAG+vrrm/8c+SF8TKATMuTmm0vMxUApyA3vHiFmdsY=";
         };
-        propagatedBuildInputs = p.nix-output-monitor.propagatedBuildInputs or [ ] ++ [
-          p.haskellPackages.fsnotify
-          p.haskellPackages.doctest-parallel
-        ];
       };
     })
   ];
