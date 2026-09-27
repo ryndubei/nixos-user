@@ -18,7 +18,7 @@
   home.username = "vasilysterekhov";
   home.homeDirectory = "/home/vasilysterekhov";
   programs.git.settings = {
-    user.name = "ryndubei";
-    user.email = "114586905+ryndubei@users.noreply.github.com";
+    user.name = "Vasily Sterekhov";
+    user.email = "vasily.sterekhov@protonmail.com";
   };
 }
