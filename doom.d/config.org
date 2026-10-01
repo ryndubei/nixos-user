@@ -61,6 +61,11 @@
 ;; Bind right mouse button to open the context menu (instead of the default
 ;; behaviour to expand the selection and then kill it)
 (map! "<mouse-3>" #'menu-bar-open)
+
+;; Capture to org-roam daily note with <Leader>-X instead of calling the default org-capture
+;; TODO idk if the with-eval-after-load is necessary or harmless
+(with-eval-after-load 'org-roam
+  (map! :leader :desc "Org-roam Capture" :n "X" #'org-roam-dailies-capture-today))
 #+end_src
 
 * Treemacs
