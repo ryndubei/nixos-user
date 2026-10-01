@@ -57,6 +57,10 @@
 (map! "C-S-v" #'clipboard-yank)
 (map! "C-S-x" #'clipboard-kill-region)
 (map! "C-S-c" #'clipboard-kill-ring-save)
+
+;; Bind right mouse button to open the context menu (instead of the default
+;; behaviour to expand the selection and then kill it)
+(map! "<mouse-3>" #'menu-bar-open)
 #+end_src
 
 * Treemacs
