@@ -49,6 +49,9 @@
 ;; Do not access the clipboard when yanking by default
 ;; (unnecessary with evil mode as there are the */+ registers already)
 (setq select-enable-clipboard nil)
+
+;; Use the system trash whenever it makes sense
+(setq delete-by-moving-to-trash t)
 #+end_src
 
 * Treemacs
@@ -67,6 +70,19 @@ Called via ~M-x emacs-conflict-resolve-conflicts~.
 
 #+begin_src emacs-lisp
 (use-package emacs-conflict)
+
+(with-eval-after-load 'emacs-conflict
+  ;; Monkeypatch the emacs-conflict function to use the system trash instead of
+  ;; deleting conflict files outright
+  (advice-add 'emacs-conflict--resolve-conflict :override
+   (lambda (conflict)
+   (let* ((normal (emacs-conflict--get-normal-filename conflict)))
+     (emacs-conflict--resolve-ediff
+      (list conflict normal)
+      `(lambda ()
+         (when (y-or-n-p "Delete conflict file? ")
+           (kill-buffer (get-file-buffer ,conflict))
+           (delete-file ,conflict t))))))))
 #+end_src
 
 * org-mode
