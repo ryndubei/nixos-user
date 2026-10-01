@@ -35,7 +35,6 @@
        electric
        tramp
        undo
-       vc
 
        :term
        vterm
