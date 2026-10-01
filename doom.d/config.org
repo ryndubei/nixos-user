@@ -52,6 +52,11 @@
 
 ;; Use the system trash whenever it makes sense
 (setq delete-by-moving-to-trash t)
+
+;; Use Ctrl-Shift-V, Ctrl-Shift-X, Ctrl-Shift-C for clipboard yank/kill/copy
+(map! "C-S-v" #'clipboard-yank)
+(map! "C-S-x" #'clipboard-kill-region)
+(map! "C-S-c" #'clipboard-kill-ring-save)
 #+end_src
 
 * Treemacs
