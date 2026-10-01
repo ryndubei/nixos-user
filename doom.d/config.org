@@ -59,6 +59,16 @@
   (map! :map treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
 #+end_src
 
+* emacs-conflict
+
+For resolving Syncthing conflicts in notes.
+
+Called via ~M-x emacs-conflict-resolve-conflicts~.
+
+#+begin_src emacs-lisp
+(use-package emacs-conflict)
+#+end_src
+
 * org-mode
 
 #+begin_src emacs-lisp
