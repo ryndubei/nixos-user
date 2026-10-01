@@ -130,9 +130,9 @@ Called via ~M-x emacs-conflict-resolve-conflicts~.
 
   (setq org-todo-keywords
         '((sequence
-           "TODO(t)" "PROJ(p)" "LOOP(r)" "STRT(s)" "WAIT(w)" "HOLD(h)" "IDEA(i)"
-           "|" "DONE(d)" "KILL(k)")
-          (sequence "MAYBE(m)" "|" "YES(y)" "NO(n)")))
+           "TODO(t)" "PROJ(p)" "LOOP(r)" "STRT(s!/!)" "WAIT(w@/!)" "HOLD(h)" "IDEA(i)"
+           "|" "DONE(d!)" "KILL(k@)")
+          (sequence "MAYBE(m)" "|" "YES(y@)" "NO(n@)")))
 
   (setq org-todo-keyword-faces
         '(("STRT" . +org-todo-active)
