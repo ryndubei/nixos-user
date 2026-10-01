@@ -5,7 +5,6 @@
     bat
     cryfs
     deploy-rs
-    fishPlugins.hydro
     git-crypt
     gocryptfs
     hledger
@@ -87,42 +86,11 @@
     dev-expr = ''
       nix develop --impure --expr 'let pkgs = import <nixpkgs> {}; in pkgs.mkShell '$argv[1] $argv[2..]
     '';
-
-    # Fix unsightly background on vi mode indicator in hydro
-    fish_mode_prompt = ''
-      switch $fish_bind_mode
-        case default
-          set_color --italics --bold red
-          echo ' N '
-        case insert
-          set_color --italics --bold green
-          echo ' I '
-        case replace replace_one
-          set_color --italics --bold green
-          echo ' R '
-        case visual
-          set_color --italics --bold brmagenta
-          echo ' V '
-        case '*'
-          set_color --italics --bold red
-          echo $fish_bind_mode
-      end
-      set_color normal
-    '';
   };
   # Commands that should only be run in interactive shells
   programs.fish.interactiveShellInit = ''
     # Use fish when calling 'nix shell' or 'nix develop'
     ${pkgs.nix-your-shell}/bin/nix-your-shell fish | source
-
-    # Set up hydro theme
-    set -g hydro_color_pwd green
-    set -g hydro_color_error brred
-    set -g hydro_color_duration brblue
-    set -g fish_color_command blue
-
-    # Enable fish vi mode
-    fish_vi_key_bindings
 
     # Show pfetch summary
     # (exclude pkg count)
