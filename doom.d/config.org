@@ -86,17 +86,19 @@ Called via ~M-x emacs-conflict-resolve-conflicts~.
 (use-package emacs-conflict)
 
 (with-eval-after-load 'emacs-conflict
-  ;; Monkeypatch the emacs-conflict function to use the system trash instead of
-  ;; deleting conflict files outright
+  ;; Monkeypatch emacs-conflict to use the system trash when possible and use
+  ;; kill-buffer more safely
   (advice-add 'emacs-conflict--resolve-conflict :override
    (lambda (conflict)
    (let* ((normal (emacs-conflict--get-normal-filename conflict)))
      (emacs-conflict--resolve-ediff
       (list conflict normal)
       (lambda ()
-         (when (y-or-n-p "Delete conflict file? ")
-           (kill-buffer (get-file-buffer conflict))
-           (delete-file conflict t))))))))
+         (when (y-or-n-p "Delete conflict file and save the original file? ")
+           (let* ((conflict-buffer (get-file-buffer conflict)))
+             (when conflict-buffer
+               (kill-buffer conflict-buffer))
+             (delete-file conflict t)))))))))
 #+end_src
 
 * org-mode
