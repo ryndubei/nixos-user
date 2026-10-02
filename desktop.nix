@@ -20,7 +20,6 @@
       mpv
       nerd-fonts.meslo-lg
       nerd-fonts.symbols-only
-      protonmail-bridge
       qbittorrent
       signal-desktop
       symbola # emacs fallback font
@@ -57,9 +56,6 @@
     enable = true;
     pinentry.package = pkgs.pinentry-gnome3;
   };
-
-  # NOTE: custom module (services/protonmail-bridge.nix)
-  custom.services.protonmail-bridge.enable = true;
 
   services.flatpak = {
     enable = true;

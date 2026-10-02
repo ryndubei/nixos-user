@@ -41,7 +41,4 @@
 
   home.file.".haskeline".text = "editMode: Vi";
   home.file.".ghci".source = dotfiles/ghci;
-
-  # Email
-  programs.mbsync.enable = true;
 }
