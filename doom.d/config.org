@@ -93,10 +93,10 @@ Called via ~M-x emacs-conflict-resolve-conflicts~.
    (let* ((normal (emacs-conflict--get-normal-filename conflict)))
      (emacs-conflict--resolve-ediff
       (list conflict normal)
-      `(lambda ()
+      (lambda ()
          (when (y-or-n-p "Delete conflict file? ")
-           (kill-buffer (get-file-buffer ,conflict))
-           (delete-file ,conflict t))))))))
+           (kill-buffer (get-file-buffer conflict))
+           (delete-file conflict t))))))))
 #+end_src
 
 * org-mode
