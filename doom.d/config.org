@@ -76,6 +76,21 @@
   (map! :map treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
 #+end_src
 
+
+* Magit
+
+Magit's ~forge~ requires authentication.
+
+#+begin_src emacs-lisp
+;; Only use Secret Service API
+(with-eval-after-load 'auth
+  (setopt auth-sources '("secrets:session" "secrets:Login")))
+
+;; https://gist.github.com/pelletier/dc2708d769f2225c7f3c033050e1ff18
+;; Format expected by magit forge:
+;; (secrets-create-item "Login" "Emacs Forge Github" "YOUR API TOKEN" :host "api.github.com" :user "USERNAME^forge")
+#+end_src
+
 * emacs-conflict
 
 For resolving Syncthing conflicts in notes.

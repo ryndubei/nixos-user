@@ -22,6 +22,7 @@
   programs.git.settings = {
     user.name = "Vasily Sterekhov";
     user.email = "vasily.sterekhov@protonmail.com";
+    github.user = "ryndubei";
   };
 
   # Email

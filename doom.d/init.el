@@ -47,7 +47,7 @@
        (eval +overlay)
        lookup
        (lsp +eglot +booster)
-       magit
+       (magit +forge)
        pdf
        tree-sitter
 
