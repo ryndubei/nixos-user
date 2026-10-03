@@ -28,11 +28,27 @@
   home.packages = [ pkgs.protonmail-bridge ];
 
   programs.aerc.enable = true;
-  programs.mbsync.enable = true; # using program instead of service because the mail client can call mbsync by itself
+  # Required for configuring accounts via home-manager. Safe with passwordCommand.
+  # (home-manager complains about this)
+  programs.aerc.extraConfig = {
+    general.unsafe-accounts-conf = true;
+    filters = {
+      "text/plain" = "colorize";
+      "text/calendar" = "calendar";
+      "message/delivery-status" = "colorize";
+      "message/rfc822" = "colorize";
+      "text/html" = "! html";
+      ".headers" = "colorize";
+    };
+  };
+
+  # using program instead of service because the mail client (e.g. aerc) can call mbsync by itself
+  programs.mbsync.enable = true;
 
   # NOTE: custom module (services/protonmail-bridge.nix)
   custom.services.protonmail-bridge.enable = true;
 
+  accounts.email.maildirBasePath = ".mail";
   accounts.email.accounts = {
     personal =
       let
@@ -71,6 +87,12 @@
         mbsync.patterns = ["*" "!All Mail" "!All Mail/*"];
         mbsync.create = "both";
         mbsync.expunge = "both";
+
+        aerc.enable = true;
+        aerc.extraAccounts = {
+          source = "maildir://~/.mail/personal";
+          check-mail-cmd = "mbsync personal";
+        };
       };
   };
 }
