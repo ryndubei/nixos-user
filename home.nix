@@ -1,4 +1,4 @@
-{config, pkgs, ...}:
+{ config, pkgs, ... }:
 
 {
   # This value determines the Home Manager release that your configuration is
@@ -84,7 +84,11 @@
 
         mbsync.enable = true;
         # exclude All Mail folder, as it will otherwise duplicate everything
-        mbsync.patterns = ["*" "!All Mail" "!All Mail/*"];
+        mbsync.patterns = [
+          "*"
+          "!All Mail"
+          "!All Mail/*"
+        ];
         mbsync.create = "both";
         mbsync.expunge = "both";
 
