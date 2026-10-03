@@ -37,7 +37,7 @@
       "text/calendar" = "calendar";
       "message/delivery-status" = "colorize";
       "message/rfc822" = "colorize";
-      "text/html" = "! html";
+      "text/html" = "${pkgs.pandoc}/bin/pandoc -f html -t plain | colorize";
       ".headers" = "colorize";
     };
   };
