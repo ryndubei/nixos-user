@@ -326,7 +326,7 @@ integrated with org-roam.
   (setq org-roam-dailies-capture-templates
         '(("t" "Personal todo"
            entry
-           "* TODO %?"
+           "* TODO %?\nSCHEDULED: %T"
            :target
            (file+head+olp "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("TODOs")))
           ("d" "default"
