@@ -55,8 +55,6 @@
 
 (package! reverse-im)
 
-(package! org-super-agenda)
-
 (package! emacs-conflict
   :recipe
   '(:host github :repo "ibizaman/emacs-conflict")
