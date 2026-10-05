@@ -34,15 +34,15 @@
 ;; disable Doom's own theme setting mechanism
 (setq doom-theme nil)
 
-(load-theme 'doom-gruvbox t t)
+(load-theme 'doom-moonlight t t)
 (load-theme 'doom-gruvbox-light t t)
 
 ;; toolkit-theme-set-functions will be called on startup
 (add-hook 'toolkit-theme-set-functions
           (lambda (theme-name)
             (pcase theme-name
-              ('dark (progn (enable-theme 'doom-gruvbox) (disable-theme 'doom-gruvbox-light)))
-              ('light (progn (enable-theme 'doom-gruvbox-light) (disable-theme 'doom-gruvbox))))))
+              ('dark (progn (enable-theme 'doom-moonlight) (disable-theme 'doom-gruvbox-light)))
+              ('light (progn (enable-theme 'doom-gruvbox-light) (disable-theme 'doom-moonlight))))))
 
 (setq display-line-numbers-type 'relative)
 
