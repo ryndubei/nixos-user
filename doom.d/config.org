@@ -290,12 +290,12 @@ integrated with org-roam.
            entry
            "* TODO %?\nSCHEDULED: %T"
            :target
-           (file+head+olp "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n" ("TODOs")))
+           (file+head+olp "%<%Y-%m-%d>.org" "#+STARTUP: overview\n#+title: %<%Y-%m-%d>\n" ("TODOs")))
           ("d" "default"
            entry
            "* %?"
            :target
-           (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
+           (file+head "%<%Y-%m-%d>.org" "#+STARTUP: overview\n#+title: %<%Y-%m-%d>\n"))))
   ;; If you have more than one template, org-roam-dailies-goto-today will
   ;; ask you for the capture template by default. This overrides the
   ;; dailies-goto functions to never prompt for a template interactively
