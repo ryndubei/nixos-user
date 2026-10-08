@@ -17,7 +17,9 @@
       wl-clipboard # org-download
       graphviz # org-roam
 
-      unzip # arc-mode
+      # arc-mode
+      unzip
+      zip
 
       # vterm
       gnumake
