@@ -270,6 +270,13 @@ org-roam save hook in a minor mode:
   (reverse-im-cache-file (locate-user-emacs-file "reverse-im-cache.el")))
 #+end_src
 
+* Web
+
+#+begin_src emacs-lisp
+;; Why does this default to 2? Who knows!
+(setopt typescript-ts-indent-offset 4)
+#+end_src
+
 * org-roam capture templates
 
 At the end of the config because emacs' elisp parsing for matching parens and
