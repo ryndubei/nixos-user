@@ -66,6 +66,12 @@
 ;; TODO idk if the with-eval-after-load is necessary or harmless
 (with-eval-after-load 'org-roam
   (map! :leader :desc "Org-roam Capture" :n "X" #'org-roam-dailies-capture-today))
+
+;; Increase default width for a new Emacs window. The default is about 80,
+;; meaning a paragraph with fill-column of 80 will be cut off if e.g. line
+;; numbers are on, or if text under org headings is displayed indented and the
+;; paragraph is under an org heading.
+(push '(width . 100) default-frame-alist)
 #+end_src
 
 * Treemacs
