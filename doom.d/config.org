@@ -210,20 +210,6 @@ org-roam save hook in a minor mode:
 *** org-roam part
 
 #+begin_src emacs-lisp
-(defun roam-agenda--get-filetags ()
-  (split-string-and-unquote (or (cdr (car (org-collect-keywords '("filetags") '("filetags")))) "")))
-
-(defun roam-agenda--add-filetag (tag)
-  (let* ((new-tags (cons tag (roam-agenda--get-filetags)))
-         (new-tags-str (combine-and-quote-strings new-tags)))
-    (org-roam-set-keyword "filetags" new-tags-str))
-  )
-
-(defun roam-agenda--del-filetag (tag)
-  (let* ((new-tags (seq-difference (roam-agenda--get-filetags) `(,tag)))
-         (new-tags-str (combine-and-quote-strings new-tags)))
-    (org-roam-set-keyword "filetags" new-tags-str)))
-
 (defun roam-agenda--todo-p ()
   "Return non-nil if the current buffer has a TODO entry"
   (org-element-map
@@ -241,14 +227,11 @@ org-roam save hook in a minor mode:
          ;; including this anyway because it's in the article
          (not (active-minibuffer-window))
          (org-roam-file-p))
-    ;; the original version from the article uses `org-with-point-at 1` here, but
-    ;; from the same article: "I suspect the use of `org-with-point-at 1` is unnecessary"
-    (let* ((tags (roam-agenda--get-filetags))
-           (is-todo (roam-agenda--todo-p)))
-      (cond ((and is-todo (not (seq-contains-p tags "todo")))
-             (roam-agenda--add-filetag "todo"))
-            ((and (not is-todo) (seq-contains-p tags "todo"))
-             (roam-agenda--del-filetag "todo"))))))
+    ;; add filetags instead of heading tags by moving point to the start of the buffer
+    (org-with-point-at 1
+      (if (roam-agenda--todo-p)
+          (org-roam-tag-add '("todo"))
+        (org-roam-tag-remove '("todo"))))))
 
 (define-minor-mode roam-agenda-mode
   "Minor mode that automatically adds 'todo' filetags to org-roam files with TODO headings on save"
