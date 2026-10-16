@@ -61,7 +61,7 @@
        (javascript +lsp +tree-sitter)
        markdown
        (nix +lsp +tree-sitter)
-       (org +dragndrop +noter +pretty +roam)
+       (org +dragndrop +noter +roam)
        (sh +fish)
        (web +lsp)
 
