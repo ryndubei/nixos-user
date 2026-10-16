@@ -93,7 +93,8 @@ Magit's ~forge~ requires authentication.
   (setopt auth-sources '("secrets:session" "secrets:Login")))
 
 ;; https://gist.github.com/pelletier/dc2708d769f2225c7f3c033050e1ff18
-;; Format expected by magit forge:
+;; Run the following, replacing 'YOUR API TOKEN' and 'USERNAME' as appropriate
+;; to store the api token in the login keyring in the format expected by magit forge
 ;; (secrets-create-item "Login" "Emacs Forge Github" "YOUR API TOKEN" :host "api.github.com" :user "USERNAME^forge")
 #+end_src
 
