@@ -42,7 +42,21 @@
           (lambda (theme-name)
             (pcase theme-name
               ('dark (progn (enable-theme 'doom-moonlight) (disable-theme 'doom-gruvbox-light)))
-              ('light (progn (enable-theme 'doom-gruvbox-light) (disable-theme 'doom-moonlight))))))
+              ('light (progn (enable-theme 'doom-gruvbox-light) (disable-theme 'doom-moonlight))))
+
+
+            ;; Synchronise org-hide face with new foreground colour
+            (let ((foreground (org-find-invisible-foreground)))
+              (when foreground
+                (set-face-foreground 'org-hide foreground)))
+
+            ;; Mark all org mode buffers as having outdated fontification
+            (save-current-buffer
+              (mapc (lambda (b)
+                      (set-buffer b)
+                      (when (equal major-mode 'org-mode)
+                        (font-lock-flush)))
+                    (buffer-list)))))
 
 (setq display-line-numbers-type 'relative)
 
