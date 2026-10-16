@@ -155,9 +155,6 @@ Called via ~M-x emacs-conflict-resolve-conflicts~.
   (add-hook 'org-mode-hook (lambda () (setq-local fill-column 80)))
   (add-hook 'org-mode-hook 'auto-fill-mode)
 
-  ;; Mode defined by Doom. Hides emphasis markers and displays e.g. \pi as π
-  (add-hook 'org-mode-hook #'+org-pretty-mode)
-
   ;; Main thing is that the file name (%c) is no longer shown, as it is usually noise.
   (setq org-agenda-prefix-format
         '((agenda . "%?i%+5:e %?-12t% s")
