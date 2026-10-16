@@ -29,6 +29,7 @@
        (format +lsp)
        snippets
        (whitespace +guess +trim)
+       parinfer
 
        :emacs
        dired
