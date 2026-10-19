@@ -54,7 +54,7 @@
             (save-current-buffer
               (mapc (lambda (b)
                       (set-buffer b)
-                      (when (equal major-mode 'org-mode)
+                      (when (derived-mode-p 'org-mode)
                         (font-lock-flush)))
                     (buffer-list)))))
 
