@@ -8,6 +8,14 @@
     tangleArgs = "--all config.org"; # build literate config
     emacs = pkgs.unstable.emacs-pgtk;
     extraPackages = epkgs: [ epkgs.treesit-grammars.with-all-grammars ];
+
+    emacsPackageOverrides = k: p: {
+      # https://github.com/org-noter/org-noter/issues/66#issuecomment-2483338143
+      org-noter = p.org-noter.overrideAttrs (old: {
+        postInstall = (builtins.replaceStrings [ "batch-native-compile" ] [ "ignore" ] old.postInstall);
+      });
+    };
+
     extraBinPackages = with pkgs; [
       mlocate # file search
 
