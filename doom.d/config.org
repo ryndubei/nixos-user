@@ -180,7 +180,9 @@ Called via ~M-x emacs-conflict-resolve-conflicts~.
           ("PROJ" . +org-todo-project)
           ("NO" . +org-todo-cancel)
           ("KILL" . +org-todo-cancel)
-          ("IDEA" . +org-todo-onhold))))
+          ("IDEA" . +org-todo-onhold)))
+
+  (setopt org-entities-user '(("subne" "\\subsetneq" nil "" "" "" "⊊"))))
 #+end_src
 
 ** IDEA [#C] Icons via org-agenda-category-icon-alist :emacs:
