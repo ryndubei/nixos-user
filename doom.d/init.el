@@ -41,6 +41,8 @@
        (ghostel +everywhere)
 
        :checkers
+       grammar
+       spell
        syntax
 
        :tools

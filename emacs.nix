@@ -30,6 +30,19 @@
     };
 
     extraBinPackages = with pkgs; [
+      # spell
+      (aspellWithDicts (
+        dicts: with dicts; [
+          en
+          en-computers
+          en-science
+          ru
+        ]
+      ))
+
+      # grammar
+      languagetool
+
       mlocate # file search
 
       emacs-lsp-booster # lsp +booster

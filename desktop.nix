@@ -48,6 +48,7 @@
     pkg:
     builtins.elem (lib.getName pkg) [
       (lib.getName pkgs.symbola)
+      "aspell-dict-en-science"
     ];
 
   fonts.fontconfig.enable = true;
