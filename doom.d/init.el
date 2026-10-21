@@ -38,7 +38,7 @@
        undo
 
        :term
-       vterm
+       (ghostel +everywhere)
 
        :checkers
        syntax

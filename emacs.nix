@@ -14,6 +14,19 @@
       org-noter = p.org-noter.overrideAttrs (old: {
         postInstall = (builtins.replaceStrings [ "batch-native-compile" ] [ "ignore" ] old.postInstall);
       });
+      ghostel = pkgs.unstable.emacsPackages.ghostel.overrideAttrs (old: {
+        version = "0.59.0";
+        src = old.src.override {
+          hash = "sha256-1eIMfkPrczsirteuN3uM4axj8ZW3pt0TpPG+Lpos2uU=";
+        };
+        zigDeps = old.zigDeps.overrideAttrs {
+          outputHash = "sha256-BZzOCIY/3kkpYN115YLeu8snFqW77cJBXF+z+cpNYLk=";
+        };
+      });
+      evil-ghostel = p.evil-ghostel.overrideAttrs (old: {
+        version = "0.59.0";
+        src = k.ghostel.src;
+      });
     };
 
     extraBinPackages = with pkgs; [
