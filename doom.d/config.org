@@ -187,6 +187,12 @@ Called via ~M-x emacs-conflict-resolve-conflicts~.
   ;; force normal scale on latex previews
   (plist-put org-format-latex-options :scale 1.0))
 
+(use-package org-contrib
+  :after org
+  :config
+  ;; Allow ignoring a headline in org mode exports via the :ignore: tag
+  (require 'ox-extra)
+  (ox-extras-activate '(ignore-headlines)))
 #+end_src
 
 ** IDEA [#C] Icons via org-agenda-category-icon-alist :emacs:
