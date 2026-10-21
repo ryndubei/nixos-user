@@ -63,6 +63,7 @@
        (haskell +lsp)
        (javascript +lsp +tree-sitter)
        markdown
+       (latex +cdlatex +fold +lsp)
        (nix +lsp +tree-sitter)
        (org +dragndrop +noter +pretty +roam)
        (sh +fish)

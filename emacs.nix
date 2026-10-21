@@ -43,6 +43,9 @@
       # grammar
       languagetool
 
+      # latex
+      luaPackages.digestif # +lsp
+
       mlocate # file search
 
       emacs-lsp-booster # lsp +booster
