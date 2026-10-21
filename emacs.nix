@@ -44,7 +44,7 @@
       languagetool
 
       # latex
-      luaPackages.digestif # +lsp
+      texlab # +lsp
 
       mlocate # file search
 
