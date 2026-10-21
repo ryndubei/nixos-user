@@ -32,6 +32,7 @@
         mylatexformat
         preview
         esint
+        sectsty
       ]
     ))
     yt-dlp
