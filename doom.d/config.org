@@ -182,7 +182,11 @@ Called via ~M-x emacs-conflict-resolve-conflicts~.
           ("KILL" . +org-todo-cancel)
           ("IDEA" . +org-todo-onhold)))
 
-  (setopt org-entities-user '(("subne" "\\subsetneq" nil "" "" "" "⊊"))))
+  (setopt org-entities-user '(("subne" "\\subsetneq" nil "" "" "" "⊊")))
+
+  ;; force normal scale on latex previews
+  (plist-put org-format-latex-options :scale 1.0))
+
 #+end_src
 
 ** IDEA [#C] Icons via org-agenda-category-icon-alist :emacs:
