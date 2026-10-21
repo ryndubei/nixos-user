@@ -33,6 +33,7 @@
         preview
         esint
         sectsty
+        printlen
       ]
     ))
     yt-dlp
