@@ -58,6 +58,5 @@
 (package! emacs-conflict
   :recipe
   '(:host github :repo "ibizaman/emacs-conflict")
-  :pin "9f236b93930f3ceb4cb0258cf935c99599191de3")
-
-(package! eglot-java)
+  :pin "9f236b93930f3ceb4cb0258cf935c99599191de3"
+  )
