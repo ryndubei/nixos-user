@@ -22,6 +22,9 @@
   programs.git.settings = {
     user.name = "Vasily Sterekhov";
     user.email = "vasily.sterekhov@protonmail.com";
+    user.signingkey = "0xEBFD6D1620786DFA";
+    commit.gpgsign = true;
+    tag.gpgSign = true;
     github.user = "ryndubei";
   };
 
