@@ -62,7 +62,7 @@
        emacs-lisp
        (haskell +lsp)
        (javascript +lsp +tree-sitter)
-       (java +tree-sitter +lsp)
+       (java +lsp)
        (scala +tree-sitter +lsp)
        markdown
        (latex +cdlatex +fold +lsp)
