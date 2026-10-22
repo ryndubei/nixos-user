@@ -75,6 +75,12 @@
       stylelint
       js-beautify
       vscode-langservers-extracted
+
+      # scala
+      metals
+
+      # java
+      jdt-language-server
     ];
   };
 
