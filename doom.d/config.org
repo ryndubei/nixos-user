@@ -97,6 +97,79 @@
 #+end_src
 
 
+* Java
+
+#+begin_src emacs-lisp
+;; https://gist.github.com/rosholger/e519c04243ae7ccb5bbf7ebef3f1cec2
+
+(with-eval-after-load 'eglot
+  (defun my-jdtls-program-command-constructor (_interactive)
+      `("jdtls" :initializationOptions (:extendedClientCapabilities
+                                        (:classFileContentsSupport t
+                                         :skipProjectConfiguration t))))
+
+  (push (cons '(java-mode java-ts-mode) #'my-jdtls-program-command-constructor)
+        eglot-server-programs)
+
+  (cl-defmethod eglot-execute-command
+    (_server (_method (eql java.apply.workspaceEdit)) arguments)
+    "Command `java.apply.workspaceEdit' handler."
+    (mapc #'eglot--apply-workspace-edit arguments))
+
+  ; TODO: Handle .class files that are not in a jar
+  ; TODO: Handle .java files that in a jar
+  (defun jdt-uri-handler (op &rest args)
+    "Handle jdt:// uri's."
+    (cond
+     ((eq op 'file-remote-p)
+      nil)
+     ((eq op 'file-readable-p)
+      ; TODO: Check with eglot server that the uri actually exist
+      t)
+     ((eq op 'file-exists-p)
+      ; TODO: Check with eglot server that the uri actually exist
+      t)
+     ((eq op 'file-name-directory)
+      "")
+     ((eq op 'file-name-nondirectory)
+      (car args))
+     ((eq op 'expand-file-name)
+      (car args))
+     ((eq op 'abbreviate-file-name)
+      (car args))
+     ((eq op 'substitute-in-file-name)
+      (car args))
+     ((eq op 'file-truename)
+      (car args))
+     ((eq op 'get-file-buffer)
+      (let* ((file (car args))
+             (buffer (get-buffer file)))
+        (if buffer
+            buffer
+            (let ((content (jsonrpc-request (eglot--current-server-or-lose) :java/classFileContents `(:uri ,file))))
+              (with-current-buffer (create-file-buffer file)
+                (insert content)
+                (setq buffer-file-name file)
+                (setq buffer-read-only t)
+                (set-buffer-modified-p nil)
+                (goto-char (point-min))
+                (java-ts-mode)
+                (current-buffer))))))
+     (t (jdt-uri-handler-real op args))))
+
+  (defun jdt-uri-handler-real (operation args)
+    "Run the real handler without the jdt uri handler installed."
+    (let ((inhibit-file-name-handlers
+           (cons 'jdt-uri-handler
+                 (and (eq inhibit-file-name-operation operation)
+                      inhibit-file-name-handlers)))
+          (inhibit-file-name-operation operation))
+      (apply operation args)))
+
+  (add-to-list 'file-name-handler-alist
+               '("\\`jdt://" . jdt-uri-handler)))
+#+end_src
+
 * Magit
 
 Magit's ~forge~ requires authentication.
