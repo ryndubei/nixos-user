@@ -105,8 +105,7 @@
 (with-eval-after-load 'eglot
   (defun my-jdtls-program-command-constructor (_interactive)
       `("jdtls" :initializationOptions (:extendedClientCapabilities
-                                        (:classFileContentsSupport t
-                                         :skipProjectConfiguration t))))
+                                        (:classFileContentsSupport t))))
 
   (push (cons '(java-mode java-ts-mode) #'my-jdtls-program-command-constructor)
         eglot-server-programs)
