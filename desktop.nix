@@ -20,6 +20,7 @@
       mpv
       nerd-fonts.meslo-lg
       nerd-fonts.symbols-only
+      prismlauncher
       qbittorrent
       signal-desktop
       symbola # emacs fallback font

@@ -40,6 +40,17 @@
         };
     })
     (k: p: {
+      prismlauncher-unwrapped = p.prismlauncher-unwrapped.overrideAttrs (old: {
+        src = k.fetchFromGitHub {
+          tag = "10.0.5";
+          hash = "sha256-cQBOdF3HP4CFOSfWyVXGQBs42V/A4w6R2UwelQTE3dQ";
+          owner = "PrismLauncher";
+          repo = "PrismLauncher";
+        };
+        patches = (old.patches or []) ++ [ ./patches/10.x-fuckmicrosoft.patch ];
+      });
+    })
+    (k: p: {
       nix-output-monitor = p.nix-output-monitor.overrideAttrs {
         version = "0-unstable-2026-08-11";
         src = p.fetchFromGitHub {
