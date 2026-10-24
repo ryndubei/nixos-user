@@ -41,6 +41,7 @@
     })
     (k: p: {
       prismlauncher-unwrapped = p.prismlauncher-unwrapped.overrideAttrs (old: {
+        version = "10.0.5";
         src = k.fetchFromGitHub {
           tag = "10.0.5";
           hash = "sha256-cQBOdF3HP4CFOSfWyVXGQBs42V/A4w6R2UwelQTE3dQ";
