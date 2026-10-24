@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# https://github.com/PrismLauncher/PrismLauncher/issues/1146#issuecomment-1586109565 by Scrumplex
+
+args=()
+if [[ "$DISPLAY" == :* ]]; then
+    local_socket="/tmp/.X11-unix/X''${DISPLAY#?}"
+    args+=(--ro-bind-try "$local_socket" "$local_socket")
+fi
+if [[ "$WAYLAND_DISPLAY" = /* ]]; then
+    args+=(--ro-bind-try "$WAYLAND_DISPLAY" "$WAYLAND_DISPLAY")
+elif [[ -n "$WAYLAND_DISPLAY" ]]; then
+    args+=(--ro-bind-try "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" "/tmp/$WAYLAND_DISPLAY")
+fi
+
+exec bwrap \
+    --unshare-user \
+    --unshare-ipc \
+    --unshare-pid \
+    --unshare-uts \
+    --unshare-cgroup \
+    --die-with-parent \
+    --dev /dev \
+    --proc /proc \
+    --ro-bind /nix /nix \
+    --ro-bind /etc /etc \
+    --tmpfs /tmp \
+    --share-net \
+    --ro-bind /run/systemd/resolve /run/systemd/resolve \
+    --ro-bind /run/opengl-driver /run/opengl-driver \
+    --dev-bind-try /dev/dri /dev/dri \
+    --ro-bind-try /sys/class /sys/class \
+    --ro-bind-try /sys/dev/char /sys/dev/char \
+    --ro-bind-try /sys/devices/pci0000:00 /sys/devices/pci0000:00 \
+    --ro-bind-try /sys/devices/system/cpu /sys/devices/system/cpu \
+    --setenv XDG_RUNTIME_DIR /tmp \
+    --ro-bind-try "$XDG_RUNTIME_DIR/pulse" /tmp/pulse \
+    --ro-bind-try "$XDG_RUNTIME_DIR/pipewire-0" /tmp/pipewire-0 \
+    --bind "$INST_DIR" "$INST_DIR" \
+    --ro-bind "${XDG_DATA_HOME:+$HOME/.local/share}/PrismLauncher/libraries" "$HOME/.local/share/PrismLauncher/libraries" \
+    --ro-bind "${XDG_DATA_HOME:+$HOME/.local/share}/PrismLauncher/assets" "$HOME/.local/share/PrismLauncher/assets" \
+    --unsetenv XDG_DATA_HOME \
+    --unsetenv DBUS_SESSION_BUS_ADDRESS \
+    "${args[@]}" \
+    -- \
+    "$@"

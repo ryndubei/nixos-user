@@ -50,6 +50,15 @@
         };
         patches = (old.patches or []) ++ [ ./patches/10.x-fuckmicrosoft.patch ];
       });
+      prismlauncher = p.prismlauncher.override (old: {
+        additionalPrograms = (old.additionalPrograms or [ ]) ++ [
+          (k.writeShellApplication {
+            name = "prismlauncher-sandbox";
+            text = builtins.readFile ./scripts/prismlauncher-sandbox-instance.sh;
+            runtimeInputs = [ k.bubblewrap ];
+          })
+        ];
+      });
     })
     (k: p: {
       nix-output-monitor = p.nix-output-monitor.overrideAttrs {
