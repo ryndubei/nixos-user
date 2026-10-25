@@ -29,6 +29,9 @@ exec bwrap \
     --ro-bind /run/systemd/resolve /run/systemd/resolve \
     --ro-bind /run/opengl-driver /run/opengl-driver \
     --dev-bind-try /dev/dri /dev/dri \
+    --dev-bind-try /dev/nvidia0 /dev/nvidia0 \
+    --dev-bind-try /dev/nvidiactl /dev/nvidiactl \
+    --dev-bind-try /dev/nvidia-modeset /dev/nvidia-modeset \
     --ro-bind-try /sys/class /sys/class \
     --ro-bind-try /sys/dev/char /sys/dev/char \
     --ro-bind-try /sys/devices/pci0000:00 /sys/devices/pci0000:00 \
