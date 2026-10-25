@@ -17,7 +17,11 @@ fi
 # https://github.com/flatpak/flatpak/blob/13b1eeb0a19b91660e82fe4162ba3b413a13e72d/common/flatpak-run.c#L2056
 
 exec bwrap \
-    --unshare-all \
+    --unshare-user \
+    --unshare-ipc \
+    --unshare-pid \
+    --unshare-uts \
+    --unshare-cgroup \
     --disable-userns \
     --die-with-parent \
     --new-session \
