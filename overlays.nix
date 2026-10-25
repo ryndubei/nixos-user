@@ -48,7 +48,7 @@
           owner = "PrismLauncher";
           repo = "PrismLauncher";
         };
-        patches = (old.patches or []) ++ [ ./patches/10.x-fuckmicrosoft.patch ];
+        patches = (old.patches or [ ]) ++ [ ./patches/10.x-fuckmicrosoft.patch ];
       });
       prismlauncher = p.prismlauncher.override (old: {
         additionalPrograms = (old.additionalPrograms or [ ]) ++ [
