@@ -13,6 +13,9 @@ elif [[ -n "$WAYLAND_DISPLAY" ]]; then
     args+=(--ro-bind-try "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" "/tmp/$WAYLAND_DISPLAY")
 fi
 
+# TODO --seccomp with pre-compiled filter because this is what flatpak does, see
+# https://github.com/flatpak/flatpak/blob/13b1eeb0a19b91660e82fe4162ba3b413a13e72d/common/flatpak-run.c#L2056
+
 exec bwrap \
     --unshare-all \
     --disable-userns \
