@@ -5,6 +5,7 @@ args=()
 if [[ "$DISPLAY" == :* ]]; then
     local_socket="/tmp/.X11-unix/X''${DISPLAY#?}"
     args+=(--ro-bind-try "$local_socket" "$local_socket")
+    args+=(--ro-bind-try "$XAUTHORITY" "$XAUTHORITY")
 fi
 if [[ "$WAYLAND_DISPLAY" = /* ]]; then
     args+=(--ro-bind-try "$WAYLAND_DISPLAY" "$WAYLAND_DISPLAY")
