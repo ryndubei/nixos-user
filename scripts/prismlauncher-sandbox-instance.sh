@@ -20,6 +20,7 @@ exec bwrap \
     --unshare-all \
     --disable-userns \
     --die-with-parent \
+    --new-session \
     --dev /dev \
     --proc /proc \
     --ro-bind /nix /nix \
