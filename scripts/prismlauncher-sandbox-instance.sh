@@ -41,6 +41,8 @@ exec bwrap \
     --ro-bind-try /sys/dev/char /sys/dev/char \
     --ro-bind-try /sys/devices/pci0000:00 /sys/devices/pci0000:00 \
     --ro-bind-try /sys/devices/system/cpu /sys/devices/system/cpu \
+    --ro-bind-try /sys/kernel/mm/hugepages /sys/kernel/mm/hugepages \
+    --ro-bind-try /sys/kernel/mm/transparent_hugepage /sys/kernel/mm/transparent_hugepage \
     --setenv XDG_RUNTIME_DIR /tmp \
     --ro-bind-try "$XDG_RUNTIME_DIR/pulse" /tmp/pulse \
     --ro-bind-try "$XDG_RUNTIME_DIR/pipewire-0" /tmp/pipewire-0 \
