@@ -63,7 +63,6 @@
     enable = true;
     packages = [
       "com.github.tchx84.Flatseal"
-      "org.prismlauncher.PrismLauncher"
       "md.obsidian.Obsidian"
       "com.usebottles.bottles"
     ];
