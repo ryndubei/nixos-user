@@ -1,3 +1,7 @@
+# A patch for Prism Launcher to allows adding offline accounts without logging
+# into an online account first.
+#
+# Taken from https://codeberg.org/JoseskVolpe/PrismLauncher-Patch/src/branch/master/10.x-fuckmicrosoft.patch by Josesk Volpe <joseskvolpe@gmail.com>
 diff --git a/launcher/LaunchController.cpp b/launcher/LaunchController.cpp
 index d33dbc3f1..9be44fe15 100644
 --- a/launcher/LaunchController.cpp
