@@ -14,11 +14,7 @@ elif [[ -n "$WAYLAND_DISPLAY" ]]; then
 fi
 
 exec bwrap \
-    --unshare-user \
-    --unshare-ipc \
-    --unshare-pid \
-    --unshare-uts \
-    --unshare-cgroup \
+    --unshare-all \
     --disable-userns \
     --die-with-parent \
     --dev /dev \
