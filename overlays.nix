@@ -52,6 +52,9 @@
       });
       prismlauncher = p.prismlauncher.override (old: {
         additionalPrograms = (old.additionalPrograms or [ ]) ++ [
+          # To enable sandboxing for all instances by default, go to
+          # Prism Launcher Settings -> Minecraft -> Custom Commands -> Wrapper Command
+          # and enter prismlauncher-sandbox
           (k.writeShellApplication {
             name = "prismlauncher-sandbox";
             text = builtins.readFile ./scripts/prismlauncher-sandbox-instance.sh;
