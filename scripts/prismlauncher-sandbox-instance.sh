@@ -19,6 +19,7 @@ exec bwrap \
     --unshare-pid \
     --unshare-uts \
     --unshare-cgroup \
+    --disable-userns \
     --die-with-parent \
     --dev /dev \
     --proc /proc \
