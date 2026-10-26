@@ -71,6 +71,12 @@
         extraSpecialArgs = { inherit inputs; };
       };
 
+      devShells.${system}.default = with self.homeConfigurations."vasilysterekhov".pkgs; mkShell {
+        shellHook = ''
+          echo '${boots} .' > .git/hooks/pre-commit
+        '';
+      };
+
       homeManagerModules = {
         cli-extra = import ./cli-extra.nix;
         cli = import ./cli.nix;

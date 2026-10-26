@@ -74,5 +74,12 @@
         };
       };
     })
+    (
+      k: p:
+      assert p ? boots == false;
+      {
+        boots = p.frozenpkgs.callPackage ./pkgs/boots.nix { };
+      }
+    )
   ];
 }
