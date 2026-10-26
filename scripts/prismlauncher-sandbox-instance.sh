@@ -13,6 +13,12 @@ elif [[ -n "$WAYLAND_DISPLAY" ]]; then
     args+=(--ro-bind-try "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" "/tmp/$WAYLAND_DISPLAY")
 fi
 
+# deliberately not creating parents with mkdir -p, because assets will exist if
+# the script is called correctly
+if [ ! -d "${XDG_DATA_HOME:+$HOME/.local/share}/PrismLauncher/assets/skins" ]; then
+    mkdir "${XDG_DATA_HOME:+$HOME/.local/share}/PrismLauncher/assets/skins"
+fi
+
 # TODO --seccomp with pre-compiled filter because this is what flatpak does, see
 # https://github.com/flatpak/flatpak/blob/13b1eeb0a19b91660e82fe4162ba3b413a13e72d/common/flatpak-run.c#L2056
 
@@ -49,6 +55,7 @@ exec bwrap \
     --bind "$INST_DIR" "$INST_DIR" \
     --ro-bind "${XDG_DATA_HOME:+$HOME/.local/share}/PrismLauncher/libraries" "$HOME/.local/share/PrismLauncher/libraries" \
     --ro-bind "${XDG_DATA_HOME:+$HOME/.local/share}/PrismLauncher/assets" "$HOME/.local/share/PrismLauncher/assets" \
+    --bind "${XDG_DATA_HOME:+$HOME/.local/share}/PrismLauncher/assets/skins" "$HOME/.local/share/PrismLauncher/assets/skins" \
     --unsetenv XDG_DATA_HOME \
     --unsetenv DBUS_SESSION_BUS_ADDRESS \
     "${args[@]}" \
