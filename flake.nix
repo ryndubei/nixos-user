@@ -72,6 +72,7 @@
       };
 
       devShells.${system}.default = with self.homeConfigurations."vasilysterekhov".pkgs; mkShell {
+        buildInputs = [ boots ];
         shellHook = ''
           # Check for path literals pointing nowhere
           # Deliberately excluding hidden directories, so that e.g. '.direnv' is not included
