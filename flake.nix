@@ -76,7 +76,7 @@
         shellHook = ''
           # Check for path literals pointing nowhere
           echo '#!${bash}/bin/bash' > .git/hooks/pre-commit
-          echo 'set -euo pipefail' > .git/hooks/pre-commit
+          echo 'set -euo pipefail' >> .git/hooks/pre-commit
           echo '${boots}/bin/boots .' >> .git/hooks/pre-commit
           chmod +x .git/hooks/pre-commit
         '';
