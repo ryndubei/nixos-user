@@ -73,7 +73,13 @@
 
       devShells.${system}.default = with self.homeConfigurations."vasilysterekhov".pkgs; mkShell {
         shellHook = ''
-          echo '${boots} .' > .git/hooks/pre-commit
+          # Check for path literals pointing nowhere
+          # Deliberately excluding hidden directories, so that e.g. '.direnv' is not included
+          echo '#!${bash}/bin/bash' > .git/hooks/pre-commit
+          echo 'set -euo pipefail' > .git/hooks/pre-commit
+          echo 'for dir in */; do ${boots}/bin/boots "$dir"; done' >> .git/hooks/pre-commit
+          echo 'for nixfile in *.nix; do ${boots}/bin/boots "$nixfile"; done' >> .git/hooks/pre-commit
+          chmod +x .git/hooks/pre-commit
         '';
       };
 
