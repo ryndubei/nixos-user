@@ -88,6 +88,64 @@
 (push '(width . 100) default-frame-alist)
 #+end_src
 
+** workspaces-style bindings for tabs
+
+Based on the bindings in the ~:ui workspaces~ Doom module
+
+#+begin_src emacs-lisp
+(defun tab-bar-switch-to-1 () (tab-bar-select-tab 1))
+(defun tab-bar-switch-to-2 () (tab-bar-select-tab 2))
+(defun tab-bar-switch-to-3 () (tab-bar-select-tab 3))
+(defun tab-bar-switch-to-4 () (tab-bar-select-tab 4))
+(defun tab-bar-switch-to-5 () (tab-bar-select-tab 5))
+(defun tab-bar-switch-to-6 () (tab-bar-select-tab 6))
+(defun tab-bar-switch-to-7 () (tab-bar-select-tab 7))
+(defun tab-bar-switch-to-8 () (tab-bar-select-tab 8))
+(defun tab-bar-switch-to-9 () (tab-bar-select-tab 9))
+
+(defun tab-bar-new-named-tab (name &optional arg from-number)
+  ;; This documentation is entirely copied from `tab-bar-new-tab' and `tab-bar-rename-tab'
+  "Create a new tab ARG positions to the right with the name NAME.
+If a negative ARG, create a new tab ARG positions to the left.
+If ARG is zero, create a new tab in place of the current tab.
+If no ARG is specified, then add a new tab at the position
+specified by `tab-bar-new-tab-to'.
+Argument addressing is relative in contrast to `tab-bar-new-tab-to',
+where argument addressing as absolute.
+If FROM-NUMBER is a tab number, a new tab is created from that tab.
+Interactively, prompt for the new NAME.
+If NAME is the empty string, then use the automatic name
+function `tab-bar-tab-name-function'."
+  (interactive "MName for new tab (leave blank for automatic naming): \nP")
+  (tab-bar-new-tab arg from-number)
+  (tab-bar-rename-tab name))
+
+(defalias 'tab-new-named #'tab-bar-new-named-tab)
+
+(unless (modulep! :ui workspaces)
+  (map! :leader
+        (:prefix ("TAB" . "tab")
+         :desc "New tab" "n"             #'tab-new
+         :desc "New named tab" "N"       #'tab-new-named
+         :desc "Toggle tab bar" "TAB"    #'toggle-frame-tab-bar
+         :desc "Rename tab" "r"          #'tab-rename
+         :desc "Switch tab" "."          #'tab-switch
+         :desc "Switch to last tab" "`"  #'tab-recent
+         :desc "Previous tab" "["        #'tab-previous
+         :desc "Next tab" "]"            #'tab-next
+         :desc "Close tab" "d"           #'tab-close
+         :desc "Switch to 1st tab" "1"   #'tab-bar-switch-to-1
+         :desc "Switch to 2nd tab" "2"   #'tab-bar-switch-to-2
+         :desc "Switch to 3rd tab" "3"   #'tab-bar-switch-to-3
+         :desc "Switch to 4th tab" "4"   #'tab-bar-switch-to-4
+         :desc "Switch to 5th tab" "5"   #'tab-bar-switch-to-5
+         :desc "Switch to 6th tab" "6"   #'tab-bar-switch-to-6
+         :desc "Switch to 7th tab" "7"   #'tab-bar-switch-to-7
+         :desc "Switch to 8th tab" "8"   #'tab-bar-switch-to-8
+         :desc "Switch to 9th tab" "9"   #'tab-bar-switch-to-9
+         :desc "Switch to final tab" "0" #'tab-last)))
+#+end_src
+
 * Treemacs
 
 #+begin_src emacs-lisp
