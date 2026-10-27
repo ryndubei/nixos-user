@@ -5,7 +5,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(safe-local-variable-values
-   '((org-latex-classes quote
+   '((org-latex-classes
       ("infthesis"
        "\\documentclass{infthesis}\12[NO-DEFAULT-PACKAGES]\12[EXTRA]"
        ("\\chapter{%s}" . "\\chapter*{%s}") ("\\section{%s}" . "\\section*{%s}")
