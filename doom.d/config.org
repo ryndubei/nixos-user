@@ -86,6 +86,9 @@
 ;; numbers are on, or if text under org headings is displayed indented and the
 ;; paragraph is under an org heading.
 (push '(width . 100) default-frame-alist)
+
+;; Emacs often assumes that custom-file is mutable.
+(setopt custom-file "~/.config/home-manager/doom.d/custom.el")
 #+end_src
 
 ** workspaces-style bindings for tabs
