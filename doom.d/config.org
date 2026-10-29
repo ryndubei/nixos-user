@@ -89,6 +89,8 @@
 
 ;; Emacs often assumes that custom-file is mutable.
 (setopt custom-file "~/.config/home-manager/doom.d/custom.el")
+;; - but the trick is to actually load a different file instead
+(load (concat doom-user-dir "custom.el"))
 #+end_src
 
 ** workspaces-style bindings for tabs
