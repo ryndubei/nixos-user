@@ -31,7 +31,7 @@
        parinfer
 
        :emacs
-       dired
+       (dired +dirvish)
        electric
        tramp
        undo
