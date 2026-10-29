@@ -130,6 +130,8 @@ function `tab-bar-tab-name-function'."
 (unless (modulep! :ui workspaces)
   (map! :leader
         (:prefix ("TAB" . "tab")
+         :desc "Detach tab to a new frame" "f" #'tab-detach
+         :desc "Detach window to a new tab" "t" #'tab-window-detach
          :desc "New tab" "n"             #'tab-new
          :desc "New named tab" "N"       #'tab-new-named
          :desc "Toggle tab bar" "TAB"    #'toggle-frame-tab-bar
