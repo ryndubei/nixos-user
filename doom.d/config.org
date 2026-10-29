@@ -328,6 +328,9 @@ Called via ~M-x emacs-conflict-resolve-conflicts~.
   ;; Allow ignoring a headline in org mode exports via the :ignore: tag
   (require 'ox-extra)
   (ox-extras-activate '(ignore-headlines)))
+
+(with-eval-after-load 'org-noter
+  (setopt org-noter-always-create-frame nil))
 #+end_src
 
 ** IDEA [#C] Icons via org-agenda-category-icon-alist :emacs:
