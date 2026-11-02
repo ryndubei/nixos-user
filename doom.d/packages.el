@@ -58,5 +58,9 @@
 (package! emacs-conflict
   :recipe
   '(:host github :repo "ibizaman/emacs-conflict")
-  :pin "9f236b93930f3ceb4cb0258cf935c99599191de3"
-  )
+  :pin "9f236b93930f3ceb4cb0258cf935c99599191de3")
+
+(package! org
+  :recipe
+  '(:host sourcehut :repo "bzg/org-mode")
+  :pin "f46d8a23a4253ef68c4d9370d84c8d141b6fef9a")
