@@ -34,8 +34,9 @@
 ;; disable Doom's own theme setting mechanism
 (setq doom-theme nil)
 
-(load-theme 'doom-moonlight t t)
-(load-theme 'doom-gruvbox-light t t)
+(add-hook 'doom-init-ui-hook
+          (lambda () (load-theme 'doom-moonlight t t)
+                     (load-theme 'doom-gruvbox-light t t)))
 
 ;; toolkit-theme-set-functions will be called on startup
 (add-hook 'toolkit-theme-set-functions
