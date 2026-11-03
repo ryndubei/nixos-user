@@ -327,7 +327,10 @@ Called via ~M-x emacs-conflict-resolve-conflicts~.
   ;; force normal scale on latex previews
   (plist-put org-format-latex-options :scale 1.0)
 
-  (setopt org-log-into-drawer t))
+  (setopt org-log-into-drawer t)
+
+  ;; Use the previous state for repeating tasks
+  (setopt org-todo-repeat-to-state t))
 
 (use-package org-contrib
   :after org
