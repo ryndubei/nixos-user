@@ -325,7 +325,9 @@ Called via ~M-x emacs-conflict-resolve-conflicts~.
   (setopt org-entities-user '(("subne" "\\subsetneq" nil "" "" "" "⊊")))
 
   ;; force normal scale on latex previews
-  (plist-put org-format-latex-options :scale 1.0))
+  (plist-put org-format-latex-options :scale 1.0)
+
+  (setopt org-log-into-drawer t))
 
 (use-package org-contrib
   :after org
