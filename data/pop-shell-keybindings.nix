@@ -1,5 +1,5 @@
 # https://github.com/NixOS/nixpkgs/issues/314969#issuecomment-2317070849
-# pop-shell keybindings except workspace/monitor controls
+# based on default pop-shell keybindings
 {
   "org/gnome/desktop/wm/keybindings" = {
     close = [
@@ -36,6 +36,7 @@
     custom-keybindings = [
       "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/pop-shell-open-terminal/"
       "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/open-emacsclient/"
+      "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/open-emacsclient-daily-note/"
     ];
   };
 
@@ -47,8 +48,14 @@
 
   "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/open-emacsclient" = {
     name = "Open emacsclient";
-    command = "emacsclient -cne '(progn (select-frame-set-input-focus (selected-frame)) (org-roam-dailies-goto-today) (+org/close-all-folds))'";
+    command = "emacsclient -cn";
     binding = "<Super>e";
+  };
+
+  "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/open-emacsclient-daily-note" = {
+    name = "Open emacsclient with daily note";
+    command = "emacsclient -cne '(progn (select-frame-set-input-focus (selected-frame)) (org-roam-dailies-goto-today) (+org/close-all-folds))'";
+    binding = "<Ctrl><Super>e";
   };
 
   "org/gnome/shell/extensions/pop-shell" = {
