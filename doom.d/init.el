@@ -41,7 +41,7 @@
 
        :checkers
        grammar
-       spell
+       (spell +aspell +flyspell)
        syntax
 
        :tools
