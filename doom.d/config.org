@@ -319,8 +319,7 @@ Called via ~M-x emacs-conflict-resolve-conflicts~.
           ("MAYBE" . +org-todo-onhold)
           ("PROJ" . +org-todo-project)
           ("NO" . +org-todo-cancel)
-          ("KILL" . +org-todo-cancel)
-          ("IDEA" . +org-todo-active)))
+          ("KILL" . +org-todo-cancel)))
 
   (setopt org-entities-user '(("subne" "\\subsetneq" nil "" "" "" "⊊")))
 
