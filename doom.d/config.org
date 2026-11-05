@@ -416,6 +416,13 @@ org-roam save hook in a minor mode:
   (add-hook 'org-mode-hook #'roam-agenda-mode))
 #+end_src
 
+* Spellchecking
+
+#+begin_src emacs-lisp
+;; Disable flyspell-lazy-mode
+(flyspell-lazy-mode -1)
+#+end_src
+
 * reverse-im
 
 #+begin_src emacs-lisp
