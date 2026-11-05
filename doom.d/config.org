@@ -342,8 +342,6 @@ Called via ~M-x emacs-conflict-resolve-conflicts~.
   (setopt org-noter-always-create-frame nil))
 #+end_src
 
-** IDEA [#C] Icons via org-agenda-category-icon-alist :emacs:
-
 ** roam-agenda
 
 Lists org-roam TODOs in org-agenda efficiently using org-roam's database.
