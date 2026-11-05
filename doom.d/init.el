@@ -36,6 +36,9 @@
        tramp
        undo
 
+       :email
+       (mu4e +mbsync)
+
        :term
        (ghostel +everywhere)
 

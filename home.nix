@@ -49,6 +49,8 @@
   # using program instead of service because the mail client (e.g. aerc) can call mbsync by itself
   programs.mbsync.enable = true;
 
+  programs.mu.enable = true;
+
   # NOTE: custom module (services/protonmail-bridge.nix)
   custom.services.protonmail-bridge.enable = true;
 
@@ -101,6 +103,8 @@
           source = "maildir://~/.mail/personal";
           check-mail-cmd = "mbsync personal";
         };
+
+        mu.enable = true;
       };
   };
 }
