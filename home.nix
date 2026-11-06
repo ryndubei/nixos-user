@@ -57,14 +57,42 @@
   custom.services.protonmail-bridge.enable = true;
 
   accounts.email.maildirBasePath = ".mail";
-  accounts.email.accounts = {
-    personal =
-      let
-        # Certificate found via protonmail-brige --cli -> cert export
-        # Has to be manually placed here.
-        bridgeCertificatesFile = "${config.home.homeDirectory}/.config/protonmail/bridge-v3/cert.pem";
-      in
-      {
+  accounts.email.accounts =
+    let
+      # Certificate found via protonmail-brige --cli -> cert export
+      # Has to be manually placed here.
+      bridgeCertificatesFile = "${config.home.homeDirectory}/.config/protonmail/bridge-v3/cert.pem";
+      outlook = {
+        imap = {
+          authentication = "xoauth2";
+          host = "outlook.office365.com";
+          port = 993;
+        };
+        smtp = {
+          authentication = "xoauth2";
+          host = "smtp.office365.com";
+          port = 587;
+        };
+        # exclude useless microslop folders
+        mbsync.patterns = [
+          "*"
+          "!Calendar"
+          "!Calendar/*"
+          "!Contacts"
+          "!Contacts/*"
+          "!Journal"
+          "!Journal/*"
+          "!Tasks"
+          "!Tasks/*"
+          "!Notes"
+          "!Notes/*"
+          "!Conversation History"
+          "!Conversation History/*"
+        ];
+      };
+    in
+    {
+      personal = {
         address = "vasily.sterekhov@protonmail.com";
         userName = "vasily.sterekhov@protonmail.com";
 
@@ -109,70 +137,78 @@
         mu.enable = true;
         msmtp.enable = true;
       };
-    uoe_student = {
-      address = "s2280425@ed.ac.uk";
-      userName = "s2280425@ed.ac.uk";
-      realName = "Vasily Sterekhov";
-      imap = {
-        authentication = "xoauth2";
-        host = "outlook.office365.com";
-        port = 993;
-      };
-      smtp = {
-        authentication = "xoauth2";
-        host = "smtp.office365.com";
-        port = 587;
-      };
-      mbsync.enable = true;
-      mbsync.create = "both";
+      uoe_student = {
+        address = "s2280425@ed.ac.uk";
+        userName = "s2280425@ed.ac.uk";
+        realName = "Vasily Sterekhov";
+        inherit (outlook) imap smtp;
+        passwordCommand = "pizauth show uoe_student";
 
-      # exclude useless microslop folders
-      mbsync.patterns = [
-        "*"
-        "!Calendar"
-        "!Calendar/*"
-        "!Contacts"
-        "!Contacts/*"
-        "!Journal"
-        "!Journal/*"
-        "!Tasks"
-        "!Tasks/*"
-        "!Notes"
-        "!Notes/*"
-        "!Conversation History"
-        "!Conversation History/*"
-      ];
-      passwordCommand = "pizauth show uoe_student";
+        mbsync.enable = true;
+        mbsync.create = "both";
+        mbsync.patterns = outlook.mbsync.patterns;
 
-      aerc.enable = true;
-      aerc.extraAccounts = {
-        source = "maildir://~/.mail/uoe_student";
-        check-mail-cmd = "mbsync uoe_student";
+        aerc.enable = true;
+        aerc.extraAccounts = {
+          source = "maildir://~/.mail/uoe_student";
+          check-mail-cmd = "mbsync uoe_student";
+        };
+        mu.enable = true;
+        msmtp.enable = true;
       };
+      uoe_staff = {
+        address = "vsterekh@ed.ac.uk";
+        userName = "vsterekh@ed.ac.uk";
+        realName = "Vasily Sterekhov";
+        inherit (outlook) imap smtp;
+        passwordCommand = "pizauth show uoe_staff";
 
-      mu.enable = true;
-      msmtp.enable = true;
+        mbsync.enable = true;
+        mbsync.create = "both";
+        mbsync.patterns = outlook.mbsync.patterns;
+
+        aerc.enable = true;
+        aerc.extraAccounts = {
+          source = "maildir://~/.mail/uoe_staff";
+          check-mail-cmd = "mbsync uoe_staff";
+        };
+        mu.enable = true;
+        msmtp.enable = true;
+      };
     };
-  };
 
   services.pizauth.enable = true;
   services.pizauth.accounts =
     let
+      authUri = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize";
+      tokenUri = "https://login.microsoftonline.com/common/oauth2/v2.0/token";
+      scopes = [
+        "https://outlook.office365.com/IMAP.AccessAsUser.All"
+        "https://outlook.office365.com/SMTP.Send"
+        "offline_access"
+      ];
       # https://support.mozilla.org/en-US/kb/microsoft-oauth-authentication-and-thunderbird-202
       # pretend to be thunderbird
       clientId = "9e5f94bc-e8a4-4e73-b8be-63364c29d753";
     in
     {
       "uoe_student" = {
-        authUri = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize";
-        tokenUri = "https://login.microsoftonline.com/common/oauth2/v2.0/token";
-        inherit clientId;
-        scopes = [
-          "https://outlook.office365.com/IMAP.AccessAsUser.All"
-          "https://outlook.office365.com/SMTP.Send"
-          "offline_access"
-        ];
+        inherit
+          authUri
+          tokenUri
+          clientId
+          scopes
+          ;
         loginHint = "s2280425@ed.ac.uk";
+      };
+      "uoe_staff" = {
+        inherit
+          authUri
+          tokenUri
+          clientId
+          scopes
+          ;
+        loginHint = "vsterekh@ed.ac.uk";
       };
     };
 }

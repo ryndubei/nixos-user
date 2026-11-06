@@ -271,6 +271,14 @@ the API token in the login keyring in the format expected by magit-forge
                       (mu4e-trash-folder . "/uoe_student/Trash")
                       (mu4e-refile-folder . "/uoe_student/Archive")))
 
+(set-email-account! "uoe_staff"
+                    '((user-full-name . "Vasily Sterekhov")
+                      (user-mail-address . "vsterekh@ed.ac.uk")
+                      (mu4e-sent-folder . "/uoe_staff/Sent Items")
+                      (mu4e-drafts-folder . "/uoe_staff/Drafts")
+                      (mu4e-trash-folder . "/uoe_staff/Trash")
+                      (mu4e-refile-folder . "/uoe_staff/Archive")))
+
 ;; https://tushartyagi.com/blog/configure-mu4e-and-msmtp/
 (setopt sendmail-program "msmtp"
         send-mail-function #'sendmail-send-it
