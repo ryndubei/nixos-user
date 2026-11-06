@@ -146,6 +146,7 @@
 
         mbsync.enable = true;
         mbsync.create = "both";
+        mbsync.expunge = "both";
         mbsync.patterns = outlook.mbsync.patterns;
 
         aerc.enable = true;
@@ -165,6 +166,7 @@
 
         mbsync.enable = true;
         mbsync.create = "both";
+        mbsync.expunge = "both";
         mbsync.patterns = outlook.mbsync.patterns;
 
         aerc.enable = true;
