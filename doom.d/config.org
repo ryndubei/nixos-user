@@ -281,9 +281,9 @@ the API token in the login keyring in the format expected by magit-forge
 
 ;; https://tushartyagi.com/blog/configure-mu4e-and-msmtp/
 (setopt sendmail-program "msmtp"
-        send-mail-function #'sendmail-send-it
+        send-mail-function #'smtpmail-send-it
         message-sendmail-f-is-evil t
-        message-sendmail-extra-arguments '("--read-envelope-from")
+        message-sendmail-extra-arguments '("--read-envelope-from" "--read-recipients")
         message-send-mail-function #'message-send-mail-with-sendmail)
 #+end_src
 
