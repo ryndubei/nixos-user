@@ -129,11 +129,6 @@
         mbsync.expunge = "both";
 
         aerc.enable = true;
-        aerc.extraAccounts = {
-          source = "maildir://~/.mail/personal";
-          check-mail-cmd = "mbsync personal";
-        };
-
         mu.enable = true;
         msmtp.enable = true;
       };
@@ -150,10 +145,6 @@
         mbsync.patterns = outlook.mbsync.patterns;
 
         aerc.enable = true;
-        aerc.extraAccounts = {
-          source = "maildir://~/.mail/uoe_student";
-          check-mail-cmd = "mbsync uoe_student";
-        };
         mu.enable = true;
         msmtp.enable = true;
       };
@@ -170,10 +161,6 @@
         mbsync.patterns = outlook.mbsync.patterns;
 
         aerc.enable = true;
-        aerc.extraAccounts = {
-          source = "maildir://~/.mail/uoe_staff";
-          check-mail-cmd = "mbsync uoe_staff";
-        };
         mu.enable = true;
         msmtp.enable = true;
       };
