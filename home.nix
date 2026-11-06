@@ -72,7 +72,20 @@
           authentication = "xoauth2";
           host = "smtp.office365.com";
           port = 587;
+          tls.useStartTls = true;
         };
+
+        # TODO this should be inferred from smtp.authentication = "xoauth2",
+        # send patch to home-manager?
+        #
+        # in 'man msmtp':
+        #
+        # > There are currently three authentication methods that are not based
+        # > on user / password information and have to be chosen manually:
+        # > oauthbearer or its predecessor xoauth2 ..., external, ... and gssapi
+        #
+        # (remark: the manpage says it's 3 but it's actually 4)
+        msmtp.extraConfig.auth = "xoauth2";
         # exclude useless microslop folders
         mbsync.patterns = [
           "*"
@@ -147,6 +160,7 @@
         aerc.enable = true;
         mu.enable = true;
         msmtp.enable = true;
+        msmtp.extraConfig = outlook.msmtp.extraConfig;
       };
       uoe_staff = {
         address = "vsterekh@ed.ac.uk";
@@ -163,6 +177,7 @@
         aerc.enable = true;
         mu.enable = true;
         msmtp.enable = true;
+        msmtp.extraConfig = outlook.msmtp.extraConfig;
       };
     };
 
