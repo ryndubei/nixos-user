@@ -251,28 +251,32 @@ the API token in the login keyring in the format expected by magit-forge
 
 : (secrets-create-item "Login" "Emacs Forge Github" "YOUR API TOKEN" :host "api.github.com" :user "USERNAME^forge")
 
-** mu4e
-
-https://walter.bio/posts/doom-emacs-mu4e-protonmail/
-
-Similar to setting up magit-forge for github
-
-: (secrets-create-item "Login" "Emacs mu4e foo@example.com" "PASSWORD" :host "example.com" :port "1025" :user "foo@example.com")
-
 * Email
 
 #+begin_src emacs-lisp
+;; https://walter.bio/posts/doom-emacs-mu4e-protonmail/
 (set-email-account! "personal"
                     '((user-full-name . "Vasily Sterekhov")
                       (user-mail-address . "vasily.sterekhov@protonmail.com")
-                      (smtpmail-smtp-user . "vasily.sterekhov@protonmail.com")
-                      (smtpmail-smtp-server . "127.0.0.1")
-                      (smtpmail-smtp-service . 1025)
-                      (smtpmail-stream-type . starttls)
                       (mu4e-sent-folder . "/personal/Sent")
                       (mu4e-drafts-folder . "/personal/Drafts")
                       (mu4e-trash-folder . "/personal/Trash")
                       (mu4e-refile-folder . "/personal/Archive")))
+
+(set-email-account! "uoe_student"
+                    '((user-full-name . "Vasily Sterekhov")
+                      (user-mail-address . "s2280425@ed.ac.uk")
+                      (mu4e-sent-folder . "/uoe_student/Sent Items")
+                      (mu4e-drafts-folder . "/uoe_student/Drafts")
+                      (mu4e-trash-folder . "/uoe_student/Trash")
+                      (mu4e-refile-folder . "/uoe_student/Archive")))
+
+;; https://tushartyagi.com/blog/configure-mu4e-and-msmtp/
+(setopt sendmail-program "msmtp"
+        send-mail-function #'sendmail-send-it
+        message-sendmail-f-is-evil t
+        message-sendmail-extra-arguments '("--read-envelope-from")
+        message-send-mail-function #'message-send-mail-with-sendmail)
 #+end_src
 
 * emacs-conflict

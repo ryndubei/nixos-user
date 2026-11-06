@@ -48,8 +48,10 @@
 
   # using program instead of service because the mail client (e.g. aerc) can call mbsync by itself
   programs.mbsync.enable = true;
+  programs.mbsync.package = pkgs.isync.override { withCyrusSaslXoauth2 = true; };
 
   programs.mu.enable = true;
+  programs.msmtp.enable = true;
 
   # NOTE: custom module (services/protonmail-bridge.nix)
   custom.services.protonmail-bridge.enable = true;
@@ -105,6 +107,72 @@
         };
 
         mu.enable = true;
+        msmtp.enable = true;
       };
+    uoe_student = {
+      address = "s2280425@ed.ac.uk";
+      userName = "s2280425@ed.ac.uk";
+      realName = "Vasily Sterekhov";
+      imap = {
+        authentication = "xoauth2";
+        host = "outlook.office365.com";
+        port = 993;
+      };
+      smtp = {
+        authentication = "xoauth2";
+        host = "smtp.office365.com";
+        port = 587;
+      };
+      mbsync.enable = true;
+      mbsync.create = "both";
+
+      # exclude useless microslop folders
+      mbsync.patterns = [
+        "*"
+        "!Calendar"
+        "!Calendar/*"
+        "!Contacts"
+        "!Contacts/*"
+        "!Journal"
+        "!Journal/*"
+        "!Tasks"
+        "!Tasks/*"
+        "!Notes"
+        "!Notes/*"
+        "!Conversation History"
+        "!Conversation History/*"
+      ];
+      passwordCommand = "pizauth show uoe_student";
+
+      aerc.enable = true;
+      aerc.extraAccounts = {
+        source = "maildir://~/.mail/uoe_student";
+        check-mail-cmd = "mbsync uoe_student";
+      };
+
+      mu.enable = true;
+      msmtp.enable = true;
+    };
   };
+
+  services.pizauth.enable = true;
+  services.pizauth.accounts =
+    let
+      # https://support.mozilla.org/en-US/kb/microsoft-oauth-authentication-and-thunderbird-202
+      # pretend to be thunderbird
+      clientId = "9e5f94bc-e8a4-4e73-b8be-63364c29d753";
+    in
+    {
+      "uoe_student" = {
+        authUri = "https://login.microsoftonline.com/common/oauth2/v2.0/authorize";
+        tokenUri = "https://login.microsoftonline.com/common/oauth2/v2.0/token";
+        inherit clientId;
+        scopes = [
+          "https://outlook.office365.com/IMAP.AccessAsUser.All"
+          "https://outlook.office365.com/SMTP.Send"
+          "offline_access"
+        ];
+        loginHint = "s2280425@ed.ac.uk";
+      };
+    };
 }
