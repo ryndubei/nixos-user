@@ -46,8 +46,6 @@
       # latex
       texlab # +lsp
 
-      mlocate # file search
-
       emacs-lsp-booster # lsp +booster
       haskellPackages.hoogle # haskell
       nixfmt # nix
