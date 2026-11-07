@@ -132,11 +132,16 @@
         };
 
         mbsync.enable = true;
-        # exclude All Mail folder, as it will otherwise duplicate everything
         mbsync.patterns = [
           "*"
+          # exclude All Mail folder, as it will otherwise duplicate everything
           "!All Mail"
           "!All Mail/*"
+          # protonmail labels/Starred also duplicate emails
+          "!Labels"
+          "!Labels/*"
+          "!Starred"
+          "!Starred/*"
         ];
         mbsync.create = "both";
         mbsync.expunge = "both";
