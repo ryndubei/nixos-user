@@ -454,19 +454,6 @@ org-roam save hook in a minor mode:
   (add-hook 'org-mode-hook #'roam-agenda-mode))
 #+end_src
 
-* Spellchecking
-
-#+begin_src emacs-lisp
-;; Overriding Doom defaults
-(with-eval-after-load 'flyspell-lazy
-  ;; unnecessary, I do not have emacs performance issues with flyspell +
-  ;; often makes the spellchecking fail to use the personal dictionary
-  (flyspell-lazy-mode -1))
-(with-eval-after-load 'writegood-mode
-  ;; sometimes useful but usually annoying
-  (writegood-mode -1))
-#+end_src
-
 * reverse-im
 
 #+begin_src emacs-lisp

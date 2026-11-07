@@ -64,3 +64,5 @@
   :recipe
   '(:host sourcehut :repo "bzg/org-mode")
   :pin "f46d8a23a4253ef68c4d9370d84c8d141b6fef9a")
+
+(package! flyspell-lazy :disable t)
