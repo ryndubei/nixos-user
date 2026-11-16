@@ -3,7 +3,6 @@
 {
   home.packages = with pkgs; [
     bat
-    cryfs
     deploy-rs
     git-crypt
     gocryptfs
