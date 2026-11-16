@@ -63,7 +63,6 @@
     enable = true;
     packages = [
       "com.github.tchx84.Flatseal"
-      "md.obsidian.Obsidian"
       "com.usebottles.bottles"
     ];
   };
@@ -74,15 +73,6 @@
       (builtins.readFile scripts/flatpak-symlink-system-runtimes.sh);
 
   services.flatpak.overrides = {
-    "md.obsidian.Obsidian".Context = {
-      filesystems = [
-        "~/Documents/Notes"
-        "!/run/media"
-        "!/mnt"
-        "!/media"
-      ];
-      shared = [ "!network" ];
-    };
     "com.usebottles.bottles".Context = {
       filesystems = [
         "~/.var/app/com.valvesoftware.Steam"
