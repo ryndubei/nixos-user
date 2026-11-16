@@ -2,18 +2,17 @@
   description = "Home Manager configuration of vasilysterekhov";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-26.05";
+    nixpkgs.url = "nixpkgs/709a54766773a5517e3160a9af3427b0b32e32af"; # merge-base of 26.11 with master
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
-    nixpkgs-frozen.url = "nixpkgs/nixos-26.05";
+    nixpkgs-frozen.url = "nixpkgs/709a54766773a5517e3160a9af3427b0b32e32af";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixvim = {
       url = "github:nix-community/nixvim/nixos-26.05";
-      inputs.nixpkgs.follows = "nixpkgs"; # follow current nixpkgs, against nixvim's recommendation
     };
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
