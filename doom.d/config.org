@@ -328,7 +328,6 @@ Called via ~M-x emacs-conflict-resolve-conflicts~.
 (with-eval-after-load 'org
   ;; Automatic line breaks at 80 columns. org-mode seems to be smart enough to prevent it for code blocks (like this one) or headings, and only does it for ordinary text.
   (add-hook 'org-mode-hook (lambda () (setq-local fill-column 80)))
-  (add-hook 'org-mode-hook #'auto-fill-mode)
   (add-hook 'org-mode-hook #'org-latex-preview-mode)
 
   (setopt org-latex-preview-mode-display-live t)
@@ -455,6 +454,13 @@ org-roam save hook in a minor mode:
   ;; note that this will be toggled together with org-mode, i.e.
   ;; org-mode <=> roam-agenda-mode
   (add-hook 'org-mode-hook #'roam-agenda-mode))
+#+end_src
+
+** word-wrap
+
+#+begin_src emacs-lisp
+;; Wrap visual lines at fill-column
+(setopt +word-wrap-fill-style 'auto)
 #+end_src
 
 * reverse-im

@@ -3,6 +3,11 @@
 ;; This file controls what Doom modules are enabled and what order they load
 ;; in. Remember to run 'doom sync' after modifying it!
 
+;; Make evil mode respect visual line wrapping (option must be set before evil is loaded)
+;; Since evil is loaded before config.el, this must be set in init.el.
+;; https://github.com/doomemacs/core/issues/401#issuecomment-588502773
+(setopt evil-respect-visual-line-mode t)
+
 (doom!
        :completion
        (corfu +orderless)
@@ -29,6 +34,7 @@
        snippets
        (whitespace +guess +trim)
        parinfer
+       word-wrap
 
        :emacs
        (dired +dirvish)
