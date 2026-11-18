@@ -367,7 +367,11 @@ Called via ~M-x emacs-conflict-resolve-conflicts~.
   (setopt org-log-into-drawer t)
 
   ;; Use the previous state for repeating tasks
-  (setopt org-todo-repeat-to-state t))
+  (setopt org-todo-repeat-to-state t)
+
+  ;; do not show any heading contents or subheadings by default
+  (setopt org-startup-folded 'fold))
+
 
 (use-package org-contrib
   :after org
@@ -378,9 +382,6 @@ Called via ~M-x emacs-conflict-resolve-conflicts~.
 
 (with-eval-after-load 'org-noter
   (setopt org-noter-always-create-frame nil))
-
-;; do not show any heading contents or subheadings by default
-(setopt org-startup-folded 'fold)
 #+end_src
 
 ** roam-agenda
