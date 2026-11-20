@@ -53,7 +53,7 @@ exec bwrap \
     --ro-bind-try "$XDG_RUNTIME_DIR/pulse" /tmp/pulse \
     --ro-bind-try "$XDG_RUNTIME_DIR/pipewire-0" /tmp/pipewire-0 \
     --bind "$INST_DIR" "$INST_DIR" \
-    --ro-bind "${XDG_DATA_HOME:-$HOME/.local/share}/PrismLauncher/libraries" "$HOME/.local/share/PrismLauncher/libraries" \
+    --bind "${XDG_DATA_HOME:-$HOME/.local/share}/PrismLauncher/libraries" "$HOME/.local/share/PrismLauncher/libraries" \
     --ro-bind "${XDG_DATA_HOME:-$HOME/.local/share}/PrismLauncher/assets" "$HOME/.local/share/PrismLauncher/assets" \
     --bind "${XDG_DATA_HOME:-$HOME/.local/share}/PrismLauncher/assets/skins" "$HOME/.local/share/PrismLauncher/assets/skins" \
     --unsetenv XDG_DATA_HOME \
