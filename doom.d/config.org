@@ -281,12 +281,13 @@ the API token in the login keyring in the format expected by magit-forge
                       (mu4e-trash-folder . "/uoe_staff/Trash")
                       (mu4e-refile-folder . "/uoe_staff/Archive")))
 
-;; https://tushartyagi.com/blog/configure-mu4e-and-msmtp/
-(setopt sendmail-program "msmtp"
-        send-mail-function #'sendmail-send-it
-        message-sendmail-f-is-evil t
-        message-sendmail-extra-arguments '("--read-envelope-from" "--read-recipients")
-        message-send-mail-function #'message-send-mail-with-sendmail)
+(with-eval-after-load 'mu4e
+   ;; https://tushartyagi.com/blog/configure-mu4e-and-msmtp/
+  (setopt sendmail-program "msmtp"
+          send-mail-function #'sendmail-send-it
+          message-sendmail-f-is-evil t
+          message-sendmail-extra-arguments '("--read-envelope-from" "--read-recipients")
+          message-send-mail-function #'message-send-mail-with-sendmail))
 #+end_src
 
 * emacs-conflict
