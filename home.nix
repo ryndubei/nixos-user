@@ -21,7 +21,7 @@
   home.homeDirectory = "/home/vasilysterekhov";
   programs.git.settings = {
     user.name = "Vasily Sterekhov";
-    user.email = "vasily.sterekhov@protonmail.com";
+    user.email = "vs@dialectics.win";
     user.signingkey = "0x7DC7104ECC9E31EC";
     commit.gpgsign = true;
     tag.gpgSign = true;
@@ -106,15 +106,16 @@
     in
     {
       personal = {
-        address = "vasily.sterekhov@protonmail.com";
-        userName = "vasily.sterekhov@protonmail.com";
+        address = "vs@dialectics.win";
+        userName = "vs@dialectics.win";
+        aliases = [ "vasily.sterekhov@protonmail.com" ];
 
         primary = true;
 
         # Password found via protonmail-bridge --cli -> info
         # Has to be manually stored using:
-        # secret-tool store --label='ProtonMail Bridge local password' 'xdg:schema' 'org.gnome.keyring.Note' 'server' 'protonmail-bridge' 'username' 'vasily.sterekhov@protonmail.com'
-        passwordCommand = "${pkgs.libsecret}/bin/secret-tool lookup 'xdg:schema' 'org.gnome.keyring.Note' 'server' 'protonmail-bridge' 'username' 'vasily.sterekhov@protonmail.com'";
+        # secret-tool store --label='ProtonMail Bridge local password' 'xdg:schema' 'org.gnome.keyring.Note' 'server' 'protonmail-bridge' 'username' 'vs@dialectics.win'
+        passwordCommand = "${pkgs.libsecret}/bin/secret-tool lookup 'xdg:schema' 'org.gnome.keyring.Note' 'server' 'protonmail-bridge' 'username' 'vs@dialectics.win'";
 
         realName = "Vasily Sterekhov";
 

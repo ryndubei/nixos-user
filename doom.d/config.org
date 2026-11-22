@@ -7,7 +7,7 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 (setopt user-full-name "Vasily Sterekhov"
-        user-mail-address "vasily.sterekhov@protonmail.com")
+        user-mail-address "vs@dialectics.win")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -257,7 +257,7 @@ the API token in the login keyring in the format expected by magit-forge
 ;; https://walter.bio/posts/doom-emacs-mu4e-protonmail/
 (set-email-account! "personal"
                     '((user-full-name . "Vasily Sterekhov")
-                      (user-mail-address . "vasily.sterekhov@protonmail.com")
+                      (user-mail-address . "vs@dialectics.win")
                       (mu4e-sent-folder . "/personal/Sent")
                       (mu4e-drafts-folder . "/personal/Drafts")
                       (mu4e-trash-folder . "/personal/Trash")
