@@ -254,8 +254,10 @@ the API token in the login keyring in the format expected by magit-forge
 * Email
 
 #+begin_src emacs-lisp
+;; Prepending a,b,c to the contexts to be able to select them with mu4e-context-switch
+
 ;; https://walter.bio/posts/doom-emacs-mu4e-protonmail/
-(set-email-account! "personal"
+(set-email-account! "apersonal"
                     '((user-full-name . "Vasily Sterekhov")
                       (user-mail-address . "vs@dialectics.win")
                       (mu4e-sent-folder . "/personal/Sent")
@@ -263,7 +265,7 @@ the API token in the login keyring in the format expected by magit-forge
                       (mu4e-trash-folder . "/personal/Trash")
                       (mu4e-refile-folder . "/personal/Archive")))
 
-(set-email-account! "uoe_student"
+(set-email-account! "buoe_student"
                     '((user-full-name . "Vasily Sterekhov")
                       (user-mail-address . "s2280425@ed.ac.uk")
                       (mu4e-sent-folder . "/uoe_student/Sent Items")
@@ -271,7 +273,7 @@ the API token in the login keyring in the format expected by magit-forge
                       (mu4e-trash-folder . "/uoe_student/Trash")
                       (mu4e-refile-folder . "/uoe_student/Archive")))
 
-(set-email-account! "uoe_staff"
+(set-email-account! "cuoe_staff"
                     '((user-full-name . "Vasily Sterekhov")
                       (user-mail-address . "vsterekh@ed.ac.uk")
                       (mu4e-sent-folder . "/uoe_staff/Sent Items")
