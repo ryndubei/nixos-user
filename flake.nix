@@ -2,9 +2,9 @@
   description = "Home Manager configuration of vasilysterekhov";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/709a54766773a5517e3160a9af3427b0b32e32af"; # merge-base of 26.11 with master
+    nixpkgs.url = "nixpkgs/release-26.11";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
-    nixpkgs-frozen.url = "nixpkgs/709a54766773a5517e3160a9af3427b0b32e32af";
+    nixpkgs-frozen.url = "nixpkgs/release-26.11";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
